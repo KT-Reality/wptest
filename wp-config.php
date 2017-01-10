@@ -1,4 +1,8 @@
 <?php
+
+// Configuration common to all environments
+include_once __DIR__ . '/wp-config.common.php';
+
 /**
  * The base configuration for WordPress
  *
@@ -20,6 +24,7 @@
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
+define('REVISR_GIT_PATH', 'https://github.com/KT-Reality/wptest.git'); // Added by Revisr
 define('DB_NAME', 'test');
 
 /** MySQL database username */

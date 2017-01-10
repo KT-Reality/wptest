@@ -15,7 +15,12 @@
 <html <?php language_attributes(); ?>>
 <head>
 <meta charset="<?php bloginfo( 'charset' ); ?>">
-<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta content="digital publishing news, publishing blog, epublishing updates, blog for ebook technologies, ebooks blog, image processing blogs, digital marketing blog, web design updates, app development blogs, augmented reality news, Views on the publishing industry
+" name="keywords">
+    <meta content="Publishing blog, blog for ebook technologies, Views on the publishing industry
+" name="description">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="profile" href="http://gmpg.org/xfn/11">
 <link rel="pingback" href="<?php bloginfo( 'pingback_url' ); ?>">
@@ -26,6 +31,27 @@
 <body <?php body_class(); ?>>
 	<?php do_action( 'tg_before' ); ?>
 	<div id="page" class="hfeed site">
+		<meta name="description" content="Read our views ,the latest news, various tutorials on digital publishing &amp; various publishing technologies."/>
+<meta name="robots" content="noodp"/>
+<link rel="canonical" href="http://www.realitypremedia.com/blog/ios-and-android-app-for-khajuraho-temples/" />
+<meta property="og:locale" content="en_US" />
+<meta property="og:type" content="article" />
+<meta property="og:title" content="Premedia Blog | Latest News | Digital Publishing Technologies &amp; Trends |" />
+<meta property="og:description" content="Read our views ,the latest news, various tutorials on digital publishing &amp; various publishing technologies." />
+<meta property="og:url" content="http://www.realitypremedia.com/blog/ios-and-android-app-for-khajuraho-temples/" />
+<meta property="og:site_name" content="Realitypremedia Blog" />
+<meta property="article:tag" content="Android apps for Khajuraho temples" />
+<meta property="article:tag" content="Apps for Khajuraho temples" />
+<meta property="article:tag" content="iOs apps for Khajuraho temples" />
+<meta property="article:section" content="Apps" />
+<meta property="article:published_time" content="2016-02-01T13:23:12+00:00" />
+<meta property="article:modified_time" content="2016-11-11T07:03:52+00:00" />
+<meta property="og:updated_time" content="2016-11-11T07:03:52+00:00" />
+<meta property="og:image" content="http://www.realitypremedia.com/blog/wp-content/uploads/2016/02/F30692-ipad.jpg" />
+<meta property="og:image:width" content="1000" />
+<meta property="og:image:height" content="664" />
+<meta name="msapplication-TileImage" content="http://www.realitypremedia.com/blog/wp-content/uploads/2016/12/cropped-New-Logo-270x270.png" />
+	
 		<a class="skip-link screen-reader-text" href="#content"><?php esc_html_e( 'Skip to content', 'estore' ); ?></a>
 
 		<?php do_action( 'estore_before_header' ); ?>
