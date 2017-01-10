@@ -27,7 +27,7 @@ CREATE TABLE `kt_term_taxonomy` (
 
 LOCK TABLES `kt_term_taxonomy` WRITE;
 /*!40000 ALTER TABLE `kt_term_taxonomy` DISABLE KEYS */;
-INSERT INTO `kt_term_taxonomy` VALUES (1,1,'category','',0,0),(2,2,'category','',0,4),(3,3,'liveblog','',0,2);
+INSERT INTO `kt_term_taxonomy` VALUES (1,1,'category','',0,1),(2,2,'category','',0,4),(3,3,'liveblog','',0,2);
 /*!40000 ALTER TABLE `kt_term_taxonomy` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;

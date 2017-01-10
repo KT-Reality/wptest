@@ -19,12 +19,12 @@ CREATE TABLE `kt_revisr` (
   `event` varchar(42) NOT NULL,
   `user` varchar(60) DEFAULT NULL,
   UNIQUE KEY `id` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `kt_revisr` WRITE;
 /*!40000 ALTER TABLE `kt_revisr` DISABLE KEYS */;
-INSERT INTO `kt_revisr` VALUES (1,'2017-01-10 12:34:43','Error staging files.','error','Revisr Bot'),(2,'2017-01-10 12:34:51','Successfully backed up the database.','backup','Revisr Bot');
+INSERT INTO `kt_revisr` VALUES (1,'2017-01-10 12:34:43','Error staging files.','error','Revisr Bot'),(2,'2017-01-10 12:34:51','Successfully backed up the database.','backup','Revisr Bot'),(3,'2017-01-10 12:35:13','Successfully backed up the database.','backup','adminkt'),(4,'2017-01-10 12:35:13','Committed <a href=\"http://192.168.100.53/wptest/wp-admin/admin.php?page=revisr_view_commit&commit=9327e80&success=true\">#9327e80</a> to the local repository.','commit','adminkt'),(5,'2017-01-10 12:35:52','Error pushing changes to the remote repository.','error','adminkt');
 /*!40000 ALTER TABLE `kt_revisr` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
