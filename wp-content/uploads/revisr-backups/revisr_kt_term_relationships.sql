@@ -23,7 +23,7 @@ CREATE TABLE `kt_term_relationships` (
 
 LOCK TABLES `kt_term_relationships` WRITE;
 /*!40000 ALTER TABLE `kt_term_relationships` DISABLE KEYS */;
-INSERT INTO `kt_term_relationships` VALUES (1,2,0),(26,2,0),(40,2,0),(44,3,0),(47,3,0),(50,2,0),(61,1,0);
+INSERT INTO `kt_term_relationships` VALUES (1,2,0),(26,2,0),(40,2,0),(44,3,0),(47,3,0),(50,2,0),(61,1,0),(63,1,0);
 /*!40000 ALTER TABLE `kt_term_relationships` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
