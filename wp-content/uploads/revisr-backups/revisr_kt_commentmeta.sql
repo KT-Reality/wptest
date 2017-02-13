@@ -25,7 +25,7 @@ CREATE TABLE `kt_commentmeta` (
 
 LOCK TABLES `kt_commentmeta` WRITE;
 /*!40000 ALTER TABLE `kt_commentmeta` DISABLE KEYS */;
-INSERT INTO `kt_commentmeta` VALUES (1,8,'liveblog_replaces','7'),(2,7,'_wp_trash_meta_status','liveblog'),(3,7,'_wp_trash_meta_time','1482494713');
+INSERT INTO `kt_commentmeta` VALUES (1,8,'liveblog_replaces','7');
 /*!40000 ALTER TABLE `kt_commentmeta` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
