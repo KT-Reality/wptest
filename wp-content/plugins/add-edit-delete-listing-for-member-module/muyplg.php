@@ -28,11 +28,15 @@ function addmyplug() {
 	   $sql = "CREATE TABLE IF NOT EXISTS $table_name (
 		  id mediumint(9) NOT NULL AUTO_INCREMENT,
 		  time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
-		  fname varchar(255) NULL,
-		  passwd varchar(255) NULL,
-		  email varchar(255) NULL,
-		  contactno varchar(255) NULL,
-		  address text NULL,
+		  cta_bt_title varchar(255) NULL,
+		  cta_bt_dest_link varchar(255) NULL,
+		  cta_bt_img_link varchar(255) NULL,
+		  cta_bt_blue_btn_text varchar(255) NULL,
+		  cta_bt_blue_btn_link varchar(255) NULL,
+		  cta_bt_green_btn_text varchar(255) NULL,
+		  cta_bt_green_btn_link varchar(255) NULL,
+		  cta_bt_description varchar(255) NULL,
+		  cta_bt_assign_posts text NULL,
 		  PRIMARY KEY id (id)
 		) ";
 
@@ -117,10 +121,14 @@ if(isset($_POST["submit"]))
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Full Name</th>
-						<th>E-Mail</th>
-						<th>Contact No.</th>
-						<th>Address</th>
+						<th>CTA bottom title</th>
+						<th>cta bottom destination link</th>
+						<th>cta bottom image link</th>
+						<th>cta bottom blue btn text</th>
+						<th>cta bottom blue btn link</th>
+						<th>cta bottom green btn text</th>
+						<th>cta bottom green btn link</th>
+						<th>cta bottom description</th>
 					</tr>
 				</thead>
 			<tbody>
@@ -133,10 +141,14 @@ if(isset($_POST["submit"]))
 ?>
 					<tr>
 						<td><?php echo ++$key; ?></td>
-						<td><?php echo $val->fname; ?></td>
-						<td><?php echo $val->email; ?></td>
-						<td><?php echo $val->contactno; ?></td>
-						<td><?php echo $val->address; ?></td>
+						<td><?php echo $val->cta_bt_title; ?></td>
+						<td><?php echo $val->cta_bt_dest_link; ?></td>
+						<td><?php echo $val->cta_bt_img_link; ?></td>
+						<td><?php echo $val->cta_bt_blue_btn_text; ?></td>
+						<td><?php echo $val->cta_bt_blue_btn_link; ?></td>
+						<td><?php echo $val->cta_bt_green_btn_text; ?></td>
+						<td><?php echo $val->cta_bt_green_btn_link; ?></td>
+						<td><?php echo $val->cta_bt_description; ?></td>
 					</tr>
 <?php
 				}

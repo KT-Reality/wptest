@@ -3,7 +3,7 @@
 	class memberClass
 	{
 
-		private $myFields=array("id","fname","passwd","email","contactno","address");
+		private $myFields=array("id","cta_bt_title","cta_bt_dest_link","cta_bt_img_link","cta_bt_blue_btn_text","cta_bt_blue_btn_link","cta_bt_green_btn_text","cta_bt_green_btn_link","cta_bt_description");
 
 		function addNewMember($tblname,$meminfo)
 		{

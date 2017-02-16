@@ -41,17 +41,21 @@
 		<thead>
 			<tr>
 				<th><u>ID</u></th>
-				<th><u>Full Name</u></th>
-				<th><u>Email</u></th>
-				<th><u>Contact No</u></th>
-				<th><u>Address</u></th>
+				<th><u>CTA Bottom Title</u></th>
+				<th><u>CTA Bottom Destination Link</u></th>				
+				<th><u>CTA Bottom Image Link</u></th>
+				<th><u>CTA Bottom Blue Button Text</u></th>
+				<th><u>CTA Bottom Blue Button Link</u></th>
+				<th><u>CTA Bottom Green Button Text</u></th>
+				<th><u>CTA Bottom Green Button Link</u></th>
+				<th><u>CTA Bottom Description</u></th>
 				<th></th>
 				<th></th>
 			</tr>
 		</thead>
 		<tbody>
 <?php
-		$sql = "select * from ".$table_name." order by id desc";
+		$sql = "select * from ".$table_name." order by id";
 		$arrresult = $wpdb->get_results($sql);
 		
 		if (sizeof($arrresult) > 0 )
@@ -72,17 +76,25 @@
 			foreach($arrresult as $key => $val)
 			{
 				$id        = $val->id;
-				$fullname  = $val->fname;
-				$email      = $val->email;
-				$contact   = $val->contactno;
-				$add       = $val->address;
+				$cta_bt_title  = $val->cta_bt_title;
+				$cta_bt_dest_link  = $val->cta_bt_dest_link;				
+				$cta_bt_img_link      = $val->cta_bt_img_link;
+				$cta_bt_blue_btn_text   = $val->cta_bt_blue_btn_text;
+				$cta_bt_blue_btn_link       = $val->cta_bt_blue_btn_link;
+				$cta_bt_green_btn_text   = $val->cta_bt_green_btn_text;
+				$cta_bt_green_btn_link       = $val->cta_bt_green_btn_link;
+				$cta_bt_description   = $val->cta_bt_description;
 	?>
 			<tr>
 				<td><?php echo ++$key; ?></td>
-				<td nowrap><?php echo $fullname; ?></td>
-				<td nowrap><?php echo $email; ?></td>
-				<td><?php echo $contact; ?></td>
-				<td><?php echo $add; ?></td>
+				<td nowrap><?php echo $cta_bt_title; ?></td>
+				<td><?php echo $cta_bt_dest_link; ?></td>				
+				<td><?php echo $cta_bt_img_link; ?></td>
+				<td><?php echo $cta_bt_blue_btn_text; ?></td>
+				<td><?php echo $cta_bt_blue_btn_link; ?></td>
+				<td><?php echo $cta_bt_green_btn_text; ?></td>
+				<td><?php echo $cta_bt_green_btn_link; ?></td>
+				<td><?php echo $cta_bt_description; ?></td>
 				<td><u><a href="admin.php?page=member_add&act=upd&id=<?php echo $id;?>">Edit</a></u></td>
 				<td><u><a href="admin.php?page=myplug/muyplg.php&info=del&did=<?php echo $id;?>">Delete</a></u></td>
 			</tr>
