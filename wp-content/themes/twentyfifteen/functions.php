@@ -367,3 +367,107 @@ require get_template_directory() . '/inc/template-tags.php';
  * @since Twenty Fifteen 1.0
  */
 require get_template_directory() . '/inc/customizer.php';
+
+/* KT- code to add metabox for uploading file as custom field Start */
+function custom_meta_box_markup($object)
+{
+    wp_nonce_field(basename(__FILE__), "meta-box-nonce");
+    ?>
+	<style type="text/css">
+	.inside .speaker-admin-box label { float: left; width: 25%;}
+	.inside .speaker-admin-box input { width: 73%; margin-bottom:10px;}
+	.inside .speaker-admin-box input[type="checkbox"] { float: none; width: 15px;}
+		</style>
+        <div class="speaker-admin-box">
+            <label for="meta_box_lastname">Lastname</label>
+            <input name="meta_box_lastname" type="text" value="<?php echo get_post_meta($object->ID, "meta_box_lastname", true); ?>">
+			<label for="meta_box_firstname">Firstname</label>
+            <input name="meta_box_firstname" type="text" value="<?php echo get_post_meta($object->ID, "meta_box_firstname", true);?>">
+			<label for="meta_box_jobtitle">Jobtitle</label>
+            <input name="meta_box_jobtitle" type="text" value="<?php echo get_post_meta($object->ID, "meta_box_jobtitle", true); ?>">
+			<label for="meta_box_company">Company</label>
+            <input name="meta_box_company" type="text" value="<?php echo get_post_meta($object->ID, "meta_box_company", true); ?>">
+			<label for="meta_box_checkbox">Check Box</label>
+            <?php
+                $checkbox_value = get_post_meta($object->ID, "meta_box_checkbox", true);
+
+                if($checkbox_value == "")
+                {
+                    ?>
+                        <input name="meta_box_checkbox" type="checkbox" value="true">
+                    <?php
+                }
+                else if($checkbox_value == "true")
+                {
+                    ?>  
+                        <input name="meta_box_checkbox" type="checkbox" value="true" checked>
+                    <?php
+                }
+            ?>
+        </div>
+    <?php  
+}
+
+function add_custom_meta_box()
+{
+    add_meta_box("demo-meta-box", "Custom Meta Box", "custom_meta_box_markup", "post", "normal", "high", null);
+}
+
+add_action("add_meta_boxes", "add_custom_meta_box");
+
+function save_custom_meta_box($post_id, $post, $update)
+{
+    if (!isset($_POST["meta-box-nonce"]) || !wp_verify_nonce($_POST["meta-box-nonce"], basename(__FILE__)))
+        return $post_id;
+
+    if(!current_user_can("edit_post", $post_id))
+        return $post_id;
+
+    if(defined("DOING_AUTOSAVE") && DOING_AUTOSAVE)
+        return $post_id;
+
+    $slug = "post";
+    if($slug != $post->post_type)
+        return $post_id;
+
+    $meta_box_text_value = "";
+    $meta_box_dropdown_value = "";
+    $meta_box_checkbox_value = "";
+
+    if(isset($_POST["meta_box_lastname"]))
+    {
+        $meta_box_lastname_value = $_POST["meta_box_lastname"];
+    }   
+    update_post_meta($post_id, "meta_box_lastname", $meta_box_lastname_value);
+	
+	
+	if(isset($_POST["meta_box_firstname"]))
+    {
+        $meta_box_firstname_value = $_POST["meta_box_firstname"];
+    }   
+    update_post_meta($post_id, "meta_box_firstname", $meta_box_firstname_value);
+	
+	
+	if(isset($_POST["meta_box_jobtitle"]))
+    {
+        $meta_box_job_value = $_POST["meta_box_jobtitle"];
+    }   
+    update_post_meta($post_id, "meta_box_jobtitle", $meta_box_job_value);	
+	
+	if(isset($_POST["meta_box_company"]))
+    {
+        $meta_box_company_value = $_POST["meta_box_company"];
+    }   
+    update_post_meta($post_id, "meta_box_company", $meta_box_company_value);	
+	
+
+    if(isset($_POST["meta_box_checkbox"]))
+    {
+        $meta_box_checkbox_value = $_POST["meta_box_checkbox"];
+    }
+    update_post_meta($post_id, "meta_box_checkbox", $meta_box_checkbox_value);
+}
+
+add_action("save_post", "save_custom_meta_box", 10, 3);
+
+/* KT- code to add metabox for uploading file as custom field End */

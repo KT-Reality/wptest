@@ -89,6 +89,23 @@
 						<label for="tag-description">Address</label>
 						<textarea cols="40" rows="5" id="address" name="address"/><?php echo $add; ?></textarea>
 					</div>
+					
+					<?php
+					$getpost_SQL="select id, post_title from ".$table_name = $wpdb->prefix . "member where post_type='post' AND post_status='publish'";
+					$result = $wpdb->get_results($getpost_SQL);
+					$result = $result[0];
+					if (sizeof($result) > 0 )
+					{
+						$id        = $result->id;
+						$name      = $result->fname;
+						$pass      = $result->passwd;
+						$email     = $result->email;
+						$contact   = $result->contactno;
+						$add       = $result->address;
+						$btn	   = "Update Member";
+						$hidval	   = 2;
+					}
+					?>
 
 					<p class="submit">
 						<input type="submit" value="<?php echo $btn; ?>" class="button" id="submit" name="submit"/>
