@@ -9,24 +9,25 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-DROP TABLE IF EXISTS `kt_commentmeta`;
+DROP TABLE IF EXISTS `kt_member`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `kt_commentmeta` (
-  `meta_id` bigint(20) unsigned NOT NULL AUTO_INCREMENT,
-  `comment_id` bigint(20) unsigned NOT NULL DEFAULT '0',
-  `meta_key` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `meta_value` longtext COLLATE utf8mb4_unicode_ci,
-  PRIMARY KEY (`meta_id`),
-  KEY `comment_id` (`comment_id`),
-  KEY `meta_key` (`meta_key`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+CREATE TABLE `kt_member` (
+  `id` mediumint(9) NOT NULL AUTO_INCREMENT,
+  `time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `fname` varchar(255) DEFAULT NULL,
+  `passwd` varchar(255) DEFAULT NULL,
+  `email` varchar(255) DEFAULT NULL,
+  `contactno` varchar(255) DEFAULT NULL,
+  `address` text,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
-LOCK TABLES `kt_commentmeta` WRITE;
-/*!40000 ALTER TABLE `kt_commentmeta` DISABLE KEYS */;
-INSERT INTO `kt_commentmeta` VALUES (1,8,'liveblog_replaces','7');
-/*!40000 ALTER TABLE `kt_commentmeta` ENABLE KEYS */;
+LOCK TABLES `kt_member` WRITE;
+/*!40000 ALTER TABLE `kt_member` DISABLE KEYS */;
+INSERT INTO `kt_member` VALUES (1,'0000-00-00 00:00:00','ABC','abc','abc@gmail.com','123654','Pune');
+/*!40000 ALTER TABLE `kt_member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
