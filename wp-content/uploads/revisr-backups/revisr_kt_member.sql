@@ -23,13 +23,14 @@ CREATE TABLE `kt_member` (
   `cta_bt_green_btn_text` varchar(255) DEFAULT NULL,
   `cta_bt_green_btn_link` varchar(255) DEFAULT NULL,
   `cta_bt_description` text,
+  `cta_bt_assign_posts` text,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `kt_member` WRITE;
 /*!40000 ALTER TABLE `kt_member` DISABLE KEYS */;
-INSERT INTO `kt_member` VALUES (1,'0000-00-00 00:00:00','ABC','abc','abc@gmail.com','123654','Pune',NULL,NULL,NULL),(2,'0000-00-00 00:00:00','pqr','pqr','pqr@gmail.com','123654','testing',NULL,NULL,NULL),(3,'0000-00-00 00:00:00','LMN','lmn','lmn@gmail.com','654123','more test',NULL,NULL,NULL),(4,'0000-00-00 00:00:00','adminkt','http://www.bmc.com/forms/DCACloud-CLM-CloudForresterTop10Facts-AR-Nov2014.html','komalchand.gaidhane@realitypremedia.com','369852','gfjsdjfsdjfsdfsd',NULL,NULL,NULL),(5,'0000-00-00 00:00:00','CTA the Title','http://www.bmc.com/forms/DCACloud-CLM-CloudForresterTop10Facts-AR-Nov2014.html','http://media.cms.bmc.com/images/form-thumbnail-CloudForresterTop10FactsWP.png','Report','http://www.bmc.com/forms/DCACloud-CLM-CloudForresterTop10Facts-AR-Nov2014.html','Free Trial','http://www.bmc.com/forms/ITSM-TrackIT-Q4FY16-webdownloadv2-BMCcom.html','Get tips from Forrester and make sure your cloud initiative is on the right track.');
+INSERT INTO `kt_member` VALUES (6,'0000-00-00 00:00:00','Top 10 Cloud Facts from Forrester','http://www.bmc.com/forms/DCACloud-CLM-CloudForresterTop10Facts-AR-Nov2014.html','http://media.cms.bmc.com/images/form-thumbnail-CloudForresterTop10FactsWP.png','Reports','http://www.bmc.com/forms/DCACloud-CLM-CloudForresterTop10Facts-AR-Nov2014.html','Free Trials','http://www.bmc.com/forms/ITSM-TrackIT-Q4FY16-webdownloadv2-BMCcom.html','Get tips from Forrester and make sure your cloud initiative is on the right tracks.','1,50');
 /*!40000 ALTER TABLE `kt_member` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
