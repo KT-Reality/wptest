@@ -89,7 +89,7 @@
 	?>
 			<tr>
 				<td><?php echo ++$key; ?></td>
-				<td nowrap><?php echo $cta_bt_title; ?></td>
+				<td><?php echo $cta_bt_title; ?></td>
 				<td><?php echo $cta_bt_dest_link; ?></td>				
 				<td><?php echo $cta_bt_img_link; ?></td>
 				<td><?php echo $cta_bt_blue_btn_text; ?></td>
@@ -99,7 +99,7 @@
 				<td><?php echo $cta_bt_description; ?></td>
 				<td><?php echo $cta_bt_assign_posts; ?></td>
 				<td><u><a href="admin.php?page=cta_add&act=upd&id=<?php echo $id;?>">Edit</a></u></td>
-				<td><u><a href="admin.php?page=kt-cta/kt-cta.php&info=del&did=<?php echo $id;?>">Delete</a></u></td>
+				<td><u><a href="admin.php?page=cta/kt-cta.php&info=del&did=<?php echo $id;?>">Delete</a></u></td>
 			</tr>
 <?php }
 	} else { ?>
