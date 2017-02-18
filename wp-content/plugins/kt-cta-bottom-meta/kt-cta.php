@@ -96,7 +96,7 @@ if(isset($_POST["submit"]))
 	}
 }
 
-	function viewmember_list()
+	function viewcta_list()
 	{
 		global $wpdb, $table_name ;
 
@@ -170,6 +170,6 @@ if(isset($_POST["submit"]))
 
 	}
 
-	add_shortcode('vmember_List', 'viewmember_list');
+	add_shortcode('vcta_List', 'viewcta_list');
 
 ?>
