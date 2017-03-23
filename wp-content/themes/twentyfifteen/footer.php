@@ -27,7 +27,47 @@
 	</footer><!-- .site-footer -->
 
 </div><!-- .site -->
-
+<script>
+jQuery(document).ready(function(){
+	hostname = new RegExp(location.host);
+	var arr_css = [], l = document.styleSheets;
+	for(var i=0; i<l.length; i++) {
+		if(hostname.test(l[i].href)){
+			arr_css.push(l[i].href);
+		}
+		else{
+			//arr_css.push(l[i].href);
+		}
+	  
+	}
+	console.log(arr_css);	
+	
+	var arr_js = [], l = document.scripts;
+	for(var i=0; i<l.length; i++) {
+		if(hostname.test(l[i].src)){
+			arr_js.push(l[i].src);
+		}
+		else{
+			//arr_js.push(l[i].src);
+		}
+	  
+	}
+	console.log(arr_js);	
+	
+	var arr_img = [], l = document.images;
+	for(var i=0; i<l.length; i++) {
+		if(hostname.test(l[i].src)){
+			arr_img.push(l[i].src);
+		}
+		else{
+			//arr_img.push(l[i].src);
+		}
+	  
+	}
+	console.log(arr_img);
+});
+</script>
+<script type='text/javascript' src='http://example.com/js/myjs.js'></script>
 <?php wp_footer(); ?>
 
 </body>
