@@ -38,6 +38,7 @@
 			$cta_bt_green_btn_link       = $result->cta_bt_green_btn_link;
 			$cta_bt_description       = $result->cta_bt_description;
 			$cta_bt_assign_posts = $result->cta_bt_assign_posts;
+			$cta_bt_status = $result->cta_bt_status;
 			$btn	   = "Update CTA";
 			$hidval	   = 2;
 		}
@@ -55,6 +56,7 @@
 		$cta_bt_green_btn_link       = "";
 		$cta_bt_description       = "";
 		$cta_bt_assign_posts = "";
+		$cta_bt_status = "";
 		$hidval	   = 1;
 	}
 ?>
@@ -157,7 +159,6 @@
 						<textarea cols="40" rows="5" id="cta_bt_description" name="cta_bt_description"/><?php echo $cta_bt_description; ?></textarea>
 					</div>
 					<div class="form-field">
-
 						<label for="lstFruits">Assign to Posts</label>
 						<select class="postform" id="lstFruits" multiple="multiple">							
 						<?php
@@ -215,9 +216,19 @@
 						</select>
 						<input type="button" id="btnSelected" value="Confirm Selected Posts" />
 					</div>
+					
 					<div>
 					<input type="hidden" size="40" value="<?php echo $cta_bt_assign_posts; ?>" id="cta_bt_assign_posts" name="cta_bt_assign_posts"/>
 					</div>
+					
+					<div class="form-field">
+						<label for="tag-status">CTA Status</label>
+						<select class="postform" name="cta_bt_status">
+							<option value="0">Publish</option>
+							<option value="1>">Draft</option>
+						</select>
+					</div>
+					
 					<p class="submit">
 						<input type="submit" value="<?php echo $btn; ?>" class="button" id="submit" name="submit"/>
 						<input type="hidden" name="addme" value=<?php echo $hidval;?> >

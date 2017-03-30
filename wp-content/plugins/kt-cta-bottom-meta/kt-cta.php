@@ -37,6 +37,7 @@ function addmyplug() {
 		  cta_bt_green_btn_link varchar(255) NULL,
 		  cta_bt_description varchar(255) NULL,
 		  cta_bt_assign_posts text NULL,
+		  cta_bt_status mediumint(9) NOT NULL,
 		  PRIMARY KEY id (id)
 		) ";
 

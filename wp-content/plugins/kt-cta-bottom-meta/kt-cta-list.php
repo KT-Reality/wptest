@@ -50,8 +50,9 @@
 				<th><u>Green Button Link</u></th>
 				<th><u>Description</u></th>
 				<th><u>Assign Posts</u></th>
-				<th></th>
-				<th></th>
+				<th><u>CTA Status</u></th>
+				<th>Update</th>
+				<th>Thrash</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -86,6 +87,7 @@
 				$cta_bt_green_btn_link       = $val->cta_bt_green_btn_link;
 				$cta_bt_description   = $val->cta_bt_description;
 				$cta_bt_assign_posts   = $val->cta_bt_assign_posts;				
+				$cta_bt_status   = $val->cta_bt_status;
 	?>
 			<tr>
 				<td><?php echo ++$key; ?></td>
@@ -98,6 +100,7 @@
 				<td><?php echo $cta_bt_green_btn_link; ?></td>
 				<td><?php echo $cta_bt_description; ?></td>
 				<td><?php echo $cta_bt_assign_posts; ?></td>
+				<td><?php if($cta_bt_status == 0) echo 'Published'; else if($cta_bt_status == 0) echo 'Draft';?></td>				
 				<td><u><a href="admin.php?page=cta_add&act=upd&id=<?php echo $id;?>">Edit</a></u></td>
 				<td><u><a href="admin.php?page=cta/kt-cta.php&info=del&did=<?php echo $id;?>">Delete</a></u></td>
 			</tr>
