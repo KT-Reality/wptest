@@ -37,7 +37,6 @@ function addmyplug() {
 		  cta_bt_green_btn_link varchar(255) NULL,
 		  cta_bt_description varchar(255) NULL,
 		  cta_bt_assign_posts text NULL,
-		  cta_bt_status mediumint(9) NOT NULL,
 		  PRIMARY KEY id (id)
 		) ";
 
@@ -45,7 +44,7 @@ function addmyplug() {
 		dbDelta($sql);
 	}
 	require_once(ABSPATH . "wp-admin/includes/upgrade.php");
-	$sql = "ALTER TABLE kt_member ADD cta_bt_status TINYINT(2) NOT NULL  AFTER cta_bt_assign_posts";
+	$sql = "ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts";
 	dbDelta($sql);
 }
 	/* Hook Plugin */
