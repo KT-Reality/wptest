@@ -41,9 +41,7 @@ function addmyplug() {
 		) ";	
 		
 		require_once(ABSPATH . "wp-admin/includes/upgrade.php");
-		dbDelta($sql);
-		
-		$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
+		dbDelta($sql);		
 	}	
 }
 	/* Hook Plugin */
@@ -74,6 +72,7 @@ add_action('admin_menu', 'member_Menu');
 
 function member_list() {
 	include "kt-cta-list.php";
+	$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
 }
 
 
