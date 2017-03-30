@@ -71,7 +71,11 @@ add_action('admin_menu', 'member_Menu');
 
 
 function member_list() {
-	include "kt-cta-list.php";
+	include "kt-cta-list.php";	
+	/* $row = $wpdb->get_results(  "SELECT * FROM information_schema.COLUMNS WHERE TABLE_SCHEMA = 'test' AND TABLE_NAME = 'kt_member' AND COLUMN_NAME = 'cta_bt_status'"  );
+	if(empty($row)){
+		$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
+	} */
 	$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
 }
 

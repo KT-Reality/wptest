@@ -89,7 +89,7 @@
 				$cta_bt_assign_posts   = $val->cta_bt_assign_posts;				
 				$cta_bt_status   = $val->cta_bt_status;
 	?>
-			<tr>
+			<tr <?php if($cta_bt_status == 1) echo "style=opacity:0.5"; ?>>
 				<td><?php echo ++$key; ?></td>
 				<td><?php echo $cta_bt_title; ?></td>
 				<td><?php echo $cta_bt_dest_link; ?></td>				
@@ -100,7 +100,7 @@
 				<td><?php echo $cta_bt_green_btn_link; ?></td>
 				<td><?php echo $cta_bt_description; ?></td>
 				<td><?php echo $cta_bt_assign_posts; ?></td>
-				<td><?php if($cta_bt_status == 0) echo 'Published'; else if($cta_bt_status == 0) echo 'Draft';?></td>				
+				<td><?php if($cta_bt_status == 0) echo 'Enabled'; else if($cta_bt_status == 1) echo 'Disabled';?></td>
 				<td><u><a href="admin.php?page=cta_add&act=upd&id=<?php echo $id;?>">Edit</a></u></td>
 				<td><u><a href="admin.php?page=cta/kt-cta.php&info=del&did=<?php echo $id;?>">Delete</a></u></td>
 			</tr>
