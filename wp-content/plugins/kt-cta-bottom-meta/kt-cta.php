@@ -38,13 +38,12 @@ function addmyplug() {
 		  cta_bt_description varchar(255) NULL,
 		  cta_bt_assign_posts text NULL,
 		  PRIMARY KEY id (id)
-		) ";
-		
-		$sql_alt = "ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts";
+		) ";	
 		
 		require_once(ABSPATH . "wp-admin/includes/upgrade.php");
 		dbDelta($sql);
-		dbDelta($sql_alt);
+		
+		$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
 	}	
 }
 	/* Hook Plugin */
