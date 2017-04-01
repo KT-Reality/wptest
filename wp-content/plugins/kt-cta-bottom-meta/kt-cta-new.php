@@ -110,12 +110,35 @@
 					$('.multiselect-container li a :input[type=checkbox][value='+values+']').attr('checked', true);
 					$('.multiselect-container li a :input[type=checkbox][value='+values+']').parent().parent().parent().addClass('active');
 					selected_post += $('.multiselect-container li a :input[type=checkbox][value='+values+']').parent().text()+", ";
-					//alert(selected_post);
+					
+					$(".multiselect-container li a:contains('draft')").css({"opacity": "0.5" });
 					//$('#cta_bt_assign_posts').val(message.substring(0,message.length-1)).attr('rows',message.length-1);
 					$('button.multiselect span').text(selected_post.substring(0,selected_post.length-2)).attr('rows',selected_post.length-2);
 				//});
 				
 			});
+			
+			$('#addtag')
+				.on('click', 'button.multiselect', function() {
+					$('.dropdown-search').toggle();
+					$('.multiselect-container').toggle();
+					/* $(".dropdown-search").insertAfter("button.multiselect"); */
+				})
+				.on('input', '.dropdown-search', function() {
+				var target = $(this);
+				var search = target.val().toLowerCase();
+			
+				if (!search) {
+					$('.multiselect-container li').show();
+					return false;
+				}
+			
+				$('.multiselect-container li').each(function() {
+					var text = $(this).text().toLowerCase();
+					var match = text.indexOf(search) > -1;
+					$(this).toggle(match);
+				});
+			})
 			
         });
     </script>
@@ -169,6 +192,7 @@
 					
 					<div class="form-field">
 						<label for="lstFruits">Assign to Posts</label>
+						<input type="search" placeholder="Search Blog Posts" class="dropdown-search" style="display: none;"/>
 						<select class="postform" id="lstFruits" multiple="multiple">							
 						<?php
 						if($act=="upd"){
@@ -180,7 +204,7 @@
 							$arr_result_post = $result_post;
 							foreach($arr_result_post as $key => $val){ $cta_post_id = $val->cta_bt_assign_posts;}
 							
-							$getpost_SQL="select id, post_title from ".$wpdb->prefix . "posts where post_type='post' AND post_status='publish' AND id in(".$cta_post_id.")";
+							$getpost_SQL="select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft') AND id in(".$cta_post_id.")";
 							$result_post = $wpdb->get_results($getpost_SQL);
 							
 							$arr_result_post = $result_post;
@@ -188,12 +212,26 @@
 							{
 								foreach($arr_result_post as $key => $val)
 								{
-									//echo $post_id        = $result_post->id;?>
+									if($val->post_status == 'publish') {?>
 									<option value="<?php echo $val->id;?>"><?php echo 'post ID['.$val->id.']   '.$val->post_title; ?></option>
-								<?php }						
+								<?php } else {?>
+									<option value="<?php echo $val->id;?>"><?php echo 'post ID['.$val->id.']   '.$val->post_title. '('.$val->post_status.')'; ?></option>
+								<?php }
+								}						
 							}					
 							
-							$getpost_SQL="select id, post_title from ".$wpdb->prefix . "posts where post_type='post' AND post_status='publish' AND id NOT IN(".$cta_post_id.")";
+							$getpost_SQL_except_assign="select cta_bt_assign_posts from ".$wpdb->prefix . "member where id <> $cta_id";
+							$result_post_except_assign = $wpdb->get_results($getpost_SQL_except_assign);
+							
+							$cta_post_id_except_assign = array();
+							
+							$arr_result_post_except_assign = $result_post_except_assign;
+							foreach($arr_result_post_except_assign as $key => $val){ $cta_post_id_except_assign[] = $val->cta_bt_assign_posts;}
+							//var_dump($cta_post_id_except_assign);
+							echo $not_assign_posts = implode(",", $cta_post_id_except_assign);
+							
+							
+							$getpost_SQL = "select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft') AND id NOT IN('".$cta_post_id."')";
 							$result_post = $wpdb->get_results($getpost_SQL);
 							
 							$arr_result_post = $result_post;
@@ -201,13 +239,16 @@
 							{
 								foreach($arr_result_post as $key => $val)
 								{
-									//echo $post_id        = $result_post->id;?>
+									if($val->post_status == 'publish') {?>
 									<option value="<?php echo $val->id;?>"><?php echo 'post ID['.$val->id.']   '.$val->post_title; ?></option>
+								<?php } else {?>
+									<option value="<?php echo $val->id;?>"><?php echo 'post ID['.$val->id.']   '.$val->post_title. '('.$val->post_status.')'; ?></option>
 								<?php }
+								}
 								
 							}
 						} else{
-							$getpost_SQL="select id, post_title from ".$wpdb->prefix . "posts where post_type='post' AND post_status='publish'";
+							$getpost_SQL="select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft')";
 							$result_post = $wpdb->get_results($getpost_SQL);
 							
 							$arr_result_post = $result_post;
@@ -215,9 +256,12 @@
 							{
 								foreach($arr_result_post as $key => $val)
 								{
-									//echo $post_id        = $result_post->id;?>
+									if($val->post_status == 'publish') {?>
 									<option value="<?php echo $val->id;?>"><?php echo 'post ID['.$val->id.']   '.$val->post_title; ?></option>
+								<?php } else {?>
+									<option value="<?php echo $val->id;?>"><?php echo 'post ID['.$val->id.']   '.$val->post_title. '('.$val->post_status.')'; ?></option>
 								<?php }
+								}
 								
 							}
 						}
@@ -240,4 +284,5 @@
 		</div>
 	</div>
 </div>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
 </div>
