@@ -220,18 +220,19 @@
 								}						
 							}					
 							
-							$getpost_SQL_except_assign="select cta_bt_assign_posts from ".$wpdb->prefix . "member where id <> $cta_id";
+							$getpost_SQL_except_assign="select cta_bt_assign_posts from ".$wpdb->prefix . "member where (id <> $cta_id AND cta_bt_assign_posts <> '')";
 							$result_post_except_assign = $wpdb->get_results($getpost_SQL_except_assign);
 							
 							$cta_post_id_except_assign = array();
 							
 							$arr_result_post_except_assign = $result_post_except_assign;
 							foreach($arr_result_post_except_assign as $key => $val){ $cta_post_id_except_assign[] = $val->cta_bt_assign_posts;}
+							$cta_post_id_except_assign[] = $cta_post_id;
 							//var_dump($cta_post_id_except_assign);
-							echo $not_assign_posts = implode(",", $cta_post_id_except_assign);
+							$not_assign_posts = rtrim(implode(",", $cta_post_id_except_assign),',');
 							
 							
-							$getpost_SQL = "select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft') AND id NOT IN('".$cta_post_id."')";
+							echo $getpost_SQL = "select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft') AND id NOT IN(".$not_assign_posts.")";
 							$result_post = $wpdb->get_results($getpost_SQL);
 							
 							$arr_result_post = $result_post;
@@ -248,7 +249,19 @@
 								
 							}
 						} else{
-							$getpost_SQL="select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft')";
+							
+							$getpost_SQL_except_assign="select cta_bt_assign_posts from ".$wpdb->prefix . "member where (cta_bt_assign_posts <> '')";
+							$result_post_except_assign = $wpdb->get_results($getpost_SQL_except_assign);
+							
+							$cta_post_id_except_assign = array();
+							
+							$arr_result_post_except_assign = $result_post_except_assign;
+							foreach($arr_result_post_except_assign as $key => $val){ $cta_post_id_except_assign[] = $val->cta_bt_assign_posts;}
+							$cta_post_id_except_assign[] = $cta_post_id;
+							//var_dump($cta_post_id_except_assign);
+							$not_assign_posts = rtrim(implode(",", $cta_post_id_except_assign),',');
+							
+							$getpost_SQL="select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft') AND id NOT IN(".$not_assign_posts.")";
 							$result_post = $wpdb->get_results($getpost_SQL);
 							
 							$arr_result_post = $result_post;
