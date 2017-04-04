@@ -89,15 +89,19 @@
                 var selected = $(".multiselect-container li a :input[type=checkbox]:checked");
                 var message = "";
                 selected.each(function () {
+					if($(this).val()!='multiselect-all') {
                     message += $(this).val() + ",";					
 					$('#cta_bt_assign_posts').val(message);
 					cta_bt_assign_posts
+					}
                 });
 				$('#cta_bt_assign_posts').val(message.substring(0,message.length-1)).attr('rows',message.length-1);
 				var r = confirm("Are you confirmed with the selected posts to assign CTA Bottom");
 				if (r == true) {
 					$(':input[type="submit"]').prop('disabled', false);
+					$('.multiselect-container').toggle();
 				} else {
+					$('.multiselect-container').toggle();
 					return false;
 				}
 				               
@@ -122,7 +126,6 @@
 				.on('click', 'button.multiselect', function() {
 					$('.dropdown-search').toggle();
 					$('.multiselect-container').toggle();
-					/* $(".dropdown-search").insertAfter("button.multiselect"); */
 				})
 				.on('input', '.dropdown-search', function() {
 				var target = $(this);
@@ -228,11 +231,10 @@
 							$arr_result_post_except_assign = $result_post_except_assign;
 							foreach($arr_result_post_except_assign as $key => $val){ $cta_post_id_except_assign[] = $val->cta_bt_assign_posts;}
 							$cta_post_id_except_assign[] = $cta_post_id;
-							//var_dump($cta_post_id_except_assign);
 							$not_assign_posts = rtrim(implode(",", $cta_post_id_except_assign),',');
 							
 							
-							echo $getpost_SQL = "select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft') AND id NOT IN(".$not_assign_posts.")";
+							$getpost_SQL = "select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft') AND id NOT IN(".$not_assign_posts.")";
 							$result_post = $wpdb->get_results($getpost_SQL);
 							
 							$arr_result_post = $result_post;
@@ -248,8 +250,7 @@
 								}
 								
 							}
-						} else{
-							
+						} else{							
 							$getpost_SQL_except_assign="select cta_bt_assign_posts from ".$wpdb->prefix . "member where (cta_bt_assign_posts <> '')";
 							$result_post_except_assign = $wpdb->get_results($getpost_SQL_except_assign);
 							
@@ -258,7 +259,6 @@
 							$arr_result_post_except_assign = $result_post_except_assign;
 							foreach($arr_result_post_except_assign as $key => $val){ $cta_post_id_except_assign[] = $val->cta_bt_assign_posts;}
 							$cta_post_id_except_assign[] = $cta_post_id;
-							//var_dump($cta_post_id_except_assign);
 							$not_assign_posts = rtrim(implode(",", $cta_post_id_except_assign),',');
 							
 							$getpost_SQL="select id, post_title, post_status from ".$wpdb->prefix . "posts where post_type='post' AND (post_status='publish' OR post_status='draft') AND id NOT IN(".$not_assign_posts.")";
