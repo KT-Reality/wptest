@@ -4,13 +4,13 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-class BSKPDFManagerCategories extends WP_List_Table {
+class KTPDFManagerCategories extends WP_List_Table {
    
 	var $_categories_db_tbl_name = '';
 	var $_pdfs_db_tbl_name = '';
 	var $_pdfs_upload_path = '';
 	var $_pdfs_upload_folder = '';
-	var $_bsk_categories_page_name = '';
+	var $_kt_categories_page_name = '';
 	
 	var $_plugin_pages_name = array();
    
@@ -18,8 +18,8 @@ class BSKPDFManagerCategories extends WP_List_Table {
         
         //Set parent defaults
         parent::__construct( array( 
-            'singular' => 'bsk-pdf-manager-categories',  //singular name of the listed records
-            'plural'   => 'bsk-pdf-manager-categories', //plural name of the listed records
+            'singular' => 'kt-pdf-manager-categories',  //singular name of the listed records
+            'plural'   => 'kt-pdf-manager-categories', //plural name of the listed records
             'ajax'     => false                          //does this table support ajax?
         ) );
        
@@ -29,7 +29,7 @@ class BSKPDFManagerCategories extends WP_List_Table {
 	   $this->_pdfs_upload_folder = $args['pdf_upload_folder'];
 	   $this->_plugin_pages_name = $args['pages_name_A'];
 	   
-	   $this->_bsk_categories_page_name = $this->_plugin_pages_name['category'];
+	   $this->_kt_categories_page_name = $this->_plugin_pages_name['category'];
 	   
 	   $this->_pdfs_upload_path = $this->_pdfs_upload_path.$this->_pdfs_upload_folder;
 	   
@@ -100,7 +100,7 @@ class BSKPDFManagerCategories extends WP_List_Table {
     function do_bulk_action() {
 		global $wpdb;
 		
-		$categories_id = isset( $_POST['bsk-pdf-manager-categories'] ) ? $_POST['bsk-pdf-manager-categories'] : false;
+		$categories_id = isset( $_POST['kt-pdf-manager-categories'] ) ? $_POST['kt-pdf-manager-categories'] : false;
 		if ( !$categories_id || !is_array( $categories_id ) || count( $categories_id ) < 1 ){
 			return;
 		}
@@ -167,7 +167,7 @@ class BSKPDFManagerCategories extends WP_List_Table {
 		if (!$catgories || count($catgories) < 1){
 			return NULL;
 		}
-		$base = admin_url( 'admin.php?page=bsk-pdf-manager' );
+		$base = admin_url( 'admin.php?page=kt-pdf-manager' );
 		
 		$categories_data = array();
 		foreach ( $catgories as $category ) {
@@ -179,7 +179,7 @@ class BSKPDFManagerCategories extends WP_List_Table {
 				'id_link' 			=> '<a href="'.$category_edit_page.'">'.$category->id.'</a>',
 				'cat_title'     	=> '<a href="'.$category_edit_page.'">'.$category->cat_title.'</a>',
 				'last_date'			=> date('Y-m-d', strtotime($category->last_date)),
-				'shortcode'			=> '[bsk-pdf-manager-list-category id="'.$category->id.'"]'
+				'shortcode'			=> '[kt-pdf-manager-list-category id="'.$category->id.'"]'
 			);
 		}
 		

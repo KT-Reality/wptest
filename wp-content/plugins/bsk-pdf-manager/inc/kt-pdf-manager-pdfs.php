@@ -4,7 +4,7 @@ if ( ! class_exists( 'WP_List_Table' ) ) {
     require_once( ABSPATH . 'wp-admin/includes/class-wp-list-table.php' );
 }
 
-class BSKPDFManagerPDFs extends WP_List_Table {
+class KTPDFManagerPDFs extends WP_List_Table {
    
 	var $_categories_db_tbl_name = '';
 	var $_pdfs_db_tbl_name = '';
@@ -17,8 +17,8 @@ class BSKPDFManagerPDFs extends WP_List_Table {
         
         //Set parent defaults
         parent::__construct( array( 
-            'singular' => 'bsk-pdf-manager-pdfs',  //singular name of the listed records
-            'plural'   => 'bsk-pdf-manager-pdfs', //plural name of the listed records
+            'singular' => 'kt-pdf-manager-pdfs',  //singular name of the listed records
+            'plural'   => 'kt-pdf-manager-pdfs', //plural name of the listed records
             'ajax'     => false                          //does this table support ajax?
         ) );
        
@@ -88,7 +88,7 @@ class BSKPDFManagerPDFs extends WP_List_Table {
 		$categoreies = $wpdb->get_results($sql);
 		
 		$select_str_header = '<div class="alignleft actions">
-								<select name="bsk_pdf_manager_categories" id="bsk_pdf_manager_categories_id">';
+								<select name="kt_pdf_manager_categories" id="kt_pdf_manager_categories_id">';
 		$select_str_footer = '	</select>
 							  </div>';
 		
@@ -99,8 +99,8 @@ class BSKPDFManagerPDFs extends WP_List_Table {
 			if( isset($_REQUEST['cat']) ){
 				$current_category_id = $_REQUEST['cat'];
 			}
-			if( $current_category_id < 1 && isset($_REQUEST['bsk_pdf_manager_pdf_edit_categories']) ){
-				$current_category_id = $_REQUEST['bsk_pdf_manager_pdf_edit_categories'];
+			if( $current_category_id < 1 && isset($_REQUEST['kt_pdf_manager_pdf_edit_categories']) ){
+				$current_category_id = $_REQUEST['kt_pdf_manager_pdf_edit_categories'];
 			}
 			$select_str_body = '<option value="0">Please select category</option>';
 			foreach($categoreies as $category){
@@ -138,7 +138,7 @@ class BSKPDFManagerPDFs extends WP_List_Table {
 		
 		if( ( isset($_POST['action']) && $_POST['action'] == 'delete') || 
 			( isset($_POST['action2']) && $_POST['action2'] == 'delete') ){
-		$lists_id = isset( $_POST['bsk-pdf-manager-pdfs'] ) ? $_POST['bsk-pdf-manager-pdfs'] : false;
+		$lists_id = isset( $_POST['kt-pdf-manager-pdfs'] ) ? $_POST['kt-pdf-manager-pdfs'] : false;
 		if ( !$lists_id || !is_array( $lists_id ) || count( $lists_id ) < 1 ){
 			return;
 		}
@@ -207,7 +207,7 @@ class BSKPDFManagerPDFs extends WP_List_Table {
 		}
 		
 		
-		$base = admin_url( 'admin.php?page=bsk-pdf-manager-pdfs' );
+		$base = admin_url( 'admin.php?page=kt-pdf-manager-pdfs' );
 		$edit_url = add_query_arg('view', 'edit', $base);
 		$lists_data = array();
 		foreach($all_pdfs as $pdf_record){
@@ -217,7 +217,7 @@ class BSKPDFManagerPDFs extends WP_List_Table {
 				$file_url = site_url().'/'.$this->_pdfs_upload_folder.$pdf_record->file_name;
 				$file_str =  '<a href="'.$file_url.'" target="_blank">'.$pdf_record->file_name.'</a>';
 			}
-			$shortcode_str = $file_str ? '[bsk-pdf-manager-pdf id="'.$pdf_record->id.'"]' : '';
+			$shortcode_str = $file_str ? '[kt-pdf-manager-pdf id="'.$pdf_record->id.'"]' : '';
 			$lists_data[] = array( 
 								'id'				=> $pdf_record->id,
 								'id_link' 			=> '<a href="'.$edit_url.'">'.$pdf_record->id.'</a>',

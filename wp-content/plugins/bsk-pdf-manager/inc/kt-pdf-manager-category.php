@@ -1,12 +1,12 @@
 <?php
 
-class BSKPDFManagerCategory {
+class KTPDFManagerCategory {
 
 	var $_categories_db_tbl_name = '';
 	var $_pdfs_db_tbl_name = '';
 	var $_pdfs_upload_path = '';
 	var $_pdfs_upload_folder = '';
-	var $_bsk_categories_page_name = '';
+	var $_kt_categories_page_name = '';
 	
 	var $_plugin_pages_name = array();
 	var $_open_target_option_name = '';
@@ -27,14 +27,14 @@ class BSKPDFManagerCategory {
 		$this->_pdf_order_by_option_name = $args['pdf_order_by'];
 		$this->_pdf_order_option_name = $args['pdf_order'];		
 		
-		$this->_bsk_categories_page_name = $this->_plugin_pages_name['category'];
+		$this->_kt_categories_page_name = $this->_plugin_pages_name['category'];
 		$this->_pdfs_upload_path = $this->_pdfs_upload_path.$this->_pdfs_upload_folder;
 		
-		add_action('bsk_pdf_manager_category_save', array($this, 'bsk_pdf_manager_category_save_fun'));
-		add_shortcode('bsk-pdf-manager-list-category', array($this, 'bsk_pdf_manager_list_pdfs_by_cat') );
+		add_action('kt_pdf_manager_category_save', array($this, 'kt_pdf_manager_category_save_fun'));
+		add_shortcode('kt-pdf-manager-list-category', array($this, 'kt_pdf_manager_list_pdfs_by_cat') );
 	}
 	
-	function bsk_pdf_manager_category_edit( $category_id = -1 ){
+	function kt_pdf_manager_category_edit( $category_id = -1 ){
 		global $wpdb;
 		
 		$cat_title = '';
@@ -49,33 +49,33 @@ class BSKPDFManagerCategory {
 			}
 		}
 		
-		$str = '<div class="bsk_pdf_manager_category_edit">';
+		$str = '<div class="kt_pdf_manager_category_edit">';
 		$str .='<h4>Category Title</h4>';
 		$str .='<p><input type="text" name="cat_title" id="cat_title_id" value="'.$cat_title.'" maxlength="512" style="width:350px;"/></p>';
 		$str .='<h4>Date</h4>';
-		$str .='<p><input type="text" name="cat_date" id="cat_date_id" value="'.$cat_date.'" class="bsk-date" style="width:350px;"/></p>';
+		$str .='<p><input type="text" name="cat_date" id="cat_date_id" value="'.$cat_date.'" class="kt-date" style="width:350px;"/></p>';
 		$str .='<p>
-					<input type="hidden" name="bsk_pdf_manager_action" value="category_save" />
-					<input type="hidden" name="bsk_pdf_manager_category_id" value="'.$category_id.'" />'.
-					wp_nonce_field( plugin_basename( __FILE__ ), 'bsk_pdf_manager_category_save_oper_nonce', true, false ).'
+					<input type="hidden" name="kt_pdf_manager_action" value="category_save" />
+					<input type="hidden" name="kt_pdf_manager_category_id" value="'.$category_id.'" />'.
+					wp_nonce_field( plugin_basename( __FILE__ ), 'kt_pdf_manager_category_save_oper_nonce', true, false ).'
 				</p>
 				</div>';
 		
 		echo $str;
 	}
 	
-	function bsk_pdf_manager_category_save_fun( $data ){
+	function kt_pdf_manager_category_save_fun( $data ){
 		global $wpdb;
 		
 		//check nonce field
-		if ( !wp_verify_nonce( $data['bsk_pdf_manager_category_save_oper_nonce'], plugin_basename( __FILE__ ) ) ){
+		if ( !wp_verify_nonce( $data['kt_pdf_manager_category_save_oper_nonce'], plugin_basename( __FILE__ ) ) ){
 			return;
 		}
 		
-		if ( !isset($data['bsk_pdf_manager_category_id']) ){
+		if ( !isset($data['kt_pdf_manager_category_id']) ){
 			return;
 		}
-		$id = $data['bsk_pdf_manager_category_id'];
+		$id = $data['kt_pdf_manager_category_id'];
 		$title = trim($data['cat_title']);
 		$last_date = trim($data['cat_date']);
 		$last_date = $last_date ? $last_date.' 00:00:00' : date( 'Y-m-d 00:00:00', current_time('timestamp') );
@@ -92,12 +92,12 @@ class BSKPDFManagerCategory {
 			$wpdb->insert( $this->_categories_db_tbl_name, array( 'cat_title' => $title, 'last_date' => $last_date) );
 		}
 		
-		$redirect_to = admin_url( 'admin.php?page='.$this->_bsk_categories_page_name );
+		$redirect_to = admin_url( 'admin.php?page='.$this->_kt_categories_page_name );
 		wp_redirect( $redirect_to );
 		exit;
 	}
 	
-	function bsk_pdf_manager_list_pdfs_by_cat($atts, $content){
+	function kt_pdf_manager_list_pdfs_by_cat($atts, $content){
 		global $wpdb;
 		
 		extract( shortcode_atts( array('id' => '', 
@@ -229,7 +229,7 @@ class BSKPDFManagerCategory {
 			if( !isset($categories_id_as_key[$category_id]) ){
 				continue;
 			}
-			$forStr .=	'<div class="bsk-pdf-category cat-'.$category_id.'">'."\n";
+			$forStr .=	'<div class="kt-pdf-category cat-'.$category_id.'">'."\n";
 			
 			if( $show_cat_title ){
 				$forStr .=	'<h2>'.$categories_id_as_key[$category_id]->cat_title.'</h2>'."\n";
@@ -248,12 +248,12 @@ class BSKPDFManagerCategory {
 			}
 			if( $output_as_dropdown == false ){
 				if( $show_as_ordered_list ){
-					$forStr .= '<ol class="bsk-special-pdfs-container-ordered-list">';
+					$forStr .= '<ol class="kt-special-pdfs-container-ordered-list">';
 				}else{
-					$forStr .= '<ul class="bsk-special-pdfs-container">';
+					$forStr .= '<ul class="kt-special-pdfs-container">';
 				}
 			}else{
-				$forStr .= '<select name="bsk_pdf_manager_special_pdfs_select" class="bsk-pdf-manager-pdfs-select cat-'.$category_id.'" attr_target="'.$target.'">';
+				$forStr .= '<select name="kt_pdf_manager_special_pdfs_select" class="kt-pdf-manager-pdfs-select cat-'.$category_id.'" attr_target="'.$target.'">';
 			}
 			foreach($pdf_items_results as $pdf_item_obj ){
 				if( $pdf_item_obj->file_name && file_exists($this->_pdfs_upload_path.$pdf_item_obj->file_name) ){
@@ -262,7 +262,7 @@ class BSKPDFManagerCategory {
 						$nofollow_tag_str = $nofollow_tag ? ' rel="nofollow"' : '';
 						$link_text = $pdf_item_obj->title;
 						if( $show_date_in_title ){
-							$link_text .= '<span class="bsk-pdf-manager-pdf-date">'.date($date_format_str, strtotime($pdf_item_obj->last_date)).'</span>';
+							$link_text .= '<span class="kt-pdf-manager-pdf-date">'.date($date_format_str, strtotime($pdf_item_obj->last_date)).'</span>';
 						}
 						$forStr .= '<li><a href="'.$file_url.'" '.$open_target_str.$nofollow_tag_str.'>'.$link_text.'</a></li>'."\n";
 					}else{
