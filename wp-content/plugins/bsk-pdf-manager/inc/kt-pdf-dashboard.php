@@ -262,7 +262,7 @@ class KTPDFManagerDashboard {
 	}
 	
 	function kt_pdf_manager_show_pro_tip_box(){
-		$url_to_upgrade = 'http://www.bannersky.com/document/kt-pdf-manager-documentation/upgrade-to-professional-version/';
+		$url_to_upgrade = 'http://www.bannersky.com/document/bsk-pdf-manager-documentation/upgrade-to-professional-version/';
 		$str = '
 		<div class="kt-pro-tips-box">
 			<b>Pro Tip: </b><span class="kt-pro-tips-box-tip">'.$this->kt_pdf_manager_get_pro_tip_text().'</span>
