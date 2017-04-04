@@ -1,14 +1,14 @@
 <?php
 
-class KTPDFManagerPDF {
+class BSKPDFManagerPDF {
 
 	var $_categories_db_tbl_name = '';
 	var $_pdfs_db_tbl_name = '';
 	var $_pdfs_upload_path = '';
 	var $_pdfs_upload_folder = '';
-	var $_pdfs_upload_folder_4_ftp = 'kt-pdf-manager/ftp/';
+	var $_pdfs_upload_folder_4_ftp = 'bsk-pdf-manager/ftp/';
 	
-	var $_kt_pdfs_page_name = '';
+	var $_bsk_pdfs_page_name = '';
 	var $_file_upload_message = array();
 	
 	var $_plugin_pages_name = array();
@@ -24,17 +24,17 @@ class KTPDFManagerPDF {
 		$this->_plugin_pages_name = $args['pages_name_A'];
 		$this->_open_target_option_name = $args['open_target_option_name'];
 		
-		$this->_kt_pdfs_page_name = $this->_plugin_pages_name['pdf'];
+		$this->_bsk_pdfs_page_name = $this->_plugin_pages_name['pdf'];
 		
 		$this->_pdfs_upload_path = $this->_pdfs_upload_path.$this->_pdfs_upload_folder;
-		$this->kt_pdf_manager_init_message();
+		$this->bsk_pdf_manager_init_message();
 
-		add_action('admin_notices', array($this, 'kt_pdf_manager_admin_notice') );
-		add_action( 'kt_pdf_manager_pdf_save', array($this, 'kt_pdf_manager_pdf_save_fun') );
-		add_shortcode('kt-pdf-manager-pdf', array($this, 'kt_pdf_manager_show_pdf') );
+		add_action('admin_notices', array($this, 'bsk_pdf_manager_admin_notice') );
+		add_action( 'bsk_pdf_manager_pdf_save', array($this, 'bsk_pdf_manager_pdf_save_fun') );
+		add_shortcode('bsk-pdf-manager-pdf', array($this, 'bsk_pdf_manager_show_pdf') );
 	}
 	
-	function kt_pdf_manager_init_message(){
+	function bsk_pdf_manager_init_message(){
 	
 		$this->_file_upload_message[1] = array( 'message' => 'The uploaded file exceeds the maximum file size allowed.', 
 												'type' => 'ERROR');
@@ -66,7 +66,7 @@ class KTPDFManagerPDF {
 												 
 	}
 	
-	function kt_pdf_manager_admin_notice(){
+	function bsk_pdf_manager_admin_notice(){
 		$current_page = isset($_REQUEST['page']) ? $_REQUEST['page'] : '';
 		if(!$current_page || !in_array($current_page, $this->_plugin_pages_name)){
 			return;
@@ -122,17 +122,10 @@ class KTPDFManagerPDF {
 		}
 
 		?>
-		<!--<form method="post">
-		  <input id="image-url" type="text" name="image" />
-		  <input id="upload-button" type="button" class="button" value="Upload Image" />
-		  
-		  <input type="submit" value="Submit" />
-		</form>-->
-
-        <div class="kt_pdf_manager_pdf_edit">
+        <div class="bsk_pdf_manager_pdf_edit">
         <?php
-			$u_bytes = $this->kt_pdf_manager_pdf_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) );
-			$p_bytes = $this->kt_pdf_manager_pdf_convert_hr_to_bytes( ini_get( 'post_max_size' ) );
+			$u_bytes = $this->bsk_pdf_manager_pdf_convert_hr_to_bytes( ini_get( 'upload_max_filesize' ) );
+			$p_bytes = $this->bsk_pdf_manager_pdf_convert_hr_to_bytes( ini_get( 'post_max_size' ) );
 			$maximumUploaded = floor(min($u_bytes, $p_bytes) / 1024).' K bytes.';
 			if ($maximumUploaded > 1024){
 				$maximumUploaded = floor( $maximumUploaded / 1024).' M bytes.';
@@ -150,7 +143,7 @@ class KTPDFManagerPDF {
             	<tr>
                     <td style="width:150px;">Category:</td>
                     <td>
-                    	<select name="kt_pdf_manager_pdf_edit_categories" id="kt_pdf_manager_pdf_edit_categories_id" style="width:350px;">
+                    	<select name="bsk_pdf_manager_pdf_edit_categories" id="bsk_pdf_manager_pdf_edit_categories_id" style="width:350px;">
                         <option value="0">Please select category</option>
                         <?php 
                         foreach($categories as $category){ 
@@ -162,8 +155,8 @@ class KTPDFManagerPDF {
                         } 
                         ?>
                         </select>
-                        <span class="kt-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_kt_pdf_manager_pdf_edit_categories_id"></span>
-                        <input type="hidden" id="tip_4_kt_pdf_manager_pdf_edit_categories_id" value="A PDF can be assigned to multiple categories with Pro verison." />
+                        <span class="bsk-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_bsk_pdf_manager_pdf_edit_categories_id"></span>
+                        <input type="hidden" id="tip_4_bsk_pdf_manager_pdf_edit_categories_id" value="A PDF can be assigned to multiple categories with Pro verison." />
                     </td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
@@ -176,18 +169,18 @@ class KTPDFManagerPDF {
                 <tr>
                     <td style="width:250px;">Title:</td>
                     <td>
-                    	<input type="text" name="kt_pdf_manager_pdf_titile" id="kt_pdf_manager_pdf_titile_id" value="<?php echo $title_value; ?>" maxlength="512" style="width:350px;"/>
-                        <span class="kt-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_kt_pdf_kt_pdf_manager_pdf_titile_id"></span>
-                        <input type="hidden" id="tip_4_kt_pdf_kt_pdf_manager_pdf_titile_id" value="PDF file name with / without extension can be used as title with Pro version." />
+                    	<input type="text" name="bsk_pdf_manager_pdf_titile" id="bsk_pdf_manager_pdf_titile_id" value="<?php echo $title_value; ?>" maxlength="512" style="width:350px;"/>
+                        <span class="bsk-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_bsk_pdf_bsk_pdf_manager_pdf_titile_id"></span>
+                        <input type="hidden" id="tip_4_bsk_pdf_bsk_pdf_manager_pdf_titile_id" value="PDF file name with / without extension can be used as title with Pro version." />
                     </td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <tr>
                     <td style="width:250px;">Use WordPress Media Uploader:</td>
                     <td>
-                    	<input type="checkbox" id="kt_pdf_manager_wp_uplpoader_id" />
-                        <span class="kt-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_kt_pdf_manager_wp_uplpoader_id"></span>
-                        <input type="hidden" id="tip_4_kt_pdf_manager_wp_uplpoader_id" value="You may link to PDF files that have been upload to WordPress, only available with Pro version." />
+                    	<input type="checkbox" id="bsk_pdf_manager_wp_uplpoader_id" />
+                        <span class="bsk-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_bsk_pdf_manager_wp_uplpoader_id"></span>
+                        <input type="hidden" id="tip_4_bsk_pdf_manager_wp_uplpoader_id" value="You may link to PDF files that have been upload to WordPress, only available with Pro version." />
                     </td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
@@ -196,47 +189,44 @@ class KTPDFManagerPDF {
                     <td>Old File:</td>
                     <td>
                         <a href="<?php echo $file_url; ?>" target="_blank"><?php echo $pdf_obj_array['file_name']; ?></a>
-                        <input type="hidden" name="kt_pdf_manager_pdf_file_old" id="kt_pdf_manager_pdf_file_old_id" value="<?php echo $pdf_obj_array['file_name']; ?>" />
+                        <input type="hidden" name="bsk_pdf_manager_pdf_file_old" id="bsk_pdf_manager_pdf_file_old_id" value="<?php echo $pdf_obj_array['file_name']; ?>" />
                     </td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <?php } ?>
                 <tr>
                     <td>Upload new:</td>
-                    <td><!--<input type="file" name="kt_pdf_file" id="kt_pdf_file_id" value="Browse" />-->
-						<input id="image-url" type="text" name="kt_pdf_file" id="kt_pdf_file_id" />
-						<input id="upload-button" type="button" class="button" value="Upload Image" />
-					</td>
+                    <td><input type="file" name="bsk_pdf_file" id="bsk_pdf_file_id" value="Browse" /></td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <tr>
                 	<td>&nbsp;</td>
-                    <td><span class="kt_description">Maximum file size: <?php echo $maximumUploaded; ?></span> To change this please modify your hosting configuration in php.ini or .htaccess file. </td>
+                    <td><span class="bsk_description">Maximum file size: <?php echo $maximumUploaded; ?></span> To change this please modify your hosting configuration in php.ini or .htaccess file. </td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <tr>
                 	<td>&nbsp;</td>
-                    <td><span class="kt_description">Only <b>.pdf</b> allowed.</span></td>
+                    <td><span class="bsk_description">Only <b>.pdf</b> allowed.</span></td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <tr>
                     <td style="width:250px;">Featured Image:</td>
                     <td>
                     	<a href="javascript:void(0);">Set featured image</a> 
-                        <span class="kt-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_kt_pdf_manager_set_featured_image_id"></span>
-                        <input type="hidden" id="tip_4_kt_pdf_manager_set_featured_image_id" value="Assign a fetured image to PDF from WordPress' media library, only available for Pro version." />
+                        <span class="bsk-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_bsk_pdf_manager_set_featured_image_id"></span>
+                        <input type="hidden" id="tip_4_bsk_pdf_manager_set_featured_image_id" value="Assign a fetured image to PDF from WordPress' media library, only available for Pro version." />
                     </td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <tr>
                 	<td>Date:</td>
-                    <td><input type="text" name="pdf_date" id="pdf_date_id" value="<?php echo $pdf_date ?>" class="kt-date" /></td>
+                    <td><input type="text" name="pdf_date" id="pdf_date_id" value="<?php echo $pdf_date ?>" class="bsk-date" /></td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
                 <tr>
-                	<input type="hidden" name="kt_pdf_manager_action" value="pdf_save" />
-                    <input type="hidden" name="kt_pdf_manager_pdf_id" value="<?php echo $pdf_id; ?>" />
-                    <?php echo wp_nonce_field( plugin_basename( __FILE__ ), 'kt_pdf_manager_pdf_save_oper_nonce', true, false ); ?>
+                	<input type="hidden" name="bsk_pdf_manager_action" value="pdf_save" />
+                    <input type="hidden" name="bsk_pdf_manager_pdf_id" value="<?php echo $pdf_id; ?>" />
+                    <?php echo wp_nonce_field( plugin_basename( __FILE__ ), 'bsk_pdf_manager_pdf_save_oper_nonce', true, false ); ?>
                 </tr>
             </table>
           </p>
@@ -244,20 +234,20 @@ class KTPDFManagerPDF {
 		<?php
 	}
 	
-	function kt_pdf_manager_pdf_save_fun( $data ){
+	function bsk_pdf_manager_pdf_save_fun( $data ){
 		global $wpdb;
 		//check nonce field
-		if ( !wp_verify_nonce( $data['kt_pdf_manager_pdf_save_oper_nonce'], plugin_basename( __FILE__ ) ) ){
+		if ( !wp_verify_nonce( $data['bsk_pdf_manager_pdf_save_oper_nonce'], plugin_basename( __FILE__ ) ) ){
 			return;
 		}
-		if ( !isset($data['kt_pdf_manager_pdf_edit_categories']) ){
+		if ( !isset($data['bsk_pdf_manager_pdf_edit_categories']) ){
 			return;
 		}
 
-		$pdf_id = trim($data['kt_pdf_manager_pdf_id']);
+		$pdf_id = trim($data['bsk_pdf_manager_pdf_id']);
 		$pdf_data = array();
-		$pdf_data['cat_id'] = $data['kt_pdf_manager_pdf_edit_categories'];
-		$pdf_data['title'] = $data['kt_pdf_manager_pdf_titile'];
+		$pdf_data['cat_id'] = $data['bsk_pdf_manager_pdf_edit_categories'];
+		$pdf_data['title'] = $data['bsk_pdf_manager_pdf_titile'];
 		$pdf_data['last_date'] = trim($data['pdf_date']) ? trim($data['pdf_date']).' 00:00:00' : date('Y-m-d 00:00:00', current_time('timestamp'));
 		
 		$quotes_sybase = strtolower(ini_get('magic_quotes_sybase'));
@@ -270,18 +260,18 @@ class KTPDFManagerPDF {
 		$message_id = 20;
 		if ($pdf_id > 0){
 			//update
-			if (isset($data['kt_pdf_manager_pdf_file_rmv']) && $data['kt_pdf_manager_pdf_file_rmv'] == 'true'){
-				if ($data['kt_pdf_manager_pdf_file_old']){
-					unlink($this->_pdfs_upload_path.$data['kt_pdf_manager_pdf_file_old']);
+			if (isset($data['bsk_pdf_manager_pdf_file_rmv']) && $data['bsk_pdf_manager_pdf_file_rmv'] == 'true'){
+				if ($data['bsk_pdf_manager_pdf_file_old']){
+					unlink($this->_pdfs_upload_path.$data['bsk_pdf_manager_pdf_file_old']);
 					$pdf_data['file_name'] = '';
 				}
 			}
-			$return_detinate_name = $this->kt_pdf_manager_pdf_upload_file($_FILES['kt_pdf_file'], $pdf_id, $message_id, $kt_pdf_manager_pdf_file_old);
+			$return_detinate_name = $this->bsk_pdf_manager_pdf_upload_file($_FILES['bsk_pdf_file'], $pdf_id, $message_id, $bsk_pdf_manager_pdf_file_old);
 			if ($return_detinate_name){
 				$pdf_data['file_name'] = $return_detinate_name;
 				//new one uploaded, the old one should be removed
-				if ($data['kt_pdf_manager_pdf_file_old']){
-					unlink($this->_pdfs_upload_path.$data['kt_pdf_manager_pdf_file_old']);
+				if ($data['bsk_pdf_manager_pdf_file_old']){
+					unlink($this->_pdfs_upload_path.$data['bsk_pdf_manager_pdf_file_old']);
 				}
 			}
 			unset($pdf_data['id']); //for update, dont't chagne id
@@ -292,14 +282,14 @@ class KTPDFManagerPDF {
 			if ( !$return ){
 				$message_id = 21;
 				
-				$redirect_to = admin_url( 'admin.php?page='.$this->_kt_pdfs_page_name.'&cat='.$pdf_data['cat_id'].'&message='.$message_id );
+				$redirect_to = admin_url( 'admin.php?page='.$this->_bsk_pdfs_page_name.'&cat='.$pdf_data['cat_id'].'&message='.$message_id );
 				wp_redirect( $redirect_to );
 				exit;
 			}else{
 				$message_id = '';
 				
 				$new_pdf_id = $wpdb->insert_id;
-				$return_detinate_name = $this->kt_pdf_manager_pdf_upload_file($_FILES['kt_pdf_file'], $new_pdf_id, $message_id);
+				$return_detinate_name = $this->bsk_pdf_manager_pdf_upload_file($_FILES['bsk_pdf_file'], $new_pdf_id, $message_id);
 				if ( $return_detinate_name ){
 					$wpdb->update( $this->_pdfs_db_tbl_name, array('file_name' => $return_detinate_name), array('id' => $new_pdf_id) );
 				}else{
@@ -309,12 +299,12 @@ class KTPDFManagerPDF {
 			}
 		}
 		
-		$redirect_to = admin_url( 'admin.php?page='.$this->_kt_pdfs_page_name.'&cat='.$pdf_data['cat_id'].'&message='.$message_id  );
+		$redirect_to = admin_url( 'admin.php?page='.$this->_bsk_pdfs_page_name.'&cat='.$pdf_data['cat_id'].'&message='.$message_id  );
 		wp_redirect( $redirect_to );
 		exit;
 	}
 	
-	function kt_pdf_manager_pdf_upload_file($file, $destination_name_prefix, &$message_id, $old_file = ''){
+	function bsk_pdf_manager_pdf_upload_file($file, $destination_name_prefix, &$message_id, $old_file = ''){
 		if (!$file["name"]){
 			if($old_file){
 				$message_id = 17;
@@ -355,7 +345,7 @@ class KTPDFManagerPDF {
 		return $destinate_file_name;
 	}
 	
-	function kt_pdf_manager_pdf_convert_hr_to_bytes( $size ) {
+	function bsk_pdf_manager_pdf_convert_hr_to_bytes( $size ) {
 		$size  = strtolower( $size );
 		$bytes = (int) $size;
 		if ( strpos( $size, 'k' ) !== false )
@@ -367,7 +357,7 @@ class KTPDFManagerPDF {
 		return $bytes;
 	}
 	
-	function kt_pdf_manager_show_pdf($atts, $content){
+	function bsk_pdf_manager_show_pdf($atts, $content){
 		global $wpdb;
 		
 		extract( shortcode_atts( array('id' => '', 
@@ -501,12 +491,12 @@ class KTPDFManagerPDF {
 		if( $show_link_only == false ){
 			if( $output_as_dropdown == false ){
 				if( $show_as_ordered_list ){
-					$str_body .= '<ol class="kt-special-pdfs-container-ordered-list">';
+					$str_body .= '<ol class="bsk-special-pdfs-container-ordered-list">';
 				}else{
-				$str_body .= '<ul class="kt-special-pdfs-container">';
+				$str_body .= '<ul class="bsk-special-pdfs-container">';
 				}
 			}else{
-				$str_body .= '<select name="kt_pdf_manager_special_pdfs_select" class="kt-pdf-manager-pdfs-select" attr_target="'.$target.'">';
+				$str_body .= '<select name="bsk_pdf_manager_special_pdfs_select" class="bsk-pdf-manager-pdfs-select" attr_target="'.$target.'">';
 			}
 		}
 		if( $orderby == "" ){
@@ -529,7 +519,7 @@ class KTPDFManagerPDF {
 							$nofollow_tag_str = $nofollow_tag ? ' rel="nofollow"' : '';
 							$link_text = $custom_link_text ? $custom_link_text : $pdf_item->title;
 							if( $show_date_in_title ){
-								$link_text .= '<span class="kt-pdf-manager-pdf-date">'.date($date_format_str, strtotime($pdf_item->last_date)).'</span>';
+								$link_text .= '<span class="bsk-pdf-manager-pdf-date">'.date($date_format_str, strtotime($pdf_item->last_date)).'</span>';
 							}
 							$str_body .= '<li><a href="'.$file_url.'"'.$open_target_str.$nofollow_tag_str.'>'.$link_text.'</a></li>'."\n";
 						}else{
@@ -553,7 +543,7 @@ class KTPDFManagerPDF {
 							$nofollow_tag_str = $nofollow_tag ? ' rel="nofollow"' : '';
 							$link_text = $custom_link_text ? $custom_link_text : $pdf_item->title;
 							if( $show_date_in_title ){
-								$link_text .= '<span class="kt-pdf-manager-pdf-date"> '.date($date_format_str, strtotime($pdf_item->last_date)).'</span>';
+								$link_text .= '<span class="bsk-pdf-manager-pdf-date"> '.date($date_format_str, strtotime($pdf_item->last_date)).'</span>';
 							}
 							$str_body .= '<li><a href="'.$file_url.'" '.$open_target_str.$nofollow_tag_str.'>'.$link_text.'</a></li>'."\n";
 						}else{
@@ -582,7 +572,7 @@ class KTPDFManagerPDF {
 		return $str_body;
 	}
 	
-	function kt_pdf_manager_pdfs_add_by_ftp(){
+	function bsk_pdf_manager_pdfs_add_by_ftp(){
 		global $current_user, $wpdb;
 		
 		//get all categories
@@ -626,7 +616,7 @@ class KTPDFManagerPDF {
 					}
 			?>
                 <tr<?php echo $class_str; ?>>
-                    <th class='check-column' style="padding-left:10px;"><input type='checkbox' name='kt_pdf_manager_ftp_files[]' value='<?php echo esc_attr($file_name) ?>' style="padding:0; margin:0;" /></th>
+                    <th class='check-column' style="padding-left:10px;"><input type='checkbox' name='bsk_pdf_manager_ftp_files[]' value='<?php echo esc_attr($file_name) ?>' style="padding:0; margin:0;" /></th>
                     <td><label><?php echo esc_html($file_name) ?></label></td>
                 </tr>
         	<?php
@@ -645,37 +635,37 @@ class KTPDFManagerPDF {
 		<?php
 		if( 1 ){
 		?>
-        <h3>Please select category<span class="kt-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_kt_pdf_manager_pdf_edit_categories_id"></span></h3>
-        <input type="hidden" id="tip_4_kt_pdf_manager_pdf_edit_categories_id" value="A PDF can be assigned to multiple categories for Pro verison." />
+        <h3>Please select category<span class="bsk-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_bsk_pdf_manager_pdf_edit_categories_id"></span></h3>
+        <input type="hidden" id="tip_4_bsk_pdf_manager_pdf_edit_categories_id" value="A PDF can be assigned to multiple categories for Pro verison." />
         <p>
 		<?php
 		if( count($categories ) > 1 && $categories ){
 			foreach($categories as $category){
-				echo '<label style="display:block;"><input type="checkbox" name="kt_pdf_manager_ftp_categories[]" value="-cat-'.$category->id.'-" />'.$category->cat_title.'</label>&nbsp;&nbsp;&nbsp;&nbsp;';
+				echo '<label style="display:block;"><input type="checkbox" name="bsk_pdf_manager_ftp_categories[]" value="-cat-'.$category->id.'-" />'.$category->cat_title.'</label>&nbsp;&nbsp;&nbsp;&nbsp;';
 			}
 		}
         ?>
         </p>
         <p style="font-size:1.3em; font-weight:bold;">
         	<label>
-            	<input type="checkbox" name="kt_pdf_manager_ftp_use_file_name_as_title" id="kt_pdf_manager_ftp_use_file_name_as_title_ID" />Use file name as title
+            	<input type="checkbox" name="bsk_pdf_manager_ftp_use_file_name_as_title" id="bsk_pdf_manager_ftp_use_file_name_as_title_ID" />Use file name as title
             </label>
-            <span class="kt-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_kt_pdf_manager_pdf_edit_categories_id"></span>
-        	<input type="hidden" id="tip_4_kt_pdf_manager_pdf_edit_categories_id" value="A PDF can be assigned to multiple categories for Pro verison." />
+            <span class="bsk-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_bsk_pdf_manager_pdf_edit_categories_id"></span>
+        	<input type="hidden" id="tip_4_bsk_pdf_manager_pdf_edit_categories_id" value="A PDF can be assigned to multiple categories for Pro verison." />
         </p>
-        <p id="kt_pdf_manager_ftp_pdf_title_exclude_extension_container_ID" style="display:block;">
-            	<span class="kt-pdfm-field-label">Exclude extension(.pdf) from title:</span>
-                <span class="kt-pdf-field">
-                    <label><input type="radio" name="kt_pdf_manager_ftp_pdf_exclude_extension_from_title" value="YES" /> Yes</label>
-                    <label style="margin-left:20px;"><input type="radio" name="kt_pdf_manager_ftp_pdf_exclude_extension_from_title" value="NO" checked="checked" /> No</label>
+        <p id="bsk_pdf_manager_ftp_pdf_title_exclude_extension_container_ID" style="display:block;">
+            	<span class="bsk-pdfm-field-label">Exclude extension(.pdf) from title:</span>
+                <span class="bsk-pdf-field">
+                    <label><input type="radio" name="bsk_pdf_manager_ftp_pdf_exclude_extension_from_title" value="YES" /> Yes</label>
+                    <label style="margin-left:20px;"><input type="radio" name="bsk_pdf_manager_ftp_pdf_exclude_extension_from_title" value="NO" checked="checked" /> No</label>
                 </span>
             </p>
 		<p style="margin-top:20px;">
         	<input type="hidden" name="nonce" value="<?php echo $nonce; ?>" />
-        	<input type="hidden" name="kt_pdf_manager_action" value="pdf_upload_by_ftp" />
-        	<input type="button" id="kt_pdf_manager_add_by_ftp_save_button_ID" class="button-primary" value="Upload..." />
-            <span class="kt-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_kt_pdf_manager_pdf_add_by_ftp_button_id"></span>
-            <input type="hidden" id="tip_4_kt_pdf_manager_pdf_add_by_ftp_button_id" value="Only available for Pro verison." />
+        	<input type="hidden" name="bsk_pdf_manager_action" value="pdf_upload_by_ftp" />
+        	<input type="button" id="bsk_pdf_manager_add_by_ftp_save_button_ID" class="button-primary" value="Upload..." />
+            <span class="bsk-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_bsk_pdf_manager_pdf_add_by_ftp_button_id"></span>
+            <input type="hidden" id="tip_4_bsk_pdf_manager_pdf_add_by_ftp_button_id" value="Only available for Pro verison." />
         </p>
         <?php
 		}

@@ -14,7 +14,7 @@ require_once('inc/kt-pdf-manager-widget-category.php');
 
 class KTPDFManager {
 	
-	var $_kt_pdf_manager_plugin_version = '1.7.1';
+	var $_kt_pdf_manager_plugin_version = '1.1';
 	var $_kt_pdf_manager_upload_folder = 'wp-content/uploads/kt-pdf-manager/';
 	var $_kt_pdf_manager_upload_path = ABSPATH;
 	var $_kt_pdf_manager_admin_notice_message = array();
@@ -104,7 +104,14 @@ class KTPDFManager {
 		}else{
 			wp_enqueue_script( 'kt-pdf-manager', plugins_url('js/kt_pdf_manager.js', __FILE__), array('jquery'), $this->_kt_pdf_manager_plugin_version );
 		}
+		
+		/* Add the media uploader script */
+		wp_enqueue_media();
+		wp_register_script( 'media-lib-uploader-js', plugins_url( 'js/media-lib-uploader.js' , __FILE__ ), array('jquery') );
+		wp_enqueue_script( 'media-lib-uploader-js' );		
 	}
+	
+
 	
 	function kt_pdf_manager_admin_notice(){
 		$warning_message = array();
