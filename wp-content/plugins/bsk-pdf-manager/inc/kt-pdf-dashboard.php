@@ -64,7 +64,7 @@ class KTPDFManagerDashboard {
 		
 		$authorized_level = 'level_3';
 		
-		add_menu_page('KT PDF Manager', 'KT PDF Manager', $authorized_level, 'kt-pdf-manager', '', 'dashicons-media-document');
+		add_menu_page('Documents', 'Documents', $authorized_level, 'kt-pdf-manager', '', 'dashicons-media-document');
 		add_submenu_page( 'kt-pdf-manager',
 						  'Categories', 
 						  'Categories',
@@ -120,7 +120,7 @@ class KTPDFManagerDashboard {
 	
 			echo '<div class="wrap">
 					<div id="icon-edit" class="icon32"><br/></div>
-					<h2>KT PDF Categories<a href="'.$category_add_new_page.'" class="add-new-h2">Add New</a></h2>
+					<h2>PDF Categories<a href="'.$category_add_new_page.'" class="add-new-h2">Add New</a></h2>
 					<form id="kt-pdf-manager-categories-form-id" method="post">
 						<input type="hidden" name="page" value="kt-pdf-manager" />';
 						//$this->_kt_pdf_manager_OBJ_categories->search_box( 'search', 'kt-pdf-manager' );
@@ -136,7 +136,7 @@ class KTPDFManagerDashboard {
 			}	
 			echo '<div class="wrap">
 					<div id="icon-edit" class="icon32"><br/></div>
-					<h2>KT PDF Category</h2>
+					<h2>PDF Category</h2>
 					<form id="kt-pdf-manager-category-edit-form-id" method="post">
 					<input type="hidden" name="page" value="kt-pdf-manager" />
 					<input type="hidden" name="view" value="list" />';
@@ -179,7 +179,7 @@ class KTPDFManagerDashboard {
 	
 			echo '<div class="wrap">
 					<div id="icon-edit" class="icon32"><br/></div>
-					<h2>KT PDF Documents<a href="'.$add_new_page.'" class="add-new-h2">Add New</a></h2>
+					<h2>PDF Documents<a href="'.$add_new_page.'" class="add-new-h2">Add New</a></h2>
 					'.$this->kt_pdf_manager_show_pro_tip_box().'
 					<form id="kt-pdf-manager-pdfs-form-id" method="post" action="'.admin_url( 'admin.php?page=kt-pdf-manager-pdfs' ).'">
 						<input type="hidden" name="page" value="kt-pdf-manager-pdfs" />
@@ -199,7 +199,7 @@ class KTPDFManagerDashboard {
 			}	
 			echo '<div class="wrap">
 					<div id="icon-edit" class="icon32"><br/></div>
-					<h2>KT PDF Document</h2>
+					<h2>PDF Document</h2>
 					'.$this->kt_pdf_manager_show_pro_tip_box().'
 					<form id="kt-pdf-manager-pdfs-form-id" method="post" enctype="multipart/form-data" action="'.admin_url( 'admin.php?page=kt-pdf-manager-pdfs' ).'">
 					<input type="hidden" name="page" value="kt-pdf-manager-pdfs" />
@@ -225,7 +225,7 @@ class KTPDFManagerDashboard {
 		?>
         <div class="wrap" id="kt_pdfm_setings_wrap_ID">
         <div id="icon-edit" class="icon32"><br/></div>
-        <h2>KT PDF Settings & Support</h2>
+        <h2>PDF Settings & Support</h2>
 		<?php 
 			echo $this->kt_pdf_manager_show_pro_tip_box();
 			$this->_kt_pdf_manager_OBJ_settings_support->show_settings(); 
@@ -282,7 +282,7 @@ class KTPDFManagerDashboard {
 	
 		echo '<div class="wrap">
 				<div id="icon-edit" class="icon32"><br/></div>
-				<h2>KT PDF Add by FTP</h2>';
+				<h2>PDF Add by FTP</h2>';
 		echo $this->kt_pdf_manager_show_pro_tip_box();
 		echo '	<form id="kt-pdf-manager-add-by-ftp-form-id" method="post" enctype="multipart/form-data">';
 		

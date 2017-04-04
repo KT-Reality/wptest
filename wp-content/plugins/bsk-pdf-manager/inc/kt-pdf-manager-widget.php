@@ -7,7 +7,7 @@
 		public function __construct() {
 			parent::__construct(
 				'kt_pdf_manager_widget', // Base ID
-				'KT PDF Manager', // Name
+				'Documents', // Name
 				array( 'description' => __( 'Display special PDFs in a widget area', 'text_domain' ), ) // Args
 			);
 		}

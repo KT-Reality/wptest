@@ -68,7 +68,7 @@ class KTPDFManagerSettingsSupport {
             <span class="kt-pdf-pro-tip-viewer dashicons dashicons-visibility" attrid="tip_4_kt_pdfm_general_setting_allow_author_access_pdf_category_id"></span>
             <input type="hidden" id="tip_4_kt_pdfm_general_setting_allow_author_access_pdf_category_id" value="Only available for Pro verison." />
         </p>
-        <p><i>By default, only a user with Editor role ( or above ) can access all menus of KT PDF Manager. With this setting you may allow an Author user to manage category & PDF without other settings visible.</i> </p>
+        <p><i>By default, only a user with Editor role ( or above ) can access all menus of Documents. With this setting you may allow an Author user to manage category & PDF without other settings visible.</i> </p>
         <?php $this->show_help(); ?>
         <h3 style="margin-top:40px;">Professional Edition</h3>        
         <p style="margin-top:20px;">

@@ -4,7 +4,7 @@
 		public function __construct() {
 			parent::__construct(
 				'kt_pdf_manager_widget_category', // Base ID
-				'KT PDF Manager Category', // Name
+				'Document Category', // Name
 				array( 'description' => 'Display all PDFs within a given category' ) // Args
 			);
 		}

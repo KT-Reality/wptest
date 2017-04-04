@@ -2,18 +2,18 @@ jQuery(document).ready( function($) {
 	
 	$("#bsk_pdf_manager_categories_id").change( function() {
 		var cat_id = $(this).val();
-		var new_action = $("#bsk-pdf-manager-pdfs-form-id").attr('action') + '&cat=' + cat_id;
+		var new_action = $("#kt-pdf-manager-pdfs-form-id").attr('action') + '&cat=' + cat_id;
 		
-		$("#bsk-pdf-manager-pdfs-form-id").attr('action', new_action);
+		$("#kt-pdf-manager-pdfs-form-id").attr('action', new_action);
 		
-		$("#bsk-pdf-manager-pdfs-form-id").submit();
+		$("#kt-pdf-manager-pdfs-form-id").submit();
 	});
 	
 	$("#doaction").click( function() {
 		var cat_id = $("#bsk_pdf_manager_categories_id").val();
-		var new_action = $("#bsk-pdf-manager-pdfs-form-id").attr('action') + '&cat=' + cat_id;
+		var new_action = $("#kt-pdf-manager-pdfs-form-id").attr('action') + '&cat=' + cat_id;
 		
-		$("#bsk-pdf-manager-pdfs-form-id").attr('action', new_action);
+		$("#kt-pdf-manager-pdfs-form-id").attr('action', new_action);
 		
 		return true;
 	});
@@ -27,7 +27,7 @@ jQuery(document).ready( function($) {
 			return false;
 		}
 		
-		$("#bsk-pdf-manager-category-edit-form-id").submit();
+		$("#kt-pdf-manager-category-edit-form-id").submit();
 	});
 	
 	$("#bsk_pdf_manager_pdf_save_form").click( function() {
@@ -70,31 +70,31 @@ jQuery(document).ready( function($) {
 			}
 		}
 		
-		$("#bsk-pdf-manager-pdfs-form-id").submit();
+		$("#kt-pdf-manager-pdfs-form-id").submit();
 	});
 	
-	if( $(".bsk-date").length > 0 ){
-		$(".bsk-date").datepicker({
+	if( $(".kt-date").length > 0 ){
+		$(".kt-date").datepicker({
 			dateFormat : 'yy-mm-dd'
 		});
 	}
 	
 	/* Pro tips */
-	$(".bsk-pdf-pro-tip-viewer").mouseover(function(){
+	$(".kt-pdf-pro-tip-viewer").mouseover(function(){
 		var attr_id = $(this).attr("attrid");
 		var attr_text = $("#" + attr_id).val();
 		if( attr_text == "" ){
 			return;
 		}
-		$(".bsk-pro-tips-box-tip").html( attr_text );
+		$(".kt-pro-tips-box-tip").html( attr_text );
 	});
 	
-	$(".bsk-pdf-pro-tip-viewer").mouseout(function(){
+	$(".kt-pdf-pro-tip-viewer").mouseout(function(){
 		var attr_text = $("#bsk_pdf_manager_hidden_tip_box_tip_ID").val();
 		if( attr_text == "" ){
 			return;
 		}
-		$(".bsk-pro-tips-box-tip").html( attr_text );
+		$(".kt-pro-tips-box-tip").html( attr_text );
 	});
 	
 	if( $("#tip_4_bsk_pdf_manager_bulk_change_category_view_id").length > 0 ){
