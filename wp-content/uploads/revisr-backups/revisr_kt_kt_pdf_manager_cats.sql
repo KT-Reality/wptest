@@ -17,12 +17,12 @@ CREATE TABLE `kt_kt_pdf_manager_cats` (
   `cat_title` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `kt_kt_pdf_manager_cats` WRITE;
 /*!40000 ALTER TABLE `kt_kt_pdf_manager_cats` DISABLE KEYS */;
-INSERT INTO `kt_kt_pdf_manager_cats` VALUES (1,'blog pdf','2017-04-04 00:00:00');
+INSERT INTO `kt_kt_pdf_manager_cats` VALUES (1,'blog pdfs','2017-04-04 00:00:00'),(2,'Webops team','2017-04-06 00:00:00');
 /*!40000 ALTER TABLE `kt_kt_pdf_manager_cats` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
