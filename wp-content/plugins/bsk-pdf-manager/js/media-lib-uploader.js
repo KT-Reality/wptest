@@ -20,7 +20,7 @@ jQuery(document).ready(function($){
     // When a file is selected, grab the URL and set it as the text field's value
     mediaUploader.on('select', function() {
       var attachment = mediaUploader.state().get('selection').first().toJSON();
-      $('#image-url').val(attachment.url);
+      $('#kt_pdf_file_id').val(attachment.url);
     });
     // Open the uploader dialog
     mediaUploader.open();

@@ -9,8 +9,7 @@ Author URI: https://www.realitypremedia.com
 
 ------------------------------------------------------------------------
 */
-require_once('inc/kt-pdf-manager-widget.php');
-require_once('inc/kt-pdf-manager-widget-category.php');
+
 
 class KTPDFManager {
 	
@@ -22,7 +21,7 @@ class KTPDFManager {
 	var $_kt_pdf_manager_cats_tbl_name = 'kt_pdf_manager_cats';
 	var $_kt_pdf_manager_pdfs_tbl_name = 'kt_pdf_manager_pdfs';
 	
-	var $_kt_pdf_manager_pages = array('category' => 'kt-pdf-manager', 'pdf' => 'kt-pdf-manager-pdfs', 'setting' => 'kt-pdf-manager-settings-support', 'support' => 'kt-pdf-manager-settings-support');
+	var $_kt_pdf_manager_pages = array('category' => 'kt-pdf-manager', 'pdf' => 'kt-pdf-manager-pdfs');
 	
 	//objects
 	var $_kt_pdf_manager_OBJ_dashboard = NULL;
@@ -43,9 +42,7 @@ class KTPDFManager {
 			add_action( 'admin_enqueue_scripts', array($this, 'kt_pdf_manager_enqueue_scripts_css') );
 		}else{
 			add_action( 'wp_enqueue_scripts', array($this, 'kt_pdf_manager_enqueue_scripts_css') );
-		}
-		add_action( 'widgets_init', create_function( '', 'register_widget( "KTPDFManagerWidget" );' ) );
-		add_action( 'widgets_init', create_function( '', 'register_widget( "KTPDFManagerWidgetCategory" );' ) );
+		}		
 		
 		//include others class
 		require_once( 'inc/kt-pdf-dashboard.php' );
@@ -85,12 +82,6 @@ class KTPDFManager {
 	}
 	
 	function kt_pdf_manager_uninstall(){
-		//check if pro version installed
-		$plugin_root_path = str_replace( "\\", "/", ABSPATH );
-		if ( file_exists( $plugin_root_path.'wp-content/plugins/kt-pdf-manager-pro/kt-pdf-manager-pro.php' ) ){
-			return;
-		}
-
 		KTPDFManager::kt_pdf_manager_remove_table();
 	}
 	

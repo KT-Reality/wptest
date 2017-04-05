@@ -6,7 +6,7 @@ class KTPDFManagerDashboard {
 	var $_kt_pdf_manager_OBJ_category = NULL;
 	var $_kt_pdf_manager_OBJ_pdfs = NULL;
 	var $_kt_pdf_manager_OBJ_pdf = NULL;
-	var $_kt_pdf_manager_OBJ_settings_support = NULL;
+	//var $_kt_pdf_manager_OBJ_settings_support = NULL;
 	
 	var $_kt_categories_page_name = '';
 	var $_kt_pdfs_page_name = '';
@@ -47,11 +47,11 @@ class KTPDFManagerDashboard {
 		require_once( 'kt-pdf-manager-category.php' );
 		require_once( 'kt-pdf-manager-pdfs.php' );	
 		require_once( 'kt-pdf-manager-pdf.php' );
-		require_once( 'kt-pdf-manager-settings-support.php' );
+		
 		
 		$this->_kt_pdf_manager_OBJ_category = new KTPDFManagerCategory( $this->_obj_init_args );		
 		$this->_kt_pdf_manager_OBJ_pdf = new KTPDFManagerPDF( $this->_obj_init_args );	
-		$this->_kt_pdf_manager_OBJ_settings_support = new KTPDFManagerSettingsSupport( $this->_obj_init_args );	
+		//$this->_kt_pdf_manager_OBJ_settings_support = new KTPDFManagerSettingsSupport( $this->_obj_init_args );	
 		
 		add_action("admin_menu", array( $this, 'kt_pdf_manager_dashboard_menu' ) );	
 	}
@@ -79,19 +79,19 @@ class KTPDFManagerDashboard {
 						  'kt-pdf-manager-pdfs', 
 						  array($this, 'kt_pdf_manager_pdfs') );
 		
-		add_submenu_page( 'kt-pdf-manager', 
+		/* add_submenu_page( 'kt-pdf-manager', 
 						  'Add by FTP', 
 						  'Add by FTP', 
 						  $authorized_level, 
 						  'kt-pdf-manager-add-by-ftp', 
-						  array($this, 'kt_pdf_manager_pdfs_add_by_ftp_interface') );						  
+						  array($this, 'kt_pdf_manager_pdfs_add_by_ftp_interface') ); */						  
 		
-		add_submenu_page( 'kt-pdf-manager', 
+		/* add_submenu_page( 'kt-pdf-manager', 
 						  'Settings & Support', 
 						  'Settings & Support', 
 						  $authorized_level, 
 						  'kt-pdf-manager-settings-support', 
-						  array($this, 'kt_pdf_manager_settings_support') );					  
+						  array($this, 'kt_pdf_manager_settings_support') );	 */				  
 	}
 	
 	function kt_pdf_manager_categories(){
@@ -180,7 +180,6 @@ class KTPDFManagerDashboard {
 			echo '<div class="wrap">
 					<div id="icon-edit" class="icon32"><br/></div>
 					<h2>PDF Documents<a href="'.$add_new_page.'" class="add-new-h2">Add New</a></h2>
-					'.$this->kt_pdf_manager_show_pro_tip_box().'
 					<form id="kt-pdf-manager-pdfs-form-id" method="post" action="'.admin_url( 'admin.php?page=kt-pdf-manager-pdfs' ).'">
 						<input type="hidden" name="page" value="kt-pdf-manager-pdfs" />
 						<input type="hidden" name="view" value="list" />';
@@ -208,14 +207,10 @@ class KTPDFManagerDashboard {
 			echo '  <p style="margin-top:20px;"><input type="button" id="kt_pdf_manager_pdf_save_form" class="button-primary" value="Save" /></p>'."\n";
 			echo '	</form>
 				  </div>';
-		}
-		
-		echo '<div class="wrap">';
-		echo '<input type="hidden" id="kt_pdf_manager_hidden_tip_box_tip_ID" value="'.$this->kt_pdf_manager_get_pro_tip_text().'" />';
-		echo '</div>';
+		}		
 	}
 	
-	function kt_pdf_manager_settings_support(){
+/* 	function kt_pdf_manager_settings_support(){
 		global $current_user;
 		
 		if (!$this->kt_pdf_manager_current_user_can()){
@@ -235,7 +230,7 @@ class KTPDFManagerDashboard {
 		echo '<div class="wrap">';
 		echo '<input type="hidden" id="kt_pdf_manager_hidden_tip_box_tip_ID" value="'.$this->kt_pdf_manager_get_pro_tip_text().'" />';
 		echo '</div>';
-	}
+	} */
 	
 	function kt_pdf_manager_current_user_can(){
 		global $current_user;
@@ -256,23 +251,10 @@ class KTPDFManagerDashboard {
 		return false;
 	}
 	
-	function kt_pdf_manager_get_pro_tip_text(){
-		$str = 'Multiple categories, featured image, add by FTP, multi-column available for Pro verison.';
-		return $str;
-	}
 	
-	function kt_pdf_manager_show_pro_tip_box(){
-		$url_to_upgrade = 'http://www.bannersky.com/document/bsk-pdf-manager-documentation/upgrade-to-professional-version/';
-		$str = '
-		<div class="kt-pro-tips-box">
-			<b>Pro Tip: </b><span class="kt-pro-tips-box-tip">'.$this->kt_pdf_manager_get_pro_tip_text().'</span>
-			<a href="'.$url_to_upgrade.'" target="_blank">Upgrade to Pro</a>
-		</div>';
+	
 		
-		return $str;
-	}
-	
-	function kt_pdf_manager_pdfs_add_by_ftp_interface(){
+	/* function kt_pdf_manager_pdfs_add_by_ftp_interface(){
 		global $current_user;
 		
 		if (!$this->kt_pdf_manager_current_user_can()){
@@ -295,6 +277,6 @@ class KTPDFManagerDashboard {
 		echo '<div class="wrap">';
 		echo '<input type="hidden" id="kt_pdf_manager_hidden_tip_box_tip_ID" value="'.$this->kt_pdf_manager_get_pro_tip_text().'" />';
 		echo '</div>';
-	}
+	} */
 	
 }

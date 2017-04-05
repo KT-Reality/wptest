@@ -203,9 +203,9 @@ class KTPDFManagerPDF {
                 <?php } ?>
                 <tr>
                     <td>Upload new:</td>
-                    <td><!--<input type="file" name="kt_pdf_file" id="kt_pdf_file_id" value="Browse" />-->
-						<input id="image-url" type="text" name="kt_pdf_file" id="kt_pdf_file_id" />
-						<input id="upload-button" type="button" class="button" value="Upload Image" />
+                    <td><input type="file" name="kt_pdf_file" id="kt_pdf_file_id" value="Browse" />
+						<!--<input type="text" name="kt_pdf_file" id="kt_pdf_file_id" />
+						<input id="upload-button" type="button" class="button" value="Upload PDF" />-->
 					</td>
                 </tr>
                 <tr><td colspan="2">&nbsp;</td></tr>
