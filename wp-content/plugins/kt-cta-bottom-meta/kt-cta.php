@@ -1,7 +1,6 @@
 <?php
 /*
 Plugin Name: kt-cta-bottom-meta
-Plugin URI: http://www.webbugs.in/romal
 Description: This plugin used for managing CTA for post.
 Version: 1.0
 Author: Komalchand

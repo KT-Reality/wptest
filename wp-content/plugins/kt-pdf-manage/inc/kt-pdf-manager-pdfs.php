@@ -48,6 +48,9 @@ class KTPDFManagerPDFs extends WP_List_Table {
 			case 'last_date':
                	echo $item['last_date'];
                 break;
+			case 'edit':
+               	echo $item['id_edit'];
+                break;
         }
     }
    
@@ -67,7 +70,7 @@ class KTPDFManagerPDFs extends WP_List_Table {
 							'title'     		=> 'Title',
 							'file_name'     	=> 'File Name',
 							'category'     		=> 'Category',
-							'last_date' 		=> 'Date'
+							'last_date' 		=> 'Date',
 						);
         
         return $columns;
@@ -220,6 +223,7 @@ class KTPDFManagerPDFs extends WP_List_Table {
 								'file_name'     	=> $file_str,
 								'category'			=> $pdf_record->cat_title,
 								'last_date' 		=> date('Y-m-d', strtotime($pdf_record->last_date)),
+								'id_edit' 			=> '<a href="'.$edit_url.'">Edit</a>',
 								 );
 		}
 		
@@ -271,7 +275,8 @@ class KTPDFManagerPDFs extends WP_List_Table {
 							'title'     		=> 'Title',
 							'file_name'     	=> 'File Name',
 							'category'     		=> 'Category',							
-							'last_date' 		=> 'Date'
+							'last_date' 		=> 'Date',
+							'edit'              => 'Edit'
 						);
 		
 		$hidden = array();

@@ -26,8 +26,7 @@ class KTPDFManagerDashboard {
 		
 		$this->_kt_categories_page_name = $arg['pages_name_A']['category'];
 		$this->_kt_pdfs_page_name = $arg['pages_name_A']['pdf'];
-		$this->_kt_settings_support_page = $arg['pages_name_A']['setting'];				
-		//$this->_kt_pdf_manager_plugin_version = $arg['plugin_version'];	
+		$this->_kt_settings_support_page = $arg['pages_name_A']['setting'];	
 		$this->_default_pdf_icon_url = $arg['default_pdf_icon'];	
 		
 		$this->_obj_init_args['categories_db_tbl_name'] = $arg['cat_tbl_name'];
@@ -39,7 +38,6 @@ class KTPDFManagerDashboard {
 		$this->_obj_init_args['show_category_title'] = $this->_kt_category_list_has_title;
 		$this->_obj_init_args['pdf_order_by'] = $this->_kt_pdf_order_by_option_name;
 		$this->_obj_init_args['pdf_order'] = $this->_kt_pdf_order_option_name;
-		//$this->_obj_init_args['plugin_version'] = $this->_kt_pdf_manager_plugin_version;
 		$this->_obj_init_args['default_pdf_icon'] = $this->_default_pdf_icon_url;
 		
 		require_once( 'kt-pdf-manager-categories.php' );
@@ -49,8 +47,7 @@ class KTPDFManagerDashboard {
 		
 		
 		$this->_kt_pdf_manager_OBJ_category = new KTPDFManagerCategory( $this->_obj_init_args );		
-		$this->_kt_pdf_manager_OBJ_pdf = new KTPDFManagerPDF( $this->_obj_init_args );	
-		//$this->_kt_pdf_manager_OBJ_settings_support = new KTPDFManagerSettingsSupport( $this->_obj_init_args );	
+		$this->_kt_pdf_manager_OBJ_pdf = new KTPDFManagerPDF( $this->_obj_init_args );
 		
 		add_action("admin_menu", array( $this, 'kt_pdf_manager_dashboard_menu' ) );	
 	}
@@ -65,8 +62,8 @@ class KTPDFManagerDashboard {
 		
 		add_menu_page('Documents', 'Documents', $authorized_level, 'kt-pdf-manager', '', 'dashicons-media-document');
 		add_submenu_page( 'kt-pdf-manager',
-						  'Categories', 
-						  'Categories',
+						  'PDF Categories', 
+						  'PDF Categories',
 						  $authorized_level, 
 						  'kt-pdf-manager', 
 						  array($this, 'kt_pdf_manager_categories') );
@@ -203,3 +200,17 @@ class KTPDFManagerDashboard {
 		return false;
 	}
 }
+
+function reorder_admin_menu( $__return_true ) {
+    return array(
+		'index.php', // Dashboard
+        'edit.php?post_type=page', // Pages 
+        'edit.php', // Posts
+        'upload.php', // Media
+		'media-new.php',
+        'kt-pdf-manager'
+   );
+}
+add_filter( 'custom_menu_order', '__return_true' );
+add_filter( 'menu_order', 'reorder_admin_menu' );
+
