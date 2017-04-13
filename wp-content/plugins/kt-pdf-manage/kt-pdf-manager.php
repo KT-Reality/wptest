@@ -164,7 +164,7 @@ class KTPDFManager {
 		$table_name = $this->_kt_pdf_manager_pdfs_tbl_name;
 		$sql = "CREATE TABLE IF NOT EXISTS " . $table_name . " (
 				     `id` int(11) NOT NULL AUTO_INCREMENT,
-					  `cat_id` int(11) NOT NULL,
+					  `cat_id` varchar(50) NOT NULL,
 					  `title` varchar(512) DEFAULT NULL,
 					  `file_name` varchar(512) NOT NULL,
 					  `last_date` datetime DEFAULT NULL,

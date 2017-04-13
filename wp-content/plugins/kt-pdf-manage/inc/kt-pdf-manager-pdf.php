@@ -150,7 +150,7 @@ class KTPDFManagerPDF {
             	<tr>
                     <td style="width:150px;">Category:</td>
                     <td>
-                    	<select name="kt_pdf_manager_pdf_edit_categories" id="kt_pdf_manager_pdf_edit_categories_id" style="width:350px;">
+                    	<select name="kt_pdf_manager_pdf_edit_categories[]" id="kt_pdf_manager_pdf_edit_categories_id" multiple style="width:350px;">
                         <option value="0">Please select category</option>
                         <?php 
                         foreach($categories as $category){ 
@@ -229,17 +229,24 @@ class KTPDFManagerPDF {
 
 		$pdf_id = trim($data['kt_pdf_manager_pdf_id']);
 		$pdf_data = array();
-		$pdf_data['cat_id'] = $data['kt_pdf_manager_pdf_edit_categories'];
+		foreach( $data['kt_pdf_manager_pdf_edit_categories'] as $key => $val){
+			$pdf_data['cat_id'][$key] = $val;
+		}
+		
+		//$pdf_data['cat_id'] = "Hi Test";
+		$pdf_data['cat_id'] = implode(",", $data['kt_pdf_manager_pdf_edit_categories']);
+		
 		$pdf_data['title'] = $data['kt_pdf_manager_pdf_titile'];
 		$pdf_data['last_date'] = trim($data['pdf_date']) ? trim($data['pdf_date']).' 00:00:00' : date('Y-m-d 00:00:00', current_time('timestamp'));
 		
 		$quotes_sybase = strtolower(ini_get('magic_quotes_sybase'));
-		if( get_magic_quotes_gpc() || empty($quotes_sybase) || $quotes_sybase === 'off'){
+		//if( get_magic_quotes_gpc() || empty($quotes_sybase) || $quotes_sybase === 'off'){
+			
 			foreach($pdf_data as $key => $val){
-				$pdf_data[$key] = stripcslashes($val); 
+				$pdf_data[$key] = $val; 
 			}
-		}
-		
+		//}
+		//var_dump($pdf_data); echo "<br/>";
 		$message_id = 20;
 		if ($pdf_id > 0){
 			//update
@@ -257,14 +264,17 @@ class KTPDFManagerPDF {
 					unlink($this->_pdfs_upload_path.$data['kt_pdf_manager_pdf_file_old']);
 				}
 			}
-			unset($pdf_data['id']); //for update, dont't chagne id
-			$wpdb->update( $this->_pdfs_db_tbl_name, $pdf_data, array('id' => $pdf_id) );
+			unset($pdf_data['id']); //for update, dont't change id
+			
+			$wpdb->update( $this->_pdfs_db_tbl_name, $pdf_data, array('id' => $pdf_id), array( '%s', '%s', '%s'), array( '%d' )  );
+			//var_dump($wpdb->last_query );
+			exit;
 		}else{
 			//insert
-			$return = $wpdb->insert( $this->_pdfs_db_tbl_name, $pdf_data );
+			$return = $wpdb->insert( $this->_pdfs_db_tbl_name, $pdf_data, array( '%s', '%d') );
 			if ( !$return ){
 				$message_id = 21;
-				
+				//exit;
 				$redirect_to = admin_url( 'admin.php?page='.$this->_kt_pdfs_page_name.'&cat='.$pdf_data['cat_id'].'&message='.$message_id );
 				wp_redirect( $redirect_to );
 				exit;
@@ -281,7 +291,7 @@ class KTPDFManagerPDF {
 				}
 			}
 		}
-		
+		//exit;
 		$redirect_to = admin_url( 'admin.php?page='.$this->_kt_pdfs_page_name.'&cat='.$pdf_data['cat_id'].'&message='.$message_id  );
 		wp_redirect( $redirect_to );
 		exit;
