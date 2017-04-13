@@ -14,17 +14,17 @@ DROP TABLE IF EXISTS `kt_kt_pdf_manager_pdfs`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `kt_kt_pdf_manager_pdfs` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `cat_id` int(11) NOT NULL,
+  `cat_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `title` varchar(512) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `file_name` varchar(512) COLLATE utf8mb4_unicode_ci NOT NULL,
   `last_date` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `kt_kt_pdf_manager_pdfs` WRITE;
 /*!40000 ALTER TABLE `kt_kt_pdf_manager_pdfs` DISABLE KEYS */;
-INSERT INTO `kt_kt_pdf_manager_pdfs` VALUES (17,1,'Test PDF plugin','._NWC_Web_Winter_2017_17.pdf','2017-04-06 00:00:00'),(18,1,'testing','EstRPSPL09-100228201701_18.pdf','2017-04-06 00:00:00'),(19,2,'Test PDF plug','FRC4102192972_19.pdf','2017-04-15 00:00:00'),(20,2,'PDF from bmc','Asst_Technical_20.pdf','2017-04-06 00:00:00');
+INSERT INTO `kt_kt_pdf_manager_pdfs` VALUES (19,'3,4,5','PDF to be going Launching','FRC4102192972_19.pdf','2017-04-13 00:00:00'),(25,'1,3','bdfkfkjhf fjkkjdfgjkdfkg','._NWC_Web_Winter_2017_25.pdf','2017-04-15 00:00:00');
 /*!40000 ALTER TABLE `kt_kt_pdf_manager_pdfs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
