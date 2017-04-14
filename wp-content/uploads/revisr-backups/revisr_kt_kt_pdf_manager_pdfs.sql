@@ -24,7 +24,7 @@ CREATE TABLE `kt_kt_pdf_manager_pdfs` (
 
 LOCK TABLES `kt_kt_pdf_manager_pdfs` WRITE;
 /*!40000 ALTER TABLE `kt_kt_pdf_manager_pdfs` DISABLE KEYS */;
-INSERT INTO `kt_kt_pdf_manager_pdfs` VALUES (19,'3,4,5','PDF to be going Launching','FRC4102192972_19.pdf','2017-04-13 00:00:00'),(25,'1,3','bdfkfkjhf fjkkjdfgjkdfkg','._NWC_Web_Winter_2017_25.pdf','2017-04-15 00:00:00');
+INSERT INTO `kt_kt_pdf_manager_pdfs` VALUES (19,'3,4,1','PDF to be going Launching','FRC4102192972_19.pdf','2017-04-13 00:00:00'),(25,'2,3,5','bdfkfkjhf fjkkjdfgjkdfkg','._NWC_Web_Winter_2017_25.pdf','2017-04-14 00:00:00');
 /*!40000 ALTER TABLE `kt_kt_pdf_manager_pdfs` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
