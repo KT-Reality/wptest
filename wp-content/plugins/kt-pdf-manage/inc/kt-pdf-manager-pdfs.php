@@ -82,6 +82,8 @@ class KTPDFManagerPDFs extends WP_List_Table {
 		}
 		
 		global $wpdb;
+		//$wpdb->query("ALTER TABLE kt_kt_pdf_manager_pdfs CHANGE cat_id cat_id VARCHAR(255) NULL");
+		$wpdb->query("ALTER TABLE $this->_pdfs_db_tbl_name CHANGE cat_id cat_id VARCHAR(255) NULL");
 		
 		$sql = 'SELECT * FROM '.$this->_categories_db_tbl_name;
 		$categoreies = $wpdb->get_results($sql);
@@ -111,6 +113,7 @@ class KTPDFManagerPDFs extends WP_List_Table {
 			}
 		}
 		echo $select_str_header.$select_str_body.$select_str_footer;
+		
 	}
 	
 	function get_sortable_columns() {
@@ -178,15 +181,11 @@ class KTPDFManagerPDFs extends WP_List_Table {
 		$key_word = '';
 		if ( isset( $_REQUEST['s'] ) ){
 			$key_word = $_REQUEST['s'];
-		}
-		
-		
-		
-		echo $sql = 'SELECT l.*, c.cat_title FROM '.$this->_pdfs_db_tbl_name.' AS l INNER JOIN '.$this->_categories_db_tbl_name.' AS c ON l.cat_id = c.id ';
-		
+		}		
+		$sql = 'SELECT l.*, c.cat_title FROM '.$this->_pdfs_db_tbl_name.' AS l INNER JOIN '.$this->_categories_db_tbl_name.' AS c ON l.cat_id = c.id ';
 		$whereCase = ' WHERE 1';
 		if( $current_category_id ){
-			$whereCase = ' WHERE l.cat_id = '.$current_category_id;
+			echo $whereCase = ' WHERE '.$current_category_id.' IN (l.cat_id)';
 		}
 		if( $key_word ){
 			$search_whereCase = ' AND ( l.title LIKE %s OR l.file_name LIKE %s )';
@@ -201,7 +200,7 @@ class KTPDFManagerPDFs extends WP_List_Table {
 		}else if( $orderby == 'last_date' ){
 			$orderCase = ' ORDER BY l.last_date '.$order;
 		}
-
+		//echo $sql.$whereCase.$orderCase;
 		$all_pdfs = $wpdb->get_results($sql.$whereCase.$orderCase);
 		if (!$all_pdfs || count($all_pdfs) < 1){
 			return NULL;
@@ -211,6 +210,7 @@ class KTPDFManagerPDFs extends WP_List_Table {
 		$base = admin_url( 'admin.php?page=kt-pdf-manager-pdfs' );
 		$edit_url = add_query_arg('view', 'edit', $base);
 		$lists_data = array();
+		
 		foreach($all_pdfs as $pdf_record){
 			$edit_url = add_query_arg('pdfid', $pdf_record->id, $edit_url);
 			$file_str = '';
@@ -218,28 +218,28 @@ class KTPDFManagerPDFs extends WP_List_Table {
 				$file_url = site_url().'/'.$this->_pdfs_upload_folder.$pdf_record->file_name;
 				$file_str =  '<a href="'.$file_url.'" target="_blank">'.$pdf_record->file_name.'</a>';
 			}
-			
+			$lists_data_1 = array();
 			$cat_id_arr = explode(",", $pdf_record->cat_id);
 			for($i=0; $i<count($cat_id_arr); $i++)
 			{
-				echo $sql_1 = 'SELECT cat_title FROM kt_kt_pdf_manager_cats where id= '.$cat_id_arr[$i].'';
+				$sql_1 = 'SELECT cat_title FROM '.$this->_categories_db_tbl_name.' where id= '.$cat_id_arr[$i].'';
 				$re_sql_1 = $wpdb->get_results($sql_1);
 				foreach($re_sql_1 as $result_sql_1){
-					$result_sql_1->cat_title;
-				
-			
-			//var_dump($result_sql_1->cat_title);
+					$lists_data_1[] = $result_sql_1->cat_title;
+				}
+			}
+			$cat_list = implode(",", $lists_data_1);
 			$lists_data[] = array( 
 								'id'				=> $pdf_record->id,
 								'id_link' 			=> '<a href="'.$edit_url.'">'.$pdf_record->id.'</a>',
 								'title'     		=> '<a href="'.$edit_url.'">'.$pdf_record->title.'</a>',
 								'file_name'     	=> $file_str,
-								'category'			=> $result_sql_1->cat_title,
+								'category'			=> $cat_list,
 								'last_date' 		=> date('Y-m-d', strtotime($pdf_record->last_date)),
 								'id_edit' 			=> '<a href="'.$edit_url.'">Edit</a>',
 								 );
-				}
-			}				 
+				
+							 
 		}
 		//print_r($lists_data);
 		
@@ -276,7 +276,7 @@ class KTPDFManagerPDFs extends WP_List_Table {
        
         $this->items = $data;
 
-        $this->set_pagination_args( array( 
+        $this->set_pagination_args( array(
             'total_items' => $total_items,                  // We have to calculate the total number of items
             'per_page'    => $per_page,                     // We have to determine how many items to show on a page
             'total_pages' => ceil( $total_items/$per_page ) // We have to calculate the total number of pages

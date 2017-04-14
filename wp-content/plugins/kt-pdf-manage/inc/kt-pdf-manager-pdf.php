@@ -144,21 +144,25 @@ class KTPDFManagerPDF {
 			}else{
 				$file_str = '';
 			}
+			
+			//echo "catg ".$category_id;
+			$cat_id_arr = explode(",", $category_id);
 		?>
         <p>
             <table style="width:80%;">
             	<tr>
-                    <td style="width:150px;">Category:</td>
+                    <td style="width:150px;">Category(Press Ctl key to select multiple category:</td>
                     <td>
                     	<select name="kt_pdf_manager_pdf_edit_categories[]" id="kt_pdf_manager_pdf_edit_categories_id" multiple style="width:350px;">
                         <option value="0">Please select category</option>
-                        <?php 
-                        foreach($categories as $category){ 
-                            if ($category->id == $category_id){
-                                echo '<option value="'.$category->id.'" selected="selected">'.$category->cat_title.'</option>';
-                            }else{
-                                echo '<option value="'.$category->id.'">'.$category->cat_title.'</option>';
-                            }
+                        <?php 						
+						foreach($categories as $category){
+							if (in_array($category->id, $cat_id_arr)){
+								echo '<option value="'.$category->id.'" selected >'.$category->cat_title.'</option>';
+							}
+							else{
+								echo '<option value="'.$category->id.'">'.$category->cat_title.'</option>';
+							}
                         } 
                         ?>
                         </select>
@@ -268,7 +272,7 @@ class KTPDFManagerPDF {
 			
 			$wpdb->update( $this->_pdfs_db_tbl_name, $pdf_data, array('id' => $pdf_id), array( '%s', '%s', '%s'), array( '%d' )  );
 			//var_dump($wpdb->last_query );
-			exit;
+			//exit;
 		}else{
 			//insert
 			$return = $wpdb->insert( $this->_pdfs_db_tbl_name, $pdf_data, array( '%s', '%d') );
@@ -291,6 +295,7 @@ class KTPDFManagerPDF {
 				}
 			}
 		}
+		echo $pdf_data['cat_id'];
 		//exit;
 		$redirect_to = admin_url( 'admin.php?page='.$this->_kt_pdfs_page_name.'&cat='.$pdf_data['cat_id'].'&message='.$message_id  );
 		wp_redirect( $redirect_to );

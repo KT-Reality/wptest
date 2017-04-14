@@ -171,6 +171,8 @@ class KTPDFManager {
 					  PRIMARY KEY (`id`)
 				) $charset_collate;";
 		dbDelta($sql);
+		
+		
 	}
 	
 	function kt_pdf_manager_remove_table(){

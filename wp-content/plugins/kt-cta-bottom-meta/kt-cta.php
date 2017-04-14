@@ -76,6 +76,7 @@ function member_list() {
 		$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
 	} */
 	$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
+	$wpdb->query("ALTER TABLE $table_name ADD cta_bt_bu TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
 }
 
 

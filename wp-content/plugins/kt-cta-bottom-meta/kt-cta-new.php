@@ -39,6 +39,7 @@
 			$cta_bt_description       = $result->cta_bt_description;
 			$cta_bt_assign_posts = $result->cta_bt_assign_posts;
 			$cta_bt_status = $result->cta_bt_status;
+			$cta_bt_bu = $result->cta_bt_bu;
 			$btn	   = "Update CTA";
 			$hidval	   = 2;
 		}
@@ -57,6 +58,7 @@
 		$cta_bt_description       = "";
 		$cta_bt_assign_posts = "";
 		$cta_bt_status = "";
+		$cta_bt_bu = "";
 		$hidval	   = 1;
 	}
 ?>
@@ -187,9 +189,20 @@
 					
 					<div class="form-field">
 						<label for="tag-status">CTA Status</label>
-						<select class="postform" name="cta_bt_status">
+						<select class="postform" name="cta_bt_status" <?php if($cta_bt_status == 0) { echo 'style="color:green"'; } else { echo 'style="color:Red"'; }?>>
 							<option value="0" <?php if($cta_bt_status == 0) echo 'selected';?>>Enable</option>
 							<option value="1" <?php if($cta_bt_status == 1) echo 'selected';?>>Disable</option>
+						</select>
+					</div>
+					
+					<div class="form-field">
+						<label for="tag-status">Business Unit</label>
+						<select class="postform" name="cta_bt_bu">
+							<option value="1" <?php if($cta_bt_bu == 1) echo 'selected';?>>DSM</option>
+							<option value="2" <?php if($cta_bt_bu == 2) echo 'selected';?>>DBA</option>
+							<option value="3" <?php if($cta_bt_bu == 3) echo 'selected';?>>zOS</option>
+							<option value="4" <?php if($cta_bt_bu == 4) echo 'selected';?>>P&A </option>
+							<option value="5" <?php if($cta_bt_bu == 5) echo 'selected';?>>DCA</option>
 						</select>
 					</div>
 					

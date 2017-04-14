@@ -40,7 +40,7 @@
 	 <table class="wp-list-table widefat fixed " id="memberlist">
 		<thead>
 			<tr>
-				<th><u>ID</u></th>
+				<th><u>Sr.No.</u></th>
 				<th><u>Title</u></th>
 				<th><u>Destination Link</u></th>				
 				<th><u>Image Link</u></th>
@@ -50,6 +50,7 @@
 				<th><u>Green Button Link</u></th>
 				<th><u>Description</u></th>
 				<th><u>Assign Posts</u></th>
+				<th><u>Business Unit</u></th>
 				<th><u>CTA Status</u></th>
 				<th>Update</th>
 				<th>Thrash</th>
@@ -87,7 +88,16 @@
 				$cta_bt_green_btn_link       = $val->cta_bt_green_btn_link;
 				$cta_bt_description   = $val->cta_bt_description;
 				$cta_bt_assign_posts   = $val->cta_bt_assign_posts;				
+				$cta_bt_bu   = $val->cta_bt_bu;
 				$cta_bt_status   = $val->cta_bt_status;
+				
+				switch($cta_bt_bu){
+					case 1: $cta_bt_bu = 'DSM'; break;
+					case 2: $cta_bt_bu = 'DBA'; break;
+					case 3: $cta_bt_bu = 'zOS'; break;
+					case 4: $cta_bt_bu = 'P&A'; break;
+					case 5: $cta_bt_bu = 'DCA'; break;
+				}
 	?>
 			<tr <?php if($cta_bt_status == 1) echo "style=opacity:0.5"; ?>>
 				<td><?php echo ++$key; ?></td>
@@ -100,6 +110,7 @@
 				<td><?php echo $cta_bt_green_btn_link; ?></td>
 				<td><?php echo $cta_bt_description; ?></td>
 				<td><?php echo $cta_bt_assign_posts; ?></td>
+				<td><?php echo $cta_bt_bu; ?></td>
 				<td><?php if($cta_bt_status == 0) echo 'Enabled'; else if($cta_bt_status == 1) echo 'Disabled';?></td>
 				<td><u><a href="admin.php?page=cta_add&act=upd&id=<?php echo $id;?>">Edit</a></u></td>
 				<td><u><a href="admin.php?page=cta/kt-cta.php&info=del&did=<?php echo $id;?>">Delete</a></u></td>
