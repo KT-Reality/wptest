@@ -472,42 +472,52 @@ add_action("save_post", "save_custom_meta_box", 10, 3);
 
 /* KT- code to add metabox for uploading file as custom field End */
 
-/* KT - Media Library at frontend Start */
-add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
-add_filter( 'ajax_query_attachments_args', array( $this, 'filter_media' ) );
-add_shortcode( 'the_dramatist_front_upload', array( $this, 'the_dramatist_front_upload' ) );
 
-/**
- * Call wp_enqueue_media() to load up all the scripts we need for media uploader
- */
-function enqueue_scripts() {
-    wp_enqueue_media();
-    wp_enqueue_script(
-        'some-script',
-        get_template_directory_uri() . '/js/media-uploader.js',
-        // if you are building a plugin
-        // plugins_url( '/', __FILE__ ) . '/js/media-uploader.js',
-        array( 'jquery' ),
-        null
+
+
+function get_images_from_media_library() {
+    $args = array(
+        'post_type' => 'attachment',
+        'post_mime_type' =>'image',
+        'post_status' => 'inherit',
+        'posts_per_page' => 5,
+        'orderby' => 'rand'
     );
-}
-/**
- * This filter insures users only see their own media
- */
-function filter_media( $query ) {
-    // admins get to see everything
-    if ( ! current_user_can( 'manage_options' ) )
-        $query['author'] = get_current_user_id();
-    return $query;
-}
-function the_dramatist_front_upload( $args ) {
-    // check if user can upload files
-    if ( current_user_can( 'upload_files' ) ) {
-        $str = __( 'Select File', 'frontend-media' );
-        return '<input id="frontend-button" type="button" value="' . $str . '" class="button" style="position: relative; z-index: 1;"><img id="frontend-image" />';
+    $query_images = new WP_Query( $args );
+   // $images = array();
+	//$img_alt = array();
+	echo $html_b4 = '<style> #media-gallery li{float:left; width:150px; margin: 0 20px 20px 0; padding: 0 0 10px 0; border: 1px solid #d5d5d5; border-radius: 10px; text-align:center} #media-gallery li img{width: 150px; height: 150px; border-bottom: 1px solid #c5c5c5; border-radius: 10px;}</style><div id="media-gallery"><ul>';
+		
+	
+    foreach ( $query_images->posts as $image) {		
+		echo "<li class='attachment $image->post_title'><img src='$image->guid' alt='$image->post_title' width='150' height='150' /><span>$image->post_title</span></li>";
     }
-    return __( 'Please Login To Upload', 'frontend-media' );
+	echo $html_aftr = '</ul></div>';  
 }
 
+/* function display_images_from_media_library() {
 
-/* KT - Media Library at frontend Start */
+	$imgs = get_images_from_media_library();	
+	$html = '<style> #media-gallery img {
+	width: 150px;
+	height: 150px;
+	margin: 0 20px 20px 0;
+	border: 1px solid #c5c5c5;
+	padding: 0px;
+	border-radius: 10px;
+}</style>';
+	$html .= '<div id="media-gallery">';
+	
+	foreach($imgs as $img) {
+	
+		$html .= '<img src="' . $img . '" alt="" width="150" height="150"/>';		
+	}
+	
+	$html .= '</div>';
+	
+	return $html;
+
+} */
+
+
+
