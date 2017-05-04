@@ -471,3 +471,43 @@ function save_custom_meta_box($post_id, $post, $update)
 add_action("save_post", "save_custom_meta_box", 10, 3);
 
 /* KT- code to add metabox for uploading file as custom field End */
+
+/* KT - Media Library at frontend Start */
+add_action( 'wp_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
+add_filter( 'ajax_query_attachments_args', array( $this, 'filter_media' ) );
+add_shortcode( 'the_dramatist_front_upload', array( $this, 'the_dramatist_front_upload' ) );
+
+/**
+ * Call wp_enqueue_media() to load up all the scripts we need for media uploader
+ */
+function enqueue_scripts() {
+    wp_enqueue_media();
+    wp_enqueue_script(
+        'some-script',
+        get_template_directory_uri() . '/js/media-uploader.js',
+        // if you are building a plugin
+        // plugins_url( '/', __FILE__ ) . '/js/media-uploader.js',
+        array( 'jquery' ),
+        null
+    );
+}
+/**
+ * This filter insures users only see their own media
+ */
+function filter_media( $query ) {
+    // admins get to see everything
+    if ( ! current_user_can( 'manage_options' ) )
+        $query['author'] = get_current_user_id();
+    return $query;
+}
+function the_dramatist_front_upload( $args ) {
+    // check if user can upload files
+    if ( current_user_can( 'upload_files' ) ) {
+        $str = __( 'Select File', 'frontend-media' );
+        return '<input id="frontend-button" type="button" value="' . $str . '" class="button" style="position: relative; z-index: 1;"><img id="frontend-image" />';
+    }
+    return __( 'Please Login To Upload', 'frontend-media' );
+}
+
+
+/* KT - Media Library at frontend Start */
