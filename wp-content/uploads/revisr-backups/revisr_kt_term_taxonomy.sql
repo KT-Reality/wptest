@@ -22,12 +22,12 @@ CREATE TABLE `kt_term_taxonomy` (
   PRIMARY KEY (`term_taxonomy_id`),
   UNIQUE KEY `term_id_taxonomy` (`term_id`,`taxonomy`),
   KEY `taxonomy` (`taxonomy`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `kt_term_taxonomy` WRITE;
 /*!40000 ALTER TABLE `kt_term_taxonomy` DISABLE KEYS */;
-INSERT INTO `kt_term_taxonomy` VALUES (1,1,'category','',0,2),(2,2,'category','',0,3),(3,3,'liveblog','',0,2),(4,4,'nav_menu','',0,26);
+INSERT INTO `kt_term_taxonomy` VALUES (1,1,'category','',0,2),(2,2,'category','',0,3),(3,3,'liveblog','',0,2),(4,4,'nav_menu','',0,26),(5,5,'upg_cate','Fruits images',0,0),(6,6,'upg_cate','Vegitable images',0,0);
 /*!40000 ALTER TABLE `kt_term_taxonomy` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
