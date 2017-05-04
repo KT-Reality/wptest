@@ -1,0 +1,273 @@
+# Copyright (C) 2016 User Photo Gallery
+# This file is distributed under the same license as the User Photo Gallery package.
+msgid ""
+msgstr ""
+"Project-Id-Version: User Photo Gallery 0.0.8\n"
+"Report-Msgid-Bugs-To: https://wordpress.org/support/plugin/wp-upg\n"
+"POT-Creation-Date: 2016-08-23 11:41:54+00:00\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+
+#: layout/catalog.php:73
+msgid "Layout Not Found"
+msgstr ""
+
+#: layout/post.php:27
+msgid "Picture Title"
+msgstr ""
+
+#: layout/post.php:28
+msgid "Post Title"
+msgstr ""
+
+#: layout/post.php:62
+msgid "Picture Description"
+msgstr ""
+
+#: layout/post.php:64
+msgid "Post Content"
+msgstr ""
+
+#: layout/post.php:71
+msgid "Select Album"
+msgstr ""
+
+#: layout/post.php:76
+msgid "Select Image"
+msgstr ""
+
+#: layout/post.php:88
+msgid "Post Image"
+msgstr ""
+
+#: layout/post.php:131
+msgid "Your Image is sucessfully posted."
+msgstr ""
+
+#: layout/post.php:137
+msgid "Your image is under review."
+msgstr ""
+
+#: libs/custom_column.php:9
+msgid "Title"
+msgstr ""
+
+#: libs/custom_column.php:10
+msgid "Author"
+msgstr ""
+
+#: libs/custom_column.php:11
+msgid "Category"
+msgstr ""
+
+#: libs/custom_column.php:12
+msgid "Image Layout"
+msgstr ""
+
+#: libs/custom_column.php:13
+msgid "Thumbnail"
+msgstr ""
+
+#: libs/custom_column.php:14
+msgid ""
+"<span class=\"vers\"><div title=\"Comments\" class=\"comment-grey-bubble\"></"
+"div></span>"
+msgstr ""
+
+#: libs/custom_column.php:15
+msgid "Date"
+msgstr ""
+
+#: libs/custom_column.php:70
+msgid "--"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (User Photo Gallery 0.0.8)  #-#-#-#-#
+#. Plugin Name of the plugin/theme
+#: libs/install.php:12
+msgid "User Photo Gallery"
+msgstr ""
+
+#: libs/install.php:13
+msgid "Image"
+msgstr ""
+
+#: libs/install.php:18
+msgid "View Image"
+msgstr ""
+
+#: libs/install.php:19
+msgid "Search Image"
+msgstr ""
+
+#: libs/install.php:20
+msgid "No Image found"
+msgstr ""
+
+#: libs/install.php:21
+msgid "No image found in Trash"
+msgstr ""
+
+#: libs/install.php:52 libs/install.php:62
+msgid "Image Albums"
+msgstr ""
+
+#: libs/install.php:53
+msgid "Image Album"
+msgstr ""
+
+#: libs/install.php:54
+msgid "Search Albums"
+msgstr ""
+
+#: libs/install.php:55
+msgid "All Albums"
+msgstr ""
+
+#: libs/install.php:56
+msgid "Parent Album"
+msgstr ""
+
+#: libs/install.php:57
+msgid "Parent Album:"
+msgstr ""
+
+#: libs/install.php:58
+msgid "Edit Album"
+msgstr ""
+
+#: libs/install.php:59
+msgid "Update Album"
+msgstr ""
+
+#: libs/install.php:60
+msgid "Add New Album"
+msgstr ""
+
+#: libs/install.php:61
+msgid "New Album Name"
+msgstr ""
+
+#: libs/install.php:75 libs/install.php:85
+msgid "Image Tags"
+msgstr ""
+
+#: libs/install.php:76
+msgid "Image Tag"
+msgstr ""
+
+#: libs/install.php:77
+msgid "Search Tags"
+msgstr ""
+
+#: libs/install.php:78
+msgid "All Tags"
+msgstr ""
+
+#: libs/install.php:79
+msgid "Parent Tag"
+msgstr ""
+
+#: libs/install.php:80
+msgid "Parent Tag:"
+msgstr ""
+
+#: libs/install.php:81
+msgid "Edit Tag"
+msgstr ""
+
+#: libs/install.php:82
+msgid "Update Tag"
+msgstr ""
+
+#: libs/install.php:83
+msgid "Add New Tag"
+msgstr ""
+
+#: libs/install.php:84
+msgid "New Tag Name"
+msgstr ""
+
+#: libs/lib.php:56
+msgid "Please Complete the Security Spam Check."
+msgstr ""
+
+#: libs/lib.php:61
+msgid "Google Server Error"
+msgstr ""
+
+#: libs/lib.php:67
+msgid ""
+"Bots are not allowed to send ecards. If you are not a bot then please enable "
+"JavaScript in browser."
+msgstr ""
+
+#: setting.php:20
+msgid "Settings"
+msgstr ""
+
+#: setting.php:26
+msgid "Quick Settings"
+msgstr ""
+
+#: setting.php:33
+msgid "Other Settings"
+msgstr ""
+
+#: setting.php:48
+msgid "3rd Party Shortcode"
+msgstr ""
+
+#: setting.php:55
+msgid "Shortcode for Position 1st"
+msgstr ""
+
+#: setting.php:62
+msgid "Shortcode for Position 2nd"
+msgstr ""
+
+#: setting.php:82 setting.php:243
+msgid "TODO"
+msgstr ""
+
+#: setting.php:123
+msgid ""
+"You can include any other plugin shortcode or message. Eg. social share, "
+"buttons, notices<br><br><b>Position 1st</b> = Just above the image "
+"preview<br><b>Position 2nd</b>=Just below the image preview.<br>"
+msgstr ""
+
+#: setting.php:240
+msgid "Basic Settings"
+msgstr ""
+
+#: setting.php:242
+msgid "Any Plugin Shortcode"
+msgstr ""
+
+#: wp-upg.php:46
+msgid "Main Image"
+msgstr ""
+
+#: wp-upg.php:47
+msgid "Image Preview Layout"
+msgstr ""
+
+#. #-#-#-#-#  plugin.pot (User Photo Gallery 0.0.8)  #-#-#-#-#
+#. Plugin URI of the plugin/theme
+#. #-#-#-#-#  plugin.pot (User Photo Gallery 0.0.8)  #-#-#-#-#
+#. Author URI of the plugin/theme
+msgid "http://odude.com/"
+msgstr ""
+
+#. Description of the plugin/theme
+msgid "User Photo Gallery."
+msgstr ""
+
+#. Author of the plugin/theme
+msgid "ODude Network"
+msgstr ""
