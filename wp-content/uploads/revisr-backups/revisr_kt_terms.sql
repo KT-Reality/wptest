@@ -17,6 +17,7 @@ CREATE TABLE `kt_terms` (
   `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `slug` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '',
   `term_group` bigint(10) NOT NULL DEFAULT '0',
+  `term_order` int(4) DEFAULT '0',
   PRIMARY KEY (`term_id`),
   KEY `slug` (`slug`(191)),
   KEY `name` (`name`(191))
@@ -25,7 +26,7 @@ CREATE TABLE `kt_terms` (
 
 LOCK TABLES `kt_terms` WRITE;
 /*!40000 ALTER TABLE `kt_terms` DISABLE KEYS */;
-INSERT INTO `kt_terms` VALUES (1,'Uncategorized','uncategorized',0),(2,'liveblog','liveblog',0),(3,'40','40',0),(4,'Top Main Navigation','top-main-navigation',0),(5,'Fruits','fruits',0),(6,'Vegitable','vegitable',0);
+INSERT INTO `kt_terms` VALUES (1,'Uncategorized','uncategorized',0,0),(2,'liveblog','liveblog',0,0),(3,'40','40',0,0),(4,'Top Main Navigation','top-main-navigation',0,0),(5,'Fruits','fruits',0,0),(6,'Vegitable','vegitable',0,0);
 /*!40000 ALTER TABLE `kt_terms` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
