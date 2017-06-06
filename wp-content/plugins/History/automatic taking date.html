@@ -1,0 +1,117 @@
+<?php
+/*
+
+Plugin Name: History
+
+Description: This plugin used for add automatic 'History' button on vedio.
+
+Version: 1.0
+
+Licence: GPL2
+
+Author: Reality
+
+Author URI: http://maximusleads.com/
+
+*/
+
+/* $plugin_url = plugin_dir_url(__FILE__); */
+/*var_dump($plugin_url);*/
+
+add_action( 'init', 'create_posttype' );
+function create_posttype() {
+  register_post_type( 'history_post',
+    array(
+      'labels' => array(
+        'name' => __( 'History' ),
+        'singular_name' => __( 'History-data' )
+      ),
+      'public' => true,
+      'has_archive' => true,
+      'rewrite' => array('slug' => 'history'),
+    )
+  );
+}
+
+//Register Meta Box
+function cd_meta_box_add()
+{
+    add_meta_box( 'History-date', 'History Top Title & Date', 'history_meta_box', 'history_post', 'normal', 'high' );
+}
+add_action( 'add_meta_boxes', 'cd_meta_box_add' );
+
+//Add field
+function history_meta_box( $meta_id ) {
+ 
+    $outline = '<label for="history_top_title" style="width:150px; display:inline-block;">'. esc_html__('History Top Title', 'text-domain') .'</label>';
+    $title_field = get_post_meta( $meta_id->ID, 'history_top_title', true );
+    $outline .= '<input type="text" name="history_top_title" id="history_top_title" class="history_top_title" value="'. esc_attr($title_field) .'" style="width:300px;"/>';
+ 
+    echo $outline;
+}
+
+function history() { 
+
+	wp_enqueue_style( 'Font-style', 'https://fonts.googleapis.com/css?family=Open+Sans%3A300%2C400%2C600%7CRoboto+Slab%3A400%2C700&#038', array(), '4.7.3', 'all');
+	wp_enqueue_style( 'history-style', 'https://www.realitypremedia.com/wp-content/themes/dt-the7/css/main.min.css', array(), '4.2.0', 'all');
+	wp_enqueue_style( 'history-content-style', plugin_dir_url(__FILE__) . 'css/history.css', array(), '4.2.7', 'all');
+	wp_enqueue_style( 'history-style-css', 'https://www.realitypremedia.com/wp-content/themes/dt-the7-child/css/style.css', array(), '4.2.8', 'all');
+	
+
+$content='<section class="cd-horizontal-timeline">
+		<div class="timeline">
+			<div class="events-wrapper">
+				<div class="events">
+					<ol>';
+					
+
+$args = array( 'post_type' => 'history_post', 'posts_per_page' => -1 );
+$loop = new WP_Query( $args );
+$i = '01/01/2000';
+while ( $loop->have_posts() ) : $loop->the_post();
+	$content .='<li><a href="#0" data-date="'.$i.'">'.get_the_title().'</a></li>';
+	/*echo $i;*/
+	$i = date('d/m/Y',strtotime("+1 week", strtotime($i)));
+	/*$i++;*/
+endwhile;
+
+
+					$content .='</ol>
+
+					<span class="filling-line" aria-hidden="true"></span>
+				</div> <!-- .events -->
+			</div> <!-- .events-wrapper -->
+				
+			<ul class="cd-timeline-navigation">
+				<li><a href="#0" class="prev inactive">Prev</a></li>
+				<li><a href="#0" class="next">Next</a></li>
+			</ul> <!-- .cd-timeline-navigation -->
+		</div> <!-- .timeline -->
+
+		<div class="events-content">
+			<ol>';
+
+				$args = array( 'post_type' => 'history_post', 'posts_per_page' => -1 );
+				$loop = new WP_Query( $args );
+				$i = '01/01/2000';
+				while ( $loop->have_posts() ) : $loop->the_post();
+					$content .='<li data-date="'.$i.'"><h2>'.get_the_title().'</h2>'.get_the_content().'</li>';
+					/*echo $i;*/
+					$i = date('d/m/Y',strtotime("+1 week", strtotime($i)));
+					/*$i++;*/
+				endwhile;
+
+				$content .='</ol>
+		</div> <!-- .events-content -->
+		<script>
+			jQuery(document).ready(function(){
+			   jQuery(".events ol>li a:first").addClass("selected");
+			   jQuery(".events-content ol>li:first").addClass("selected");   
+			});
+		</script>
+	</section>';
+    wp_enqueue_script( 'jquery' );
+	wp_enqueue_script( 'history', plugin_dir_url(__FILE__) . 'js/history.js', array(), '4.6.4', true );
+	return $content;
+}
+add_shortcode( 'history-data', 'history' );
