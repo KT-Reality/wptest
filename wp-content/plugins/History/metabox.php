@@ -29,6 +29,7 @@ function history_meta_box( $meta_id ) {
 //Save meta Data
 function save_custom_meta_box_top_History($post_id, $post, $update)
 {
+	global $wpdb;
     if(!current_user_can("edit_post", $post_id))
         return $post_id;
 
@@ -50,10 +51,28 @@ function save_custom_meta_box_top_History($post_id, $post, $update)
 
     if(isset($_POST["history-date"])) 
     {
-        $meta_box_history_date_val = date('Y-m-d H:i:s', strtotime($_POST["history-date"]));
+		$meta_box_history_date_val = date('Y-m-d H:i:s', strtotime($_POST["history-date"]));
     }
-       
-    update_post_meta($post_id, "history-date", $meta_box_history_date_val);	
+	
+	$result = $wpdb->get_results( "SELECT post_id as history_dt_num FROM kt_postmeta WHERE meta_key = 'history-date' AND meta_value = '".$_POST["history-date"]." 00:00:00'");
+	//echo sizeof($result); exit;
+	if(sizeof($result)<1){
+		update_post_meta($post_id, "history-date", $meta_box_history_date_val);
+	} else
+	{
+		wp_die(
+			'Error, History date can not be same with other history dates.', 
+			'Error',  
+			array( 
+				'response' => 500, 
+				'back_link' => true 
+			)
+		);		
+		//echo "<script>alert('Please')</script>";
+		//$meta_box_history_date_val = date('Y-m-d H:i:s', strtotime('2017-05-02'));
+	}
+	
+    
 }
 add_action("save_post", "save_custom_meta_box_top_History", 10, 3);
 /* End Meta Box Creation*/ ?>
