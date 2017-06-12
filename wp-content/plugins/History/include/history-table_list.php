@@ -26,7 +26,7 @@ function my_manage_history_post_columns($column_name, $post_ID) {
 	    echo "$history_date_value";
     }
     if ($column_name == 'top_title') {
-    	$history_top_title = get_post_meta( get_the_ID(), 'history_top_title', true );
+    	$history_top_title = esc_html(get_post_meta( get_the_ID(), 'history_top_title', true ));
 	    echo "$history_top_title";
     }
 }

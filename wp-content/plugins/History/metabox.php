@@ -12,12 +12,12 @@ add_action( 'add_meta_boxes', 'cd_meta_box_add' );
 //Add field
 function history_meta_box( $meta_id ) {
  //Title field
-    $outline = '<label for="history_top_title" style="width:150px; display:inline-block;">'. esc_html__('History Top Title (Numeric):', 'text-domain') .'</label>';
-    $title_field = get_post_meta( $meta_id->ID, 'history_top_title', true );
+    $outline = '<label for="history_top_title" style="width:150px; display:inline-block;">'. esc_html('History Top Title (Numeric):', 'text-domain') .'</label>';
+    $title_field = esc_html(get_post_meta( $meta_id->ID, 'history_top_title', true ));
     $outline .= '<input type="number" name="history_top_title" id="history_top_title" class="history_top_title" value="'. esc_attr($title_field) .'" style="width:300px;"/>';
 
 //calender field
-    $date_field = get_post_meta( $meta_id->ID, 'history-date', true );
+    $date_field = esc_html(get_post_meta( $meta_id->ID, 'history-date', true ));
     $date = date_create($date_field);
     $date_formate = date_format($date,"Y/m/d");
     $history_date_value = date("Y-m-d", strtotime($date_formate));
@@ -45,7 +45,7 @@ function save_custom_meta_box_top_History($post_id, $post, $update)
 	
     if(isset($_POST["history_top_title"]))
     {
-        $meta_box_top_history_title_val = $_POST["history_top_title"];
+        $meta_box_top_history_title_val = sanitize_text_field($_POST["history_top_title"]);
     }   
     update_post_meta($post_id, "history_top_title", $meta_box_top_history_title_val);
 
