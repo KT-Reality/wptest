@@ -25,7 +25,7 @@ function history_data() {
 	wp_enqueue_style( 'history-style-css', plugin_dir_url(__FILE__) . 'css/style.css', array(), '4.2.8', 'all');	
 
 	wp_enqueue_script( 'jquery' );
-	wp_enqueue_script( 'history', plugin_dir_url(__FILE__) . 'js/history.js', array(), '4.6.4', true );
+	wp_enqueue_script( 'history', plugin_dir_url(__FILE__) . 'js/history.js', array(), '4.6.4', true );	
 
 	$check_post = array('numberposts' => 1, 'post_type' => array('history_post'));
 

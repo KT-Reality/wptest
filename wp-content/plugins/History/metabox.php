@@ -12,6 +12,12 @@ add_action( 'add_meta_boxes', 'cd_meta_box_add' );
 //Add field
 function history_meta_box( $meta_id ) {
  //Title field
+echo "<script src='//cdn.jsdelivr.net/webshim/1.14.5/polyfiller.js'></script>
+<script>
+    webshims.setOptions('forms-ext', {types: 'date'});
+webshims.polyfill('forms forms-ext')</script>";
+ 
+ 
     $outline = '<label for="history_top_title" style="width:150px; display:inline-block;">'. esc_html('History Top Title (Numeric):', 'text-domain') .'</label>';
     $title_field = esc_html(get_post_meta( $meta_id->ID, 'history_top_title', true ));
     $outline .= '<input type="number" name="history_top_title" id="history_top_title" class="history_top_title" value="'. esc_attr($title_field) .'" style="width:300px;"/>';
@@ -28,8 +34,7 @@ function history_meta_box( $meta_id ) {
 
 //Save meta Data
 function save_custom_meta_box_top_History($post_id, $post, $update)
-{
-	global $wpdb;
+{	
     if(!current_user_can("edit_post", $post_id))
         return $post_id;
 
@@ -54,8 +59,10 @@ function save_custom_meta_box_top_History($post_id, $post, $update)
 		$meta_box_history_date_val = date('Y-m-d H:i:s', strtotime($_POST["history-date"]));
     }
 	
-	$result = $wpdb->get_results( "SELECT post_id as history_dt_num FROM kt_postmeta WHERE meta_key = 'history-date' AND meta_value = '".$_POST["history-date"]." 00:00:00'");
-	//echo sizeof($result); exit;
+	global $wpdb;
+	$tbl_prefix = $wpdb->prefix;
+	$cur_post_id = get_the_ID();
+	$result = $wpdb->get_results( "SELECT post_id as history_dt_num FROM ".$tbl_prefix."postmeta WHERE post_id <> ".$cur_post_id." AND meta_key = 'history-date' AND meta_value = '".$_POST["history-date"]." 00:00:00'");
 	if(sizeof($result)<1){
 		update_post_meta($post_id, "history-date", $meta_box_history_date_val);
 	} else
