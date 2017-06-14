@@ -62,7 +62,7 @@ function save_custom_meta_box_top_History($post_id, $post, $update)
 	global $wpdb;
 	$tbl_prefix = $wpdb->prefix;
 	$cur_post_id = get_the_ID();
-	$result = $wpdb->get_results( "SELECT post_id as history_dt_num FROM ".$tbl_prefix."postmeta WHERE post_id <> ".$cur_post_id." AND meta_key = 'history-date' AND meta_value = '".$_POST["history-date"]." 00:00:00'");
+	$result = $wpdb->get_results( "SELECT post_id as history_dt_num FROM ".$tbl_prefix."postmeta WHERE post_id <> ".$cur_post_id." AND meta_key = 'history-date' AND meta_value = '".$meta_box_history_date_val."'");
 	if(sizeof($result)<1){
 		update_post_meta($post_id, "history-date", $meta_box_history_date_val);
 	} else
