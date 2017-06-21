@@ -56,7 +56,7 @@ function add_ktrdct_plug() {
 		add_menu_page(__('Redirect List'),'Redirect List', 8,'rdct/kt-rdct.php', 'member_list');
 		
 		/* Adding Sub menus */
-		add_submenu_page('rdct/kt-rdct.php', 'Add Redirection', 'Add Redirection', 8, 'cta_add', 'rdct_rule_add');
+		add_submenu_page('rdct/kt-rdct.php', 'Add Redirection', 'Add Redirection', 8, 'rdct_add', 'rdct_rule_add');
 
 	wp_register_style('demo_table.css', plugin_dir_url(__FILE__) . 'css/demo_table.css');
 	wp_enqueue_style('demo_table.css');
@@ -93,7 +93,7 @@ if(isset($_POST["submit"]))
 	}
 	else if($_POST["add_rdct"] == "2")
 	{
-		$objMem->updMember($table_name = $wpdb->prefix . "kt_redirect",$_POST);
+		$objMem->upd_Rdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
 		header("Location:admin.php?page=rdct/kt-rdct.php&info=upd");
 		exit;
 	}
@@ -120,7 +120,7 @@ if(isset($_POST["submit"]))
 			<h3>Manage rdct</h3>
 
 <div style="width:90%">
-			<table width='100%' cellpadding='2' cellspacing='2' id="mytable">
+			<table width='100%' cellpadding='2' cellspacing='2' id="rdct_tbl">
 				<thead>
 					<tr>
 						<th>ID</th>

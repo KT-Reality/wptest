@@ -14,7 +14,7 @@
 	}
 	else if($add_rdct==2)
 	{
-		$objMem->updMember($table_name = $wpdb->prefix . "kt_redirect",$_POST);
+		$objMem->upd_Rdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
 		header("Location:admin.php?page=kt-rdct/kt-rdct.php&info=upd");
 		exit;
 	}
@@ -185,7 +185,7 @@
 		<div>
 			<div class="form-wrap">
 				<h3><?php echo $btn; ?></h3>
-				<form class="validate" action="admin.php?page=cta_add" method="post" id="addtag">
+				<form class="validate" action="admin.php?page=rdct_add" method="post" id="addtag">
 					
 					<div class="form-field" id="cta_locate">
 						<label for="tag-position">Exclude Menu</label>

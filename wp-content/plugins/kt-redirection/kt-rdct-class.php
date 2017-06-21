@@ -37,7 +37,7 @@
 			}
 		}
 
-		function updMember($tblname,$meminfo)
+		function upd_Rdct($tblname,$meminfo)
 		{
 			global $wpdb;
 			$count = sizeof($meminfo);

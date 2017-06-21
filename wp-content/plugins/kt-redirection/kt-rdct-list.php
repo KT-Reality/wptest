@@ -38,7 +38,7 @@
 .odd td, .even td {border-left: 1px solid #e1e1e1; border-bottom: 1px dashed #111111;}
 </style>
 <div class="wrap">
-    <h2>Manage Bottom CTA <a class="button add-new-h2" href="admin.php?page=cta_add&act=add">Add New</a></h2>
+    <h2>Manage Redirection <a class="button add-new-h2" href="admin.php?page=rdct_add&act=add">Add New</a></h2>
 	 <table class="wp-list-table widefat fixed " id="kt_redirect_List">
 		<thead>
 			<tr>
@@ -74,7 +74,7 @@
 				<script type="text/javascript">
 				/* <![CDATA[ */
 				jQuery(document).ready(function(){
-					jQuery('#mytable').dataTable();
+					jQuery('#rdct_tbl').dataTable();
 				});
 				/* ]]> */
 
@@ -133,13 +133,13 @@
 				<td><?php echo $cta_tp_btn_link; ?></td>
 				<td><?php echo implode(' | ', $arr_cta_pos); ?></td>
 				<td><?php if($cta_bt_status == 0) echo 'Enabled'; else if($cta_bt_status == 1) echo 'Disabled';?></td>
-				<td><u><a href="admin.php?page=cta_add&act=upd&id=<?php echo $id;?>">Edit</a></u></td>
-				<td><u><a href="admin.php?page=cta/kt-cta.php&info=del&did=<?php echo $id;?>">Delete</a></u></td>
+				<td><u><a href="admin.php?page=rdct_add&act=upd&id=<?php echo $id;?>">Edit</a></u></td>
+				<td><u><a href="admin.php?page=rdct/kt-rdct.php&info=del&did=<?php echo $id;?>">Delete</a></u></td>
 			</tr>
 <?php }
 	} else { ?>
 			<tr>
-				<td>No CTA Found!</td>
+				<td>No Redirection Found!</td>
 			<tr>
 	<?php } ?>
 	</tbody>
