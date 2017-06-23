@@ -21,12 +21,12 @@ CREATE TABLE `kt_terms` (
   PRIMARY KEY (`term_id`),
   KEY `slug` (`slug`(191)),
   KEY `name` (`name`(191))
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `kt_terms` WRITE;
 /*!40000 ALTER TABLE `kt_terms` DISABLE KEYS */;
-INSERT INTO `kt_terms` VALUES (1,'Uncategorized','uncategorized',0,0),(2,'liveblog','liveblog',0,0),(3,'40','40',0,0),(4,'Top Main Navigation','top-main-navigation',0,0),(5,'Fruits','fruits',0,0),(6,'Vegitable','vegitable',0,0);
+INSERT INTO `kt_terms` VALUES (1,'Uncategorized','uncategorized',0,0),(2,'liveblog','liveblog',0,0),(3,'40','40',0,0),(4,'Top Main Navigation','top-main-navigation',0,0),(5,'Fruits','fruits',0,0),(6,'Vegitable','vegitable',0,0),(7,'Second Test Menu','second-test-menu',0,0),(8,'Third Test Menu','third-test-menu',0,0);
 /*!40000 ALTER TABLE `kt_terms` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
