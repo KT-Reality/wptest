@@ -7,17 +7,12 @@ Version: 1.0
 Author: Komalchand
 Author URI: https://www.realitypremedia.com
 */
-
-
 require_once("kt-rdct-class.php");
-$objMem = new rdctClass();
-
+$objRdct = new rdctClass();
+global $wpdb;
 $table_name = $wpdb->prefix . "kt_redirect";
 
 function add_ktrdct_plug() {
-
-	global $wpdb;
-
 	$table_name = $wpdb->prefix . "kt_redirect";
 
 	$MSQL = "show tables like '$table_name'";
@@ -43,7 +38,6 @@ function add_ktrdct_plug() {
 		require_once(ABSPATH . "wp-admin/includes/upgrade.php");
 		dbDelta($sql);
 	}
-
 }
 	/* Hook Plugin */
 	register_activation_hook(__FILE__,'add_ktrdct_plug');
@@ -53,10 +47,19 @@ function add_ktrdct_plug() {
 	function rdct_Menu()
 	{
 		/* Adding menus */
-		add_menu_page(__('Redirect List'),'Redirect List', 8,'rdct/kt-rdct.php', 'member_list');
+		global $wpdb;
+		$sSQL="select * from ".$table_name = $wpdb->prefix . "kt_redirect where id<> ''";
+		$result = $wpdb->get_results($sSQL);
+		$result = $result[0];
+		if (sizeof($result) > 0 ){
+			add_menu_page(__('Redirect List'),'Redirect ALL', 8,'rdct_add&act=upd&id=1', 'rdct_list');
+		} else {
+			add_menu_page(__('Redirect List'),'Redirect ALL', 8,'rdct_add&act=add', 'rdct_list');
+		}
+		
 		
 		/* Adding Sub menus */
-		add_submenu_page('rdct/kt-rdct.php', 'Add Redirection', 'Add Redirection', 8, 'rdct_add', 'rdct_rule_add');
+		add_submenu_page('rdct/kt-rdct.php', 'Redirection Setting', 'Redirect Setting', 8, 'rdct_add', 'rdct_rule_add');
 
 	wp_register_style('demo_table.css', plugin_dir_url(__FILE__) . 'css/demo_table.css');
 	wp_enqueue_style('demo_table.css');
@@ -65,12 +68,10 @@ function add_ktrdct_plug() {
 	wp_enqueue_script('jquery.dataTables.js');
 
 	}
+	add_action('admin_menu', 'rdct_Menu');
 
 
-add_action('admin_menu', 'rdct_Menu');
-
-
-function rdct_rule_add() {
+function rdct_list() {
 	include "kt-rdct-list.php";
 	$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
 	$wpdb->query("ALTER TABLE $table_name ADD cta_bt_bu TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
@@ -79,7 +80,7 @@ function rdct_rule_add() {
 }
 
 
-function rdct_add() {
+function rdct_rule_add() {
 	include "kt-rdct-new.php";
 }
 
@@ -87,14 +88,14 @@ if(isset($_POST["submit"]))
 {
 	if($_POST["add_rdct"] == "1")
 	{
-		$objMem->addNewRdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
-		header("Location:admin.php?page=rdct/kt-rdct.php&info=saved");
+		$objRdct->addNewRdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
+		header("Location:admin.php?page=rdct_add&act=add&info=saved");
 		exit;
 	}
 	else if($_POST["add_rdct"] == "2")
 	{
-		$objMem->upd_Rdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
-		header("Location:admin.php?page=rdct/kt-rdct.php&info=upd");
+		$objRdct->upd_Rdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
+		header("Location:admin.php?page=rdct_add&act=upd&id=1&info=upd");
 		exit;
 	}
 }
@@ -170,9 +171,8 @@ if(isset($_POST["submit"]))
 			</table>
 			</div>
 <?php
-
 	}
-
 	add_shortcode('vrdct_List', 'view_rdct_list');
+	
 
 ?>
