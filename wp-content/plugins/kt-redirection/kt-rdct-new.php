@@ -1,5 +1,4 @@
-<?php
-	
+<?php	
 	require_once("kt-rdct-class.php");
 	$objRdct = new rdctClass();
 	$add_rdct=$_POST["add_rdct"];
@@ -7,19 +6,33 @@
 	
 	$info=$_REQUEST["info"];
 	if($info=="saved")
-	{
-		echo "<div class='updated' id='message'><p><strong>Redirection Setting Saved</strong>.</p></div>";
+	{	
+		if(isset($_SESSION['notify']) && $_SESSION['notify']==1) { echo "<div class='updated' id='message'><p><strong>Redirection Setting Saved</strong>.</p></div>"; }		
+		session_destroy();		
+		//echo "<div class='updated' id='message'><p><strong>Redirection Setting Saved</strong>.</p></div>";
 	}
+	function reset_option(){
+		echo "<script>alert('Deletion')</script>";
+		/* if($info=="upd" && =="del")
+		{	
+			$delid=$_GET["did"];
+			$wpdb->query("delete from ".$table_name." where id=".$delid);
+			echo "<div class='updated' id='message'><p><strong>Setting Removed.</strong>.</p></div>";
+		} */
+	}	
 
 	if($info=="upd")
 	{
-		echo "<div class='updated' id='message'><p><strong>Redirection Setting Updated</strong>.</p></div>";
-	}
+		//echo "Test: ". $_SESSION['notify'];
+		if(isset($_SESSION['notify']) && $_SESSION['notify']==1) { echo "<div class='updated' id='message'><p><strong>Redirection Setting Saved</strong>.</p></div>";}
+		else if(isset($_SESSION['notify']) && $_SESSION['notify']==2) { echo "<div class='updated' id='message'><p><strong>Redirection Setting Updated</strong>.</p></div>";}
+		session_destroy();
+	}	
 
 	if($add_rdct==1)
 	{
 		$objRdct->addNewRdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
-		header("Location:admin.php?page=rdct_add&act=add&info=saved");
+		header("Location:admin.php?page=rdct_add&act=upd&info=upd"); // header("Location:admin.php?page=rdct_add&act=add&info=saved");
 		exit;
 	}
 	else if($add_rdct==2)
@@ -105,7 +118,7 @@
         type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
-			$(':input[type="submit"]').prop('disabled', true);
+			$('.act_updt:input[type="submit"]').prop('disabled', true);
             $('#isRdct').multiselect({
                 includeSelectAllOption: true
             });
@@ -143,9 +156,9 @@
                 });
 				$('#cta_bt_assign_posts').val(post_message.substring(0,post_message.length-1)).attr('rows',post_message.length-1);				
 				
-				var r = confirm("Are you confirmed with the selected posts to assign CTA Bottom");
+				var r = confirm("Are you confirmed with the selected posts to exclude from Redirection");
 				if (r == true) {
-					$(':input[type="submit"]').prop('disabled', false);
+					$('.act_updt:input[type="submit"]').prop('disabled', false);
 					$('#assign_post .multiselect-container').toggle();
 				} else {
 					$('#assign_post .multiselect-container').toggle();
@@ -325,8 +338,9 @@
 					<input type="hidden" size="40" value="<?php echo $cta_bt_assign_posts; ?>" id="cta_bt_assign_posts" name="cta_bt_assign_posts"/>
 					<input type="hidden" size="40" value="<?php echo $cta_position; ?>" id="cta_position" name="cta_position"/>
 					</div>
-					<p class="submit">
-						<input type="submit" value="<?php echo $btn; ?>" class="button" id="submit" name="submit"/>
+					<p class="submit">						
+						<input type="submit" value="<?php echo $btn; ?>" class="button act_updt" id="submit" name="submit"/>
+						<?php if(isset($hidval) && $hidval==2): echo '<a href="" class="button" name="reset" onclick="return reset_option()" />Reset</a>'; endif; ?>
 						<input type="hidden" name="add_rdct" value="<?php echo $hidval;?>" >
 						<input type="hidden" name="id" value="<?php echo $id;?>" >
 						<input type="hidden" size="40" id="cta_bt_title" name="cta_bt_title" value="Excude Redirect"/>

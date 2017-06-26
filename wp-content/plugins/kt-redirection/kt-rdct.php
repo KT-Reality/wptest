@@ -89,7 +89,7 @@ if(isset($_POST["submit"]))
 	if($_POST["add_rdct"] == "1")
 	{
 		$objRdct->addNewRdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
-		header("Location:admin.php?page=rdct_add&act=add&info=saved");
+		header("Location:admin.php?page=rdct_add&act=upd&info=upd"); // header("Location:admin.php?page=rdct_add&act=add&info=saved");
 		exit;
 	}
 	else if($_POST["add_rdct"] == "2")

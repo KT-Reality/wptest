@@ -1,10 +1,11 @@
 <?php
+session_start();
 	class rdctClass
 	{
-		private $kt_Fields=array("id","cta_bt_title","cta_bt_dest_link","cta_bt_img_link","cta_bt_blue_btn_text","cta_bt_blue_btn_link","cta_bt_green_btn_text","cta_bt_green_btn_link","cta_bt_description", "cta_bt_assign_posts", "cta_bt_bu", "cta_tp_title", "cta_tp_btn_text", "cta_tp_btn_link", "cta_position", "cta_bt_status");
-
+		private $kt_Fields=array("id","cta_bt_title","cta_bt_dest_link","cta_bt_img_link","cta_bt_blue_btn_text","cta_bt_blue_btn_link","cta_bt_green_btn_text","cta_bt_green_btn_link","cta_bt_description", "cta_bt_assign_posts", "cta_bt_bu", "cta_tp_title", "cta_tp_btn_text", "cta_tp_btn_link", "cta_position", "cta_bt_status");		
 		function addNewRdct($tblname,$rdctinfo)
 		{
+			$_SESSION['notify'] = 1;
 			global $wpdb;
 			$count = sizeof($rdctinfo);
 			if($count>0)
@@ -28,17 +29,19 @@
 				}
 
 				$sSQL = "INSERT INTO ".$tblname." ($field) values ($vals)";
-				$wpdb->query($sSQL);
+				$wpdb->query($sSQL);				
 				return true;
 			}
 			else
 			{
-				return false;
+				header("Location:admin.php?page=rdct_add&act=upd&id=1&info=upd");
+				return true;
 			}
 		}
 
 		function upd_Rdct($tblname,$rdctinfo)
 		{
+			$_SESSION['notify'] = 2;
 			global $wpdb;
 			$count = sizeof($rdctinfo);
 			if($count>0)

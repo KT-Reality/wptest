@@ -8,7 +8,7 @@
 
 	if($info=="saved")
 	{
-		echo "<div class='updated' id='message'><p><strong>CTA Added</strong>.</p></div>";
+		echo "<div class='updated' id='message'><p><strong>CTA Added</strong>.</p></div>";		
 	}
 
 	if($info=="upd")
