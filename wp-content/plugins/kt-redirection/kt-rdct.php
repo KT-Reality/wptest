@@ -174,5 +174,46 @@ if(isset($_POST["submit"]))
 	}
 	add_shortcode('vrdct_List', 'view_rdct_list');
 	
-
+	function kt_page_valid_test( $query ){
+		global $wpdb;
+    //if( is_user_logged_in()) {
+		$getpost_SQL="select cta_bt_dest_link, cta_position from ".$wpdb->prefix . "kt_redirect where id<> ''";
+		$result_post = $wpdb->get_results($getpost_SQL);		
+		foreach($result_post as $rdct_menu){
+			$rdct_menu_arr = explode(",", $rdct_menu->cta_position);
+			$redirect_link = $rdct_menu->cta_bt_dest_link;
+		}
+		//print_r($rdct_menu_arr);
+							
+		//$valid_page_id_arr = array(43339, 46535, 46536, 45822, 45823);
+		$cur_url = "//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
+		
+		$postid = url_to_postid($cur_url);		
+		//$valid_page_id_arr[] = $postid;
+		$menulist_arr = $rdct_menu_arr; // array(206, 205, 253);
+		for($mr=0; $mr<count($menulist_arr); $mr++){
+			$menu_array = wp_get_nav_menu_items($menulist_arr[$mr]);
+			foreach($menu_array as $pageres):
+				$valid_page_id_arr[] = $pageres->object_id;
+			endforeach;
+		}
+		asort($valid_page_id_arr);
+		$total_pageId_list = array_values(array_unique($valid_page_id_arr));
+		//print_r($total_pageId_list);
+		if(in_array($postid, $total_pageId_list))
+		{
+			echo "Valid Page";
+		}
+		else
+		{
+			if(isset($redirect_link) && $redirect_link!=''){
+				wp_redirect( $redirect_link );
+				exit;
+			} else{
+				wp_redirect( home_url() );
+				exit;
+			}				
+		}
+	}
+	add_action( 'template_redirect', 'kt_page_valid_test' );
 ?>

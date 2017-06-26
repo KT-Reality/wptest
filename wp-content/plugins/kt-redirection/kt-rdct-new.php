@@ -338,7 +338,7 @@
 </div>
 
 <?php
-//	function kt_page_valid_test( $query ){
+/* function kt_page_valid_test( $query ){
     //if( is_user_logged_in()) {
 		$getpost_SQL="select cta_position from ".$wpdb->prefix . "kt_redirect where id<> ''";
 		$result_post = $wpdb->get_results($getpost_SQL);		
@@ -362,7 +362,7 @@
 		asort($valid_page_id_arr);
 		$total_pageId_list = array_values(array_unique($valid_page_id_arr));
 		print_r($total_pageId_list);
-	/* 	if(in_array($postid, $total_pageId_list))
+	if(in_array($postid, $total_pageId_list))
 		{
 			//echo "Valid Page";
 		}
@@ -372,7 +372,7 @@
 			exit;
 		}   
 }
-add_action( 'template_redirect', 'kt_page_valid_test' );*/ 
+add_action( 'template_redirect', 'kt_page_valid_test' ); */
 ?>
 <script src="http://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.5.0/lodash.min.js"></script>
 </div>
