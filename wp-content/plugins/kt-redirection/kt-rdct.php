@@ -26,13 +26,9 @@ function add_ktrdct_plug() {
 		  cta_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		  cta_bt_title varchar(255) NULL,
 		  cta_bt_dest_link varchar(255) NULL,
-		  cta_bt_img_link varchar(255) NULL,
-		  cta_bt_blue_btn_text varchar(255) NULL,
-		  cta_bt_blue_btn_link varchar(255) NULL,
-		  cta_bt_green_btn_text varchar(255) NULL,
-		  cta_bt_green_btn_link varchar(255) NULL,
-		  cta_bt_description varchar(255) NULL,
 		  cta_bt_assign_posts text NULL,
+		  cta_position VARCHAR(256) NOT NULL,
+		  cta_bt_status TINYINT(2) NOT NULL,
 		  PRIMARY KEY id (id)
 		) ";
 
@@ -74,10 +70,10 @@ function add_ktrdct_plug() {
 
 function rdct_list() {
 	include "kt-rdct-list.php";
-	$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
-	$wpdb->query("ALTER TABLE $table_name ADD cta_bt_bu TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
-	$wpdb->query("ALTER TABLE $table_name ADD cta_tp_title VARCHAR(255) NOT NULL AFTER cta_bt_bu, ADD cta_tp_btn_text VARCHAR(255) NOT NULL AFTER cta_tp_title, ADD cta_tp_btn_link TEXT NOT NULL AFTER cta_tp_btn_text, ADD cta_position TINYINT(2) NOT NULL AFTER cta_tp_btn_link");
-	$wpdb->query("ALTER TABLE $table_name CHANGE cta_position cta_position VARCHAR(50) NOT NULL");
+	//$wpdb->query("ALTER TABLE $table_name ADD cta_bt_status TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
+	//$wpdb->query("ALTER TABLE $table_name ADD cta_bt_bu TINYINT(2) NOT NULL AFTER cta_bt_assign_posts");
+	//$wpdb->query("ALTER TABLE $table_name ADD cta_tp_title VARCHAR(255) NOT NULL AFTER cta_bt_bu, ADD cta_tp_btn_text VARCHAR(255) NOT NULL AFTER cta_tp_title, ADD cta_tp_btn_link TEXT NOT NULL AFTER cta_tp_btn_text, ADD cta_position TINYINT(2) NOT NULL AFTER cta_tp_btn_link");
+	//$wpdb->query("ALTER TABLE $table_name CHANGE cta_position cta_position VARCHAR(50) NOT NULL");
 }
 
 
