@@ -22,7 +22,7 @@ function add_ktrdct_plug() {
 
 	   $sql = "CREATE TABLE IF NOT EXISTS $table_name (
 		  id mediumint(9) NOT NULL AUTO_INCREMENT,
-		  time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+		  cta_time datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
 		  cta_bt_title varchar(255) NULL,
 		  cta_bt_dest_link varchar(255) NULL,
 		  cta_bt_img_link varchar(255) NULL,

@@ -10,17 +10,23 @@
 		if(isset($_SESSION['notify']) && $_SESSION['notify']==1) { echo "<div class='updated' id='message'><p><strong>Redirection Setting Saved</strong>.</p></div>"; }		
 		session_destroy();		
 		//echo "<div class='updated' id='message'><p><strong>Redirection Setting Saved</strong>.</p></div>";
-	}
-	function reset_option(){
-		echo "<script>alert('Deletion')</script>";
-		/* if($info=="upd" && =="del")
-		{	
-			$delid=$_GET["did"];
-			$wpdb->query("delete from ".$table_name." where id=".$delid);
-			echo "<div class='updated' id='message'><p><strong>Setting Removed.</strong>.</p></div>";
-		} */
 	}	
-
+	
+	
+	if($_REQUEST["act"]=="add" && $_REQUEST["delt"]=="rem")
+	{			
+		global $wpdb;
+		$getpost_SQL="select id FROM ".$wpdb->prefix . "kt_redirect where id <> ''";
+		$result_count = $wpdb->get_var($getpost_SQL);		
+		if($result_count>0) { $_SESSION['notify'] = 3; }
+		$table_name = $wpdb->prefix . "kt_redirect";
+		$wpdb->query("delete from ".$table_name);		
+		if(isset($_SESSION['notify']) && $_SESSION['notify']==3){
+			echo "<div class='updated' id='message'><p><strong>Setting Removed.</strong>.</p></div>";
+		}
+		session_destroy();
+	}
+	
 	if($info=="upd")
 	{
 		//echo "Test: ". $_SESSION['notify'];
@@ -29,10 +35,10 @@
 		session_destroy();
 	}	
 
-	if($add_rdct==1)
+	if($add_rdct==1) 
 	{
 		$objRdct->addNewRdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
-		header("Location:admin.php?page=rdct_add&act=upd&info=upd"); // header("Location:admin.php?page=rdct_add&act=add&info=saved");
+		header("Location:admin.php?page=rdct_add&act=upd&info=upd");
 		exit;
 	}
 	else if($add_rdct==2)
@@ -68,7 +74,8 @@
 			$cta_tp_title = $result->cta_tp_title;
 			$cta_tp_btn_text = $result->cta_tp_btn_text;
 			$cta_tp_btn_link = $result->cta_tp_btn_link;
-			$cta_position = $result->cta_position;			
+			$cta_position = $result->cta_position;
+			$cta_time = $result->cta_time;
 		}
 	}
 	else
@@ -95,6 +102,7 @@
 			$cta_tp_btn_text = $result->cta_tp_btn_text;
 			$cta_tp_btn_link = $result->cta_tp_btn_link;
 			$cta_position = $result->cta_position;
+			$cta_time = $result->cta_time;
 		}
 		$hidval = 1;
 	}
@@ -107,6 +115,7 @@
 	body {background-color: #F1F1F1 !important;}
 	.multiselect-container, .dropdown-menu{position:relative !important; height: auto; max-height: 300px; width: 100%;, max-width: 750px; overflow: scroll !important;}
 	button.multiselect span.multiselect-selected-text{white-space:pre-wrap; float: left; width: 96%;}
+	.rdct-tp-div .button.reset {background: #bbf310; font-size: 14px; height: 40px; padding: 5px; }
 	</style>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
     <link href="http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css"
@@ -118,6 +127,14 @@
         type="text/javascript"></script>
     <script type="text/javascript">
         $(function () {
+			$('a.button.reset').click(function () {
+				var rst = confirm("Are you sure to remove setting!");
+				if (rst == true) {
+					return true;
+				} else {
+					return false;
+				}
+			});
 			$('.act_updt:input[type="submit"]').prop('disabled', true);
             $('#isRdct').multiselect({
                 includeSelectAllOption: true
@@ -215,6 +232,7 @@
 	.rdct-tp-div .form-wrap .form-field {border-left: 3px solid #222; margin: 10px 0 15px; padding: 5px 0 0 10px; }
 	.rdct-tp-div select {border: 1px solid #c5c5c5; border-radius: 5px; height: 35px; padding: 5px; width: 150px; }
 	.rdct-tp-div #submit.button {background: #bbf310; font-size: 14px; height: 40px; padding: 5px; }
+	/* .rdct-tp-div button, .rdct-tp-div p .button {height: 35px;} */
 	</style>
 <div id="col-left" class="rdct-tp-div">
 	<div class="col-wrap postbox widgetopts-sidebar-widget" style="border-color: #bbf310; border-width: 2px;">
@@ -339,9 +357,10 @@
 					<input type="hidden" size="40" value="<?php echo $cta_position; ?>" id="cta_position" name="cta_position"/>
 					</div>
 					<p class="submit">						
-						<input type="submit" value="<?php echo $btn; ?>" class="button act_updt" id="submit" name="submit"/>
-						<?php if(isset($hidval) && $hidval==2): echo '<a href="" class="button" name="reset" onclick="return reset_option()" />Reset</a>'; endif; ?>
+						<input type="submit" value="<?php echo $btn; ?>" class="button act_updt" id="submit" name="submit" title="Enable - Confirm Selected Posts"/>
+						<?php if(isset($hidval) && $hidval==2): echo '<a href="admin.php?page=rdct_add&act=add&delt=rem" class="button reset" name="reset">Reset</a>'; endif; ?>
 						<input type="hidden" name="add_rdct" value="<?php echo $hidval;?>" >
+						<input type="hidden" name="cta_time" value="<?php if(isset($cta_time)) echo $cta_time; else echo date("Y-m-d h:i:s");?>" >
 						<input type="hidden" name="id" value="<?php echo $id;?>" >
 						<input type="hidden" size="40" id="cta_bt_title" name="cta_bt_title" value="Excude Redirect"/>
 					</p>
