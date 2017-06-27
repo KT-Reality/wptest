@@ -14,29 +14,18 @@ DROP TABLE IF EXISTS `kt_kt_redirect`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `kt_kt_redirect` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `cta_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `cta_bt_title` varchar(255) DEFAULT NULL,
   `cta_bt_dest_link` varchar(255) DEFAULT NULL,
-  `cta_bt_img_link` varchar(255) DEFAULT NULL,
-  `cta_bt_blue_btn_text` varchar(255) DEFAULT NULL,
-  `cta_bt_blue_btn_link` varchar(255) DEFAULT NULL,
-  `cta_bt_green_btn_text` varchar(255) DEFAULT NULL,
-  `cta_bt_green_btn_link` varchar(255) DEFAULT NULL,
-  `cta_bt_description` varchar(255) DEFAULT NULL,
   `cta_bt_assign_posts` text,
-  `cta_bt_bu` tinyint(2) DEFAULT NULL,
-  `cta_tp_title` varchar(255) DEFAULT NULL,
-  `cta_tp_btn_text` varchar(255) DEFAULT NULL,
-  `cta_tp_btn_link` text,
-  `cta_position` varchar(50) DEFAULT NULL,
-  `cta_bt_status` tinyint(2) DEFAULT NULL,
+  `cta_position` varchar(256) NOT NULL,
+  `cta_bt_status` tinyint(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `kt_kt_redirect` WRITE;
 /*!40000 ALTER TABLE `kt_kt_redirect` DISABLE KEYS */;
-INSERT INTO `kt_kt_redirect` VALUES (20,'0000-00-00 00:00:00','Excude Redirect','http://192.168.100.53/wptest/sample','','','','','','','1,26,61',0,'','','','4,7,8',1);
 /*!40000 ALTER TABLE `kt_kt_redirect` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
