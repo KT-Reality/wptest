@@ -13,6 +13,7 @@ global $wpdb;
 $table_name = $wpdb->prefix . "kt_redirect";
 
 function add_ktrdct_plug() {
+	global $wpdb;
 	$table_name = $wpdb->prefix . "kt_redirect";
 
 	$MSQL = "show tables like '$table_name'";
