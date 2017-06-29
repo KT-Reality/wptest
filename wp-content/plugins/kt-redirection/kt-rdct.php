@@ -4,9 +4,14 @@ Plugin Name: kt-redirect-URL
 Plugin URI: https://www.realitypremedia.com
 Description: This plugin used for redrecting the URL which are not mentioned / listed in the menus.
 Version: 1.0
+Licence: GPLv2
 Author: Komalchand
-Author URI: https://www.realitypremedia.com
+Author URI: https://profiles.wordpress.org/ktbrothers
 */
+if ( ! defined('ABSPATH') ) {
+	die('Please do not load this file directly!');
+}
+
 require_once( plugin_dir_path( __FILE__ ) . 'include/kt-rdct-class.php');
 $objRdct = new rdctClass();
 global $wpdb;

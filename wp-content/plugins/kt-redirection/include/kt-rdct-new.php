@@ -1,4 +1,7 @@
-<?php		
+<?php
+	if ( ! defined('ABSPATH') ) {
+		die('Please do not load this file directly!');
+	}
 	require_once( plugin_dir_path( __FILE__ ) . 'kt-rdct-class.php');
 	$objRdct = new rdctClass();
 	$add_rdct=$_POST["add_rdct"];

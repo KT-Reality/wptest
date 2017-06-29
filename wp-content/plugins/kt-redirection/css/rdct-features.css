@@ -1,4 +1,5 @@
 body{background: #F1F1F1 !important;}
+#wpfooter{position:relative !important;}
 .multiselect-container, .dropdown-menu{position:relative !important; height: auto; max-height: 300px; width: 100%;, max-width: 750px; overflow: scroll !important;}
 button.multiselect span.multiselect-selected-text{white-space:pre-wrap; float: left; width: 96%;}
 .rdct-tp-div .button.reset {background: #bbf310; font-size: 14px; height: 40px; padding: 5px; }
