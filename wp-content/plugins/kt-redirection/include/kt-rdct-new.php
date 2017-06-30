@@ -1,18 +1,17 @@
-<?php
+<?php 
 	if ( ! defined('ABSPATH') ) {
-		die('Please do not load this file directly!');
-	}
-	require_once( plugin_dir_path( __FILE__ ) . 'kt-rdct-class.php');
-	$objRdct = new rdctClass();
-	$add_rdct=$_POST["add_rdct"];
-	global $wpdb;
-	
-	$info=$_REQUEST["info"];
+		die();
+	}	
+	require_once( plugin_dir_path( __FILE__ ) . 'kt-rdct-class.php');	
+	$objRdct = new rdctClass();	
+	$add_rdct=$_POST["add_rdct"];	
+	global $wpdb;	
+	$info=$_REQUEST["info"];	
 	if($info=="saved")
-	{	
+	{
 		if(isset($_SESSION['notify']) && $_SESSION['notify']==1) { echo "<div class='updated' id='message'><p><strong>Redirection Setting Saved</strong>.</p></div>"; }		
 		unset($_SESSION['notify']);
-	}	
+	}
 	
 	
 	if($_REQUEST["act"]=="add" && $_REQUEST["delt"]=="rem")
@@ -30,14 +29,15 @@
 	}
 	
 	if($info=="upd")
-	{
+	{			
+		//echo "Session :".$_SESSION['notify'];
 		if(isset($_SESSION['notify']) && $_SESSION['notify']==1) { echo "<div class='updated' id='message'><p><strong>Redirection Setting Saved</strong>.</p></div>";}
 		else if(isset($_SESSION['notify']) && $_SESSION['notify']==2) { echo "<div class='updated' id='message'><p><strong>Redirection Setting Updated</strong>.</p></div>";}
 		unset($_SESSION['notify']);
 	}	
 
 	if($add_rdct==1) 
-	{
+	{		
 		$objRdct->addNewRdct($table_name = $wpdb->prefix . "kt_redirect",$_POST);
 		header("Location:admin.php?page=rdct_add&act=upd&info=upd");
 		exit;

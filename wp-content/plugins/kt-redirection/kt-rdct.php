@@ -9,7 +9,7 @@ Author: Komalchand
 Author URI: https://profiles.wordpress.org/ktbrothers
 */
 if ( ! defined('ABSPATH') ) {
-	die('Please do not load this file directly!');
+	die();
 }
 
 require_once( plugin_dir_path( __FILE__ ) . 'include/kt-rdct-class.php');

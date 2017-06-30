@@ -1,14 +1,13 @@
 <?php
 	if ( ! defined('ABSPATH') ) {
-		die('Please do not load this file directly!');
+		die();
 	}
-
+	session_start();
 	class rdctClass
-	{
+	{		
 		private $kt_Fields=array("id", "cta_time", "cta_bt_title","cta_bt_dest_link", "cta_bt_assign_posts", "cta_position", "cta_bt_status");		
 		function addNewRdct($tblname,$rdctinfo)
 		{
-			session_start();
 			$_SESSION['notify'] = 1;
 			global $wpdb;
 			$count = sizeof($rdctinfo);
@@ -44,9 +43,9 @@
 		}
 
 		function upd_Rdct($tblname,$rdctinfo)
-		{
-			session_start();
+		{			
 			$_SESSION['notify'] = 2;
+			$just_test =5;
 			global $wpdb;
 			$count = sizeof($rdctinfo);
 			if($count>0)
