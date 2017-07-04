@@ -13,9 +13,10 @@ if ( ! defined('ABSPATH') ) {
 }
 
 require_once( plugin_dir_path( __FILE__ ) . 'include/kt-rdct-class.php');
-$objRdct = new rdctClass();
+$objRdct = new ktrdctClass();
 global $wpdb;
 $table_name = $wpdb->prefix . "kt_redirect";
+
 
 function add_ktrdct_plug() {
 	global $wpdb;
@@ -41,93 +42,58 @@ function add_ktrdct_plug() {
 register_activation_hook(__FILE__,'add_ktrdct_plug'); // Plugin Activation Hook
 
 
-/* Creating Menus */
-function rdct_Menu()
-{
-	$plugin_url = plugin_dir_url(__FILE__);
-	global $wpdb;
-	$sSQL="select * from ".$table_name = $wpdb->prefix . "kt_redirect where id<> ''";	
-	if ($wpdb->get_var($sSQL) > 0 ){
-		add_menu_page(__('Redirect List'),'Redirect ALL', 8,'rdct_add&act=upd&id=1', 'rdct_rule_add'); // if setting present, Adding this menu
-	} else {
-		add_menu_page(__('Redirect List'),'Redirect ALL', 8,'rdct_add&act=add', 'rdct_rule_add'); // if setting absent, Adding this menu
-	}
-	
-	add_submenu_page('rdct/kt-rdct.php', 'Redirection Setting', 'Redirect Setting', 8, 'rdct_add', 'rdct_rule_add'); // Adding Sub menus
-
-	wp_register_style('demo_table.css', $plugin_url. 'css/demo_table.css');
-	wp_register_style('bootstrap.min.css', 'http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/css/bootstrap.min.css');
-	wp_register_style('bootstrap-multiselect.css', 'http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/css/bootstrap-multiselect.css');	
-
-	wp_register_script('main-cdn-jquery.js', 'http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js');
-	wp_register_script('jquery.dataTables.js', $plugin_url. 'js/jquery.dataTables.js', array('main-cdn-jquery.js'));
-	wp_register_script('bootstrap.js', 'http://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.0.3/js/bootstrap.min.js', array('main-cdn-jquery.js'));
-	wp_register_script('bootstrap-multiselect.js', 'http://cdn.rawgit.com/davidstutz/bootstrap-multiselect/master/dist/js/bootstrap-multiselect.js', array('main-cdn-jquery.js'));
-	
-	if ( ! wp_script_is( 'jquery.dataTables.js', 'enqueued' ) ) { // wp_script_is check script already included
-		wp_enqueue_script('jquery.dataTables.js');
-	}	
-	if ( ! wp_script_is( 'main-cdn-jquery.js', 'enqueued' ) ) {
-		wp_enqueue_script('main-cdn-jquery.js');
-	}	
-	if ( ! wp_script_is( 'bootstrap.js', 'enqueued' ) ) {
-		wp_enqueue_script('bootstrap.js');
-	}	
-	if ( ! wp_script_is( 'bootstrap-multiselect.js', 'enqueued' ) ) {
-		wp_enqueue_script('bootstrap-multiselect.js');
-		wp_enqueue_script( 'rdct-features-js', $plugin_url . 'js/rdct-features.js', array('bootstrap-multiselect.js'));
-	}
-	
-	if ( ! wp_style_is( 'demo_table.css', 'enqueued' ) ) { // wp_style_is check style already included
-		wp_enqueue_style('demo_table.css');
-	}	
-	if ( ! wp_style_is( 'bootstrap.min.css', 'enqueued' ) ) {
-		wp_enqueue_style('bootstrap.min.css');
-	}	
-	if ( ! wp_style_is( 'bootstrap-multiselect.css', 'enqueued' ) ) {
-		wp_enqueue_style('bootstrap-multiselect.css');
-		wp_enqueue_style( 'rdct-features-style', $plugin_url . 'css/rdct-features.css', array('bootstrap-multiselect.css'));
-	}
+function rdct_Menu() /* Creating Menus */
+{	add_menu_page(__('Redirect List'),'Redirect ALL', 8,'rdct_add&act=add', 'kt_rdct_form_display'); // Adding menu
+	add_submenu_page('rdct/kt-rdct.php', 'Redirection Setting', 'Redirect Setting', 8, 'rdct_add', 'kt_rdct_form_display'); // Adding Sub menus	
 }
 add_action('admin_menu', 'rdct_Menu');
 
-/* function rdct_list() {
-	include "kt-rdct-list.php";
-} */
-
-function rdct_rule_add() {
+function kt_rdct_form_display() {
 	require( plugin_dir_path( __FILE__ ) . 'include\kt-rdct-new.php');
 }
 
-if(isset($_POST["submit"]))
-{
-	if($_POST["add_rdct"] == "1")
-	{
-		$objRdct->addNewRdct($table_name = $wpdb->prefix . "kt_redirect",$_POST); // Save setting, add_rdct = 1
-		header("Location:admin.php?page=rdct_add&act=upd&info=upd"); // header("Location:admin.php?page=rdct_add&act=add&info=saved");
-		exit;
+function kt_rdct_inc_script_styles($hook){
+	$plugin_url = plugin_dir_url(__FILE__);
+	if(isset($_REQUEST["page"]) && ($_REQUEST["page"] == 'rdct_add') && ($hook == 'admin_page_rdct_add')): // Hook verified for files to be included this plugin page only
+		wp_enqueue_script('bootstrap-js', $plugin_url. 'js/bootstrap.min.js');
+		wp_enqueue_script('bootstrap-multiselect-js', $plugin_url. 'js/bootstrap-multiselect.js');
+		wp_enqueue_script('jquery.dataTables-js', $plugin_url. 'js/jquery.dataTables.js');
+		wp_enqueue_script('features-js', $plugin_url. 'js/rdct-features.js');
+				
+		wp_enqueue_style('bootstrap-min-css', $plugin_url. 'css/bootstrap.min.css');
+		wp_enqueue_style('bootstrap-multiselect-css',  $plugin_url. 'css/bootstrap-multiselect.css');
+		wp_enqueue_style('demo_table-css', $plugin_url. 'css/demo_table.css');
+		wp_enqueue_style('features-css', $plugin_url. 'css/rdct-features.css');
+	endif;	
+}
+add_action( 'admin_enqueue_scripts', 'kt_rdct_inc_script_styles' ); // Script & style included by specified admin hook
+
+if(isset($_POST["add_rdct"])):
+	if(!function_exists('wp_get_current_user')) {
+		include(ABSPATH . "wp-includes/pluggable.php"); 
+	}	
+	if((int)$_POST["add_rdct"] == 1 && current_user_can('manage_options') && isset( $_POST['kt_rdct_add_tkn'] ) || wp_verify_nonce( $_POST['kt_rdct_add_tkn'], 'kt_add_rdct') && check_admin_referer('kt_rdct_add_tkn')) { 
+		$objRdct->kt_rdct_addNew_redirect($table_name = $wpdb->prefix . "kt_redirect",$_POST); // Save setting, add_rdct = 1
 	}
-	else if($_POST["add_rdct"] == "2")
-	{
-		$objRdct->upd_Rdct($table_name = $wpdb->prefix . "kt_redirect",$_POST); // Update setting, add_rdct = 2
-		header("Location:admin.php?page=rdct_add&act=upd&id=1&info=upd");
-		exit;
+	else if((int)$_POST["add_rdct"] == 2 && current_user_can('manage_options') && isset( $_POST['kt_rdct_edit_tkn'] ) || wp_verify_nonce( $_POST['kt_rdct_edit_tkn'], 'kt_edit_rdct') && check_admin_referer('kt_rdct_edit_tkn')) {
+		$objRdct->kt_rdct_updNew_redirect($table_name = $wpdb->prefix . "kt_redirect",$_POST); // Update setting, add_rdct = 2
 	}
-}	
+endif;
 	
-function kt_page_valid_test( $query ){
+function kt_rdct_page_valid_test(){ // Redirection function for which plugin created
 	global $wpdb;
-	$getpost_SQL="select cta_bt_dest_link, cta_position from ".$wpdb->prefix . "kt_redirect where cta_bt_status=0 AND id<> ''";
+	$getpost_SQL="select cta_bt_dest_link, cta_position, cta_bt_assign_posts from ".$wpdb->prefix . "kt_redirect where cta_bt_status=0 AND id<> ''";
 	$result_post = $wpdb->get_results($getpost_SQL);
-	if(sizeof($result_post)>0){	
+	if(sizeof($result_post)>0){
 		foreach($result_post as $rdct_menu){
 			$rdct_menu_arr = explode(",", $rdct_menu->cta_position);
+			$rdct_post_arr = explode(",", $rdct_menu->cta_bt_assign_posts);
 			$redirect_link = $rdct_menu->cta_bt_dest_link;
-		}							
-		//$valid_page_id_arr = array(43339, 46535, 46536, 45822, 45823);
+		}
 		$cur_url = "//".$_SERVER['HTTP_HOST'].$_SERVER['REQUEST_URI'];
 		
-		$postid = url_to_postid($cur_url);		
+		$postid = url_to_postid($cur_url);
+		echo "postid :".$postid;
 		//$valid_page_id_arr[] = $postid;
 		$menulist_arr = $rdct_menu_arr; // array(206, 205, 253);
 		for($mr=0; $mr<count($menulist_arr); $mr++){
@@ -136,8 +102,18 @@ function kt_page_valid_test( $query ){
 				$valid_page_id_arr[] = $pageres->object_id;
 			endforeach;
 		}
+		
+		
+		for($pr=0; $pr<count($rdct_post_arr); $pr++){
+			$valid_page_id_arr[] = $rdct_post_arr[$pr];
+		}
+		
 		asort($valid_page_id_arr);
+		
+		
+		
 		$total_pageId_list = array_values(array_unique($valid_page_id_arr));
+		//var_dump($total_pageId_list);
 		if(in_array($postid, $total_pageId_list)){} else{
 			if(isset($redirect_link) && $redirect_link!=''){
 				wp_redirect( $redirect_link );
@@ -149,5 +125,5 @@ function kt_page_valid_test( $query ){
 		}
 	}
 }
-add_action( 'template_redirect', 'kt_page_valid_test' );
+add_action( 'template_redirect', 'kt_rdct_page_valid_test' ); // Redirection  Hook
 ?>

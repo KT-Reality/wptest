@@ -1,28 +1,43 @@
-=== Call to Action Metabox Module ===
-Author: Komalchand
-Web link: https://realitypremedia.com/
-Tags: add, edit, delete, listing, search, assign, CTA
-Requires at least: 1.0
-Tested up to: 4.7.2
-Stable tag: 2
+=== Timeline History ===
+
+Author: Komalchand Gaidhane
+
+Tags: Redirect, 301, URL redirect, 404 removal, google rank, SEO, site optimized
+
+Requires at least: 1.0.
+
+Tested up to: 4.8
+
+Stable tag: 1.1
+
 License: GPLv2 or later
 
 == Description ==
 
-This plugin used for add edit delete and listing module at admin side. Also user can search and sort cta records.
-There is also short code implementation for client side.
+This plugin created for redirecting URLs to specified Link under plugin setting. This plugin is most useful for those who are using premium themes( Free themes as well) and while importing demo content theme creates Unusual posts, pages, menus and more, in such cases site owner/ developer does't want to remove them permanantly but it headache for google ranking so to avoid 404, theme data to keep and rank over google. 
+= Features =
 
+*  Extremely easy to use
 
-A few notes about the sections above:
+*  No burden on the database
 
-*   Komalchand
-*   add, edit, delete, listing, searching
-*   "1.0" is the lowest version that the plugin will work on
-*   "4.7.2" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
+*  one step you to go here and avoid 404
+
+* Improve ranking over SEO
 
 == Installation ==
 
-1. Upload kt-cta-bottom-meta folder to the `/wp-content/plugins/` directory
+1. Upload myplug folder to the `/wp-content/plugins/` directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
-3. For display listing page at front side use short code [vmember_List].
+3. Put shortcode on your page or post.
+
+== Screenshots ==
+
+1. Settings 
+2. Selection Menu and posts
+
+== Changelog ==
+
+= 1.1 =
+
+* Bug fixes

@@ -1,7 +1,16 @@
 jQuery(function ($) {
+	$('#kt_rdct_form').submit(function(){
+		if(!$('#cta_bt_dest_link').val()){
+			$('#cta_bt_dest_link').addClass('warning');
+			$("<p class='val-error'>URL link can not be empty</p>").insertAfter($("#cta_bt_dest_link"));
+			$("p.val-error").fadeOut(3000);
+			return false;
+		}
+	});
+	
 			$('a.button.reset').click(function () {
 				var rst = confirm("Are you sure to remove setting!");
-				if (rst == true) {
+				if (rst == true) {					
 					return true;
 				} else {
 					return false;
@@ -78,7 +87,7 @@ jQuery(function ($) {
 				$('#assign_post .multiselect-container li a :input[type=checkbox][value='+values+']').parent().parent().parent().addClass('active');					
 				$("#assign_post .multiselect-container li a:contains('draft')").css({"opacity": "0.5" });					
 				selected_post += $('#assign_post .multiselect-container li a :input[type=checkbox][value='+values+']').parent().text()+", ";					
-				$('#assign_post button.multiselect span').text(selected_post.substring(0,selected_post.length-2)).attr('rows',selected_post.length-2);
+				$('#assign_post button.multiselect span').text(selected_post.substring(0,selected_post.length-2)).attr('rows',selected_post.length-1);
 			});
 			
 			var select_frm_position = $('#cta_position').val();	
@@ -86,12 +95,11 @@ jQuery(function ($) {
 			$.each(select_frm_position.split(","), function(index, values) {
 				$('#cta_locate .multiselect-container li a :input[type=checkbox][value='+values+']').attr('checked', true);
 				$('#cta_locate .multiselect-container li a :input[type=checkbox][value='+values+']').parent().parent().parent().addClass('active');					
-				$("#cta_locate .multiselect-container li a:contains('draft')").css({"opacity": "0.5" });					
 				selected_position += $('#cta_locate .multiselect-container li a :input[type=checkbox][value='+values+']').parent().text()+", ";					
 				$('#cta_locate button.multiselect span').text(selected_position.substring(0,selected_position.length-2)).attr('rows',selected_position.length-2);
 			});
 			
-			$('#addtag')
+			$('#kt_rdct_form')
 				.on('click', '#assign_post button.multiselect', function() {
 					$('#assign_post .dropdown-search').toggle();
 					$('#assign_post .multiselect-container').toggle();
@@ -110,5 +118,5 @@ jQuery(function ($) {
 						var match = text.indexOf(search) > -1;
 						$(this).toggle(match);
 					});
-				})			
+				})				
         });
