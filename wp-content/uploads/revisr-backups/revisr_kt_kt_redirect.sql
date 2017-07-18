@@ -14,19 +14,18 @@ DROP TABLE IF EXISTS `kt_kt_redirect`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `kt_kt_redirect` (
   `id` mediumint(9) NOT NULL AUTO_INCREMENT,
-  `cta_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
-  `cta_bt_title` varchar(255) DEFAULT NULL,
-  `cta_bt_dest_link` varchar(255) DEFAULT NULL,
-  `cta_bt_assign_posts` text,
-  `cta_position` varchar(256) NOT NULL,
-  `cta_bt_status` tinyint(2) NOT NULL,
+  `rdct_time` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `rdct_title` varchar(255) DEFAULT NULL,
+  `rdct_dest_link` varchar(255) DEFAULT NULL,
+  `rdct_assign_posts` text,
+  `rdct_menus` varchar(256) NOT NULL,
+  `rdct_status` tinyint(2) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 LOCK TABLES `kt_kt_redirect` WRITE;
 /*!40000 ALTER TABLE `kt_kt_redirect` DISABLE KEYS */;
-INSERT INTO `kt_kt_redirect` VALUES (1,'2017-07-04 08:50:58','Excude Redirect','http://192.168.100.53/wptest','26','8',0);
 /*!40000 ALTER TABLE `kt_kt_redirect` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
